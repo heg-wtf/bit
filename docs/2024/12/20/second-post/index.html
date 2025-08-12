@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>두 번째 포스트 - 두 번째 포스트</title>
+    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header Section -->
+        <header class="site-header">
+            <div class="header-content">
+
+                <div class="site-info">
+                    <h1 class="site-title">
+                        <a href="/">두 번째 포스트</a>
+                    </h1>
+                    <p class="site-description">안녕하세요! 👋 이것은 마이크로 블로그의 두 번째 테스트 포스트입니다. 짧은 글들이 타임라인 형태로 표시되는지 확인해보세요. ✅ 마크다운 지원 🎉 이모지 지원 무한 스크롤도 잘 작동하나요?</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <!-- Single Post Content -->
+                <article class="single-post">
+                    <div class="post-header">
+                        <h1 class="post-title">두 번째 포스트</h1>
+                        <div class="post-meta">
+                            <time class="post-date"></time>
+                        </div>
+                    </div>
+                    
+                    <div class="post-body">
+                        
+                        <div class="post-content"><p>안녕하세요! 👋</p>
+<p>이것은 마이크로 블로그의 두 번째 테스트 포스트입니다.</p>
+<p>짧은 글들이 타임라인 형태로 표시되는지 확인해보세요.</p>
+<ul>
+<li>마크다운 지원 ✅</li>
+<li>이모지 지원 🎉</li>
+<li>코드 블록도 가능: <code>console.log('Hello!')</code></li>
+</ul>
+<p>무한 스크롤도 잘 작동하나요?</p></div>
+                        
+                    </div>
+                </article>
+
+                <!-- Navigation -->
+                <nav class="post-navigation">
+                    <a href="/" class="nav-back">
+← View all posts
+                    </a>
+                </nav>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="footer-content">
+                <p>&copy; 2024 두 번째 포스트. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 포스트 애니메이션
+            const post = document.querySelector('.single-post');
+            if (post) {
+                post.classList.add('animate-in');
+            }
+
+            console.log('bit theme post page initialized successfully');
+        });
+    </script>
+</body>
+</html>

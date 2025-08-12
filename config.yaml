@@ -1,0 +1,7 @@
+theme: 
+  name: bit
+blog: 
+  title: bit
+  description: bit of heg
+publication:
+  path: ./docs

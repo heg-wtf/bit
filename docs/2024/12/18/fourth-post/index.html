@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>개발 일기 - 개발 일기</title>
+    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header Section -->
+        <header class="site-header">
+            <div class="header-content">
+
+                <div class="site-info">
+                    <h1 class="site-title">
+                        <a href="/">개발 일기</a>
+                    </h1>
+                    <p class="site-description">💻 오늘의 개발 일기. 새로운 기술을 배우는 것은 항상 즐겁습니다. 작은 것부터 시작해서 점점 더 복잡한 것들을 만들어가는 과정이 재미있어요. 실패도 하고, 성공도 하고... 그런 과정들이 모두 소중한 경험이 되는 것 같습니다.</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <!-- Single Post Content -->
+                <article class="single-post">
+                    <div class="post-header">
+                        <h1 class="post-title">개발 일기</h1>
+                        <div class="post-meta">
+                            <time class="post-date"></time>
+                        </div>
+                    </div>
+                    
+                    <div class="post-body">
+                        
+                        <div class="post-content"><p>💻 오늘의 개발 일기</p>
+<p>새로운 기술을 배우는 것은 항상 즐겁습니다.</p>
+<pre><code class="language-python">def hello_world():
+    print(&quot;Hello, World!&quot;)
+</code></pre>
+<p>작은 것부터 시작해서 점점 더 복잡한 것들을 만들어가는 과정이 재미있어요.</p>
+<p>실패도 하고, 성공도 하고... 그런 과정들이 모두 소중한 경험이 되는 것 같습니다.</p></div>
+                        
+                    </div>
+                </article>
+
+                <!-- Navigation -->
+                <nav class="post-navigation">
+                    <a href="/" class="nav-back">
+← View all posts
+                    </a>
+                </nav>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="footer-content">
+                <p>&copy; 2024 개발 일기. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 포스트 애니메이션
+            const post = document.querySelector('.single-post');
+            if (post) {
+                post.classList.add('animate-in');
+            }
+
+            console.log('bit theme post page initialized successfully');
+        });
+    </script>
+</body>
+</html>
