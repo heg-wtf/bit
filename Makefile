@@ -1,0 +1,2 @@
+build:
+	zvc build

@@ -40,8 +40,8 @@
                                     <time class="post-date">{{ post.pub_date }}</time>
                                 </div>
                                 <div class="card-body">
-                                    {% if post.html %}
-                                    <div class="post-content">{{ post.html|safe }}</div>
+                                    {% if post.html_content %}
+                                    <div class="post-content">{{ post.html_content|safe }}</div>
                                     {% elif post.description %}
                                     <div class="post-content">{{ post.description }}</div>
                                     {% endif %}
@@ -59,7 +59,7 @@
         <!-- Footer -->
         <footer class="site-footer">
             <div class="footer-content">
-                <p>&copy; 2024 {{ settings.blog_title }}. All rights reserved.</p>
+                <p>&copy; 2025 {{ settings.blog_title }}. All rights reserved.</p>
             </div>
         </footer>
     </div>
