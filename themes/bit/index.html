@@ -29,7 +29,7 @@
                 <div class="timeline-container">
                     <div class="timeline-line"></div>
                     
-                    {% for post in post_list %}
+                    {% for post in post_list|reverse %}
                     <article class="timeline-item" data-index="{{ loop.index }}">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
