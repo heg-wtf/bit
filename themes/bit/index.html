@@ -1,9 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ settings.blog_title }}</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="{{ settings.blog_desc }}">
+    <meta name="keywords" content="블로그, 개발, HEG, 앱개발, 기술블로그, 마이크로블로그">
+    <meta name="author" content="HEG">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <link rel="canonical" href="https://bit.heg.wtf">
+    
+    <!-- Additional SEO -->
+    <meta name="theme-color" content="#ffffff">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    
+    <!-- OpenGraph Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ settings.blog_title }}">
+    <meta property="og:description" content="{{ settings.blog_desc }}">
+    <meta property="og:url" content="https://bit.heg.wtf">
+    <meta property="og:site_name" content="{{ settings.blog_title }}">
+    <meta property="og:locale" content="ko_KR">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ settings.blog_title }}">
+    <meta name="twitter:description" content="{{ settings.blog_desc }}">
+    
     <link rel="stylesheet" href="./assets/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,6 +49,46 @@
     gtag('js', new Date());
 
     gtag('config', 'G-56T2JCQQZZ');
+    </script>
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "{{ settings.blog_title }}",
+        "description": "{{ settings.blog_desc }}",
+        "url": "https://bit.heg.wtf",
+        "author": {
+            "@type": "Person",
+            "name": "HEG"
+        },
+        "publisher": {
+            "@type": "Person",
+            "name": "HEG"
+        },
+        "inLanguage": "ko-KR",
+        "blogPost": [
+            {% for post in post_list|sort(attribute='pub_date', reverse=True) %}
+            {
+                "@type": "BlogPosting",
+                "headline": "{{ post.title|default('Post ' + post.pub_date) }}",
+                "datePublished": "{{ post.pub_date }}T00:00:00+09:00",
+                "dateModified": "{{ post.pub_date }}T00:00:00+09:00",
+                "author": {
+                    "@type": "Person",
+                    "name": "HEG"
+                },
+                "publisher": {
+                    "@type": "Person",
+                    "name": "HEG"
+                },
+                "description": "{% if post.description %}{{ post.description|truncate(160) }}{% else %}{{ settings.blog_desc }}{% endif %}",
+                "url": "https://bit.heg.wtf/{{ post.pub_date }}/{{ post.slug|default(post.pub_date) }}/"
+            }{% if not loop.last %},{% endif %}
+            {% endfor %}
+        ]
+    }
     </script>
 
 </head>
@@ -41,16 +113,19 @@
                     <div class="timeline-line"></div>
                     
                     {% for post in post_list|sort(attribute='pub_date', reverse=True) %}
-                    <article class="timeline-item" data-index="{{ loop.index }}">
+                    <article class="timeline-item" data-index="{{ loop.index }}" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
                         <div class="timeline-content">
                             <div class="content-card">
                                 <div class="card-header">
-                                    <time class="post-date">{{ post.pub_date }}</time>
+                                    <time class="post-date" datetime="{{ post.pub_date }}T00:00:00+09:00" itemprop="datePublished">{{ post.pub_date }}</time>
+                                    <span itemprop="author" itemscope itemtype="https://schema.org/Person" style="display: none;">
+                                        <span itemprop="name">HEG</span>
+                                    </span>
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body" itemprop="articleBody">
                                     {% if post.html_content %}
                                     <div class="post-content">{{ post.html_content|safe }}</div>
                                     {% elif post.description %}
