@@ -28,7 +28,7 @@
     <meta property="og:title" content="{{ settings.blog_title }}">
     <meta property="og:description" content="{{ settings.blog_desc }}">
     <meta property="og:url" content="https://bit.heg.wtf">
-    <meta property="og:site_name" content="{{ settings.blog_title }}">
+    <meta property="og:site_name" content="{{ settings.blog_title }} - #buildinpublic">
     <meta property="og:locale" content="ko_KR">
     
     <!-- Twitter Card Meta Tags -->
@@ -100,7 +100,7 @@
 
                 <div class="site-info">
                     <a href="/" style="text-decoration: none;"><h1 class="site-title">{{ settings.blog_title }}</h1></a>
-              
+                    <small class="site-subtitle" style="color: #667eea">#buildinpublic</small>
                 </div>
             </div>
         </header>
@@ -127,7 +127,7 @@
                                 </div>
                                 <div class="card-body" itemprop="articleBody">
                                     {% if post.html_content %}
-                                    <div class="post-content">{{ post.html_content|safe }}</div>
+                                    <div class="post-content">{{ post.html_content|safe }} </div>
                                     {% elif post.description %}
                                     <div class="post-content">{{ post.description }}</div>
                                     {% endif %}
@@ -170,12 +170,6 @@
             document.querySelectorAll('.timeline-item').forEach(item => {
                 observer.observe(item);
             });
-
-
-
-
-
-            console.log('bit theme initialized successfully');
         });
     </script>
 </body>
