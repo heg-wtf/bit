@@ -475,3 +475,225 @@ body {
         background: #404040;
     }
 }
+
+/* 모바일 반응형 (768px 이하) */
+@media (max-width: 768px) {
+    /* 헤더 */
+    .site-header {
+        padding: 2rem 0;
+    }
+
+    .header-content {
+        padding: 0 1rem;
+    }
+
+    .site-title {
+        font-size: 2.5rem;
+    }
+
+    .site-description {
+        font-size: 1rem;
+    }
+
+    /* 메인 콘텐츠 */
+    .main-content {
+        padding: 2rem 0;
+    }
+
+    .content-wrapper {
+        padding: 0 1rem;
+    }
+
+    /* 타임라인 */
+    .timeline-container {
+        padding-left: 1.5rem;
+    }
+
+    .timeline-line {
+        left: 8px;
+    }
+
+    .timeline-marker {
+        left: -1.5rem;
+        top: 1rem;
+    }
+
+    .marker-dot {
+        margin-left: 5px;
+    }
+
+    /* 콘텐츠 카드 */
+    .timeline-content {
+        margin-left: 0.5rem;
+    }
+
+    .content-card {
+        padding: 1.25rem;
+        border-radius: 8px;
+    }
+
+    .card-header {
+        margin-bottom: 0.75rem;
+    }
+
+    .post-date {
+        font-size: 0.75rem;
+    }
+
+    .card-body {
+        line-height: 1.8;
+    }
+
+    .post-content {
+        font-size: 0.9375rem;
+    }
+
+    .post-content p {
+        margin-bottom: 1rem;
+    }
+
+    .post-content h1 { font-size: 1.5rem; }
+    .post-content h2 { font-size: 1.25rem; }
+    .post-content h3 { font-size: 1.125rem; }
+
+    .post-content h1,
+    .post-content h2,
+    .post-content h3,
+    .post-content h4,
+    .post-content h5,
+    .post-content h6 {
+        margin: 1.25rem 0 0.75rem 0;
+    }
+
+    .post-content code {
+        font-size: 0.8125rem;
+        padding: 0.1rem 0.3rem;
+    }
+
+    .post-content pre {
+        padding: 1rem;
+        font-size: 0.8125rem;
+        margin: 1rem 0;
+    }
+
+    .post-content blockquote {
+        padding: 0.75rem 1rem;
+        margin: 1rem 0;
+    }
+
+    .post-content ul,
+    .post-content ol {
+        padding-left: 1.25rem;
+    }
+
+    /* 타임라인 아이템 간격 */
+    .timeline-item {
+        margin-bottom: 2rem;
+    }
+
+    /* 타임라인 끝 */
+    .end-marker {
+        left: -1.5rem;
+    }
+
+    .end-dot {
+        margin-left: 5px;
+    }
+
+    .end-message {
+        margin-left: 0.5rem;
+        padding: 1rem;
+    }
+
+    /* 단일 포스트 */
+    .single-post {
+        padding: 1.5rem;
+    }
+
+    .single-post .post-header {
+        margin-bottom: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .single-post .post-body {
+        font-size: 1rem;
+        line-height: 1.8;
+    }
+
+    /* 네비게이션 */
+    .nav-back {
+        padding: 0.625rem 1.25rem;
+        font-size: 0.875rem;
+    }
+
+    /* 푸터 */
+    .site-footer {
+        padding: 2rem 0;
+    }
+
+    .footer-content {
+        padding: 0 1rem;
+        font-size: 0.8125rem;
+    }
+}
+
+/* 더 작은 모바일 (480px 이하) */
+@media (max-width: 480px) {
+    .site-header {
+        padding: 1.5rem 0;
+    }
+
+    .site-title {
+        font-size: 2rem;
+    }
+
+    .main-content {
+        padding: 1.5rem 0;
+    }
+
+    .content-wrapper {
+        padding: 0 0.75rem;
+    }
+
+    .timeline-container {
+        padding-left: 1.25rem;
+    }
+
+    .timeline-line {
+        left: 6px;
+    }
+
+    .timeline-marker {
+        left: -1.25rem;
+    }
+
+    .marker-dot {
+        margin-left: 3px;
+        width: 5px;
+        height: 5px;
+    }
+
+    .timeline-content {
+        margin-left: 0.25rem;
+    }
+
+    .content-card {
+        padding: 1rem;
+    }
+
+    .post-content {
+        font-size: 0.875rem;
+    }
+
+    .timeline-item {
+        margin-bottom: 1.5rem;
+    }
+
+    .single-post {
+        padding: 1.25rem;
+    }
+
+    .footer-content {
+        padding: 0 0.75rem;
+    }
+}
