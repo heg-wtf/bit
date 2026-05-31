@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>260531 - 260531</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="">
+    <meta name="keywords" content="블로그, 개발, HEG, 앱개발, 기술블로그">
+    <meta name="author" content="HEG">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <link rel="canonical" href="https://bit.heg.wtf///">
+    
+    <!-- Additional SEO -->
+    <meta name="theme-color" content="#ffffff">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    
+    <!-- OpenGraph Meta Tags -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="260531 - 260531">
+    <meta property="og:description" content="">
+    <meta property="og:url" content="https://bit.heg.wtf///">
+    <meta property="og:site_name" content="260531">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="article:published_time" content="">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="260531 - 260531">
+    <meta name="twitter:description" content="">
+    
+    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Structured Data (JSON-LD) for Article -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "260531",
+        "description": "",
+        "author": {
+            "@type": "Person",
+            "name": "HEG",
+            "url": "https://bit.heg.wtf"
+        },
+        "publisher": {
+            "@type": "Person",
+            "name": "HEG",
+            "url": "https://bit.heg.wtf"
+        },
+        "datePublished": "T00:00:00+09:00",
+        "dateModified": "T00:00:00+09:00",
+        "url": "https://bit.heg.wtf///",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://bit.heg.wtf///"
+        },
+        "inLanguage": "ko-KR",
+        "isPartOf": {
+            "@type": "Blog",
+            "name": "260531",
+            "url": "https://bit.heg.wtf"
+        }
+    }
+    </script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header Section -->
+        <header class="site-header">
+            <div class="header-content">
+
+                <div class="site-info">
+                    <h1 class="site-title">
+                        <a href="/">260531</a>
+                    </h1>
+                    <p class="site-description"></p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <!-- Single Post Content -->
+                <article class="single-post" itemscope itemtype="https://schema.org/BlogPosting">
+                    <div class="post-header">
+                        <h1 class="post-title" itemprop="headline">260531</h1>
+                        <div class="post-meta">
+                            <time class="post-date" datetime="T00:00:00+09:00" itemprop="datePublished"></time>
+                            <span itemprop="author" itemscope itemtype="https://schema.org/Person" style="display: none;">
+                                <span itemprop="name">HEG</span>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="post-body" itemprop="articleBody">
+                        
+                        <div class="post-content"><p>이번 주는 손이 여기저기 갔다. abyss는 꾸준히, habiku는 0에서 1까지, creturex는 깃발만 꽂았다.</p>
+<h2>abyss</h2>
+<p>이번엔 워크스페이스 쪽을 만졌다. 채팅 패널 안에서 마크다운을 인라인으로 미리보는 기능을 붙였다. 대화하다가 파일 내용을 바로 보는 거, 생각보다 흐름이 안 끊겨서 좋다. 모바일 채팅 버블엔 복사 버튼 달고, 페이지 타이틀에 위치도 보이게 했다.</p>
+<p>버그도 하나 잡았다. 워크스페이스 API가 모바일 세션 id에 'chat_' 접두사를 두 번 붙이던 거. 이런 건 꼭 한 번 데이고 나서 발견된다. 문서도 워크스페이스 프리뷰를 README / CLAUDE.md / TECHNICAL-NOTES에 엮어뒀다.</p>
+<h2>habiku</h2>
+<p>이번 주의 진짜 주인공. 빈 폴더에서 시작해 PR 9개로 골격을 다 세웠다. AI 퍼포먼스 코치 앱이다.</p>
+<p>AI 전략 엔진(MiniMax M2.5 + Supabase)부터 깔고, 루틴 완료 → 알림 → 홈으로 이어지는 흐름을 붙였다. Today Supabase 동기화에 E2E 테스트까지, 데일리 체크인("오늘을 돌아보고 내일을 빚는다"), 3탭 셸에 Progress·Settings, 주간 리뷰랑 Today 스트릭/Day N/넛지까지. 마지막엔 공유 위젯이랑 상수 정리하고, 코칭 수학을 순수 함수로 빼서 단위 테스트 붙였다. 로직 짰으면 테스트는 당연한 거.</p>
+<p>일주일 만에 이만큼 모양이 잡히니 기분 좋다.</p>
+<h2>creturex</h2>
+<p>프로젝트 시작. 아직 init 커밋 하나뿐이다. 뭐가 될지는 다음 주에.</p></div>
+                        
+                    </div>
+                </article>
+
+                <!-- Navigation -->
+                <nav class="post-navigation">
+                    <a href="/" class="nav-back">
+← View all posts
+                    </a>
+                </nav>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="footer-content">
+                <p>&copy; 2024 260531. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 포스트 애니메이션
+            const post = document.querySelector('.single-post');
+            if (post) {
+                post.classList.add('animate-in');
+            }
+
+            console.log('bit theme post page initialized successfully');
+        });
+    </script>
+</body>
+</html>
