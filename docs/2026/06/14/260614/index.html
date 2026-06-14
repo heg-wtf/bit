@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>260614 - 260614</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="">
+    <meta name="keywords" content="블로그, 개발, HEG, 앱개발, 기술블로그">
+    <meta name="author" content="HEG">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <link rel="canonical" href="https://bit.heg.wtf///">
+    
+    <!-- Additional SEO -->
+    <meta name="theme-color" content="#ffffff">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    
+    <!-- OpenGraph Meta Tags -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="260614 - 260614">
+    <meta property="og:description" content="">
+    <meta property="og:url" content="https://bit.heg.wtf///">
+    <meta property="og:site_name" content="260614">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="article:published_time" content="">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="260614 - 260614">
+    <meta name="twitter:description" content="">
+    
+    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Structured Data (JSON-LD) for Article -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "260614",
+        "description": "",
+        "author": {
+            "@type": "Person",
+            "name": "HEG",
+            "url": "https://bit.heg.wtf"
+        },
+        "publisher": {
+            "@type": "Person",
+            "name": "HEG",
+            "url": "https://bit.heg.wtf"
+        },
+        "datePublished": "T00:00:00+09:00",
+        "dateModified": "T00:00:00+09:00",
+        "url": "https://bit.heg.wtf///",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://bit.heg.wtf///"
+        },
+        "inLanguage": "ko-KR",
+        "isPartOf": {
+            "@type": "Blog",
+            "name": "260614",
+            "url": "https://bit.heg.wtf"
+        }
+    }
+    </script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header Section -->
+        <header class="site-header">
+            <div class="header-content">
+
+                <div class="site-info">
+                    <h1 class="site-title">
+                        <a href="/">260614</a>
+                    </h1>
+                    <p class="site-description"></p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <!-- Single Post Content -->
+                <article class="single-post" itemscope itemtype="https://schema.org/BlogPosting">
+                    <div class="post-header">
+                        <h1 class="post-title" itemprop="headline">260614</h1>
+                        <div class="post-meta">
+                            <time class="post-date" datetime="T00:00:00+09:00" itemprop="datePublished"></time>
+                            <span itemprop="author" itemscope itemtype="https://schema.org/Person" style="display: none;">
+                                <span itemprop="name">HEG</span>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="post-body" itemprop="articleBody">
+                        
+                        <div class="post-content"><p>이번 주는 creaturex 몰빵. 지난 주에 MVP 골격을 세웠으면, 이번 주는 살을 붙이는 한 주였다. abyss랑 habiku는 한 손가락씩.</p>
+<h2>creaturex</h2>
+<p>먼저 이름부터 바꿨다. creturex → creaturex. 오타 같던 철자를 제대로 잡고 런치 자산까지 싹 갈아엎었다. 이런 건 미루면 미룰수록 손이 더 가니까 일찍 끊는 게 맞다.</p>
+<p>진짜 큰 줄기는 "도감 깊이 채우기"였다. 카드 상세화면에 Wikipedia 종 설명, 전 세계 발견 기록 수, IUCN 보전 등급, 발견 위치 지도 섹션까지 붙였다. 그냥 "찍었다" 끝이 아니라, 찍은 생물에 대해 알게 되는 흐름. 분류도 과/속/종 3단계로 제대로 보여준다.</p>
+<p>지도는 flutter_map에서 google_maps_flutter로 갈아탔다. 마커도 원형에서 사진 카드 형태로 바꾸고. 리더보드(Hall of Naturalists)에 프로필 아바타도 올렸다.</p>
+<p>뒤쪽도 챙겼다. Sentry 에러 캡처, Firebase Analytics 핵심 플로우 이벤트, Slack 알림에 codename·국가·언어 표시. 스캔 화면 깜빡임이랑 좌표 정밀도 버그도 줄줄이 잡았다. 0에서 시작한 게 슬슬 "앱" 같아진다.</p>
+<h2>abyss</h2>
+<p>모바일 채팅 본문을 16px로 키웠다(HEG-60). 딱 그거 하나. 이번 주는 쉬어가는 주.</p>
+<h2>habiku</h2>
+<p>데일리 체크인에 하루 피드백 수집이랑 목적 가드레일을 붙였다(HEG-45). 코치 앱이 사용자 하루를 더 잘 읽게 만드는 작업. 작지만 방향은 맞다.</p></div>
+                        
+                    </div>
+                </article>
+
+                <!-- Navigation -->
+                <nav class="post-navigation">
+                    <a href="/" class="nav-back">
+← View all posts
+                    </a>
+                </nav>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="footer-content">
+                <p>&copy; 2024 260614. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 포스트 애니메이션
+            const post = document.querySelector('.single-post');
+            if (post) {
+                post.classList.add('animate-in');
+            }
+
+            console.log('bit theme post page initialized successfully');
+        });
+    </script>
+</body>
+</html>
