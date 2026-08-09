@@ -73,6 +73,23 @@
             
             {
                 "@type": "BlogPosting",
+                "headline": "260809",
+                "datePublished": "2026-08-09T00:00:00+09:00",
+                "dateModified": "2026-08-09T00:00:00+09:00",
+                "author": {
+                    "@type": "Person",
+                    "name": "HEG"
+                },
+                "publisher": {
+                    "@type": "Person",
+                    "name": "HEG"
+                },
+                "description": "내 linear 큐를 hyper 사이드바에 쑤셔넣은 주. 그리고 앱 최소 iOS 버전이 26.0으로 박혀 있는 걸 발견했다",
+                "url": "https://bit.heg.wtf/2026-08-09/2026-08-09/"
+            },
+            
+            {
+                "@type": "BlogPosting",
                 "headline": "260802",
                 "datePublished": "2026-08-02T00:00:00+09:00",
                 "dateModified": "2026-08-02T00:00:00+09:00",
@@ -750,6 +767,38 @@
                         <div class="timeline-content">
                             <div class="content-card">
                                 <div class="card-header">
+                                    <time class="post-date" datetime="2026-08-09T00:00:00+09:00" itemprop="datePublished">2026-08-09</time>
+                                    <span itemprop="author" itemscope itemtype="https://schema.org/Person" style="display: none;">
+                                        <span itemprop="name">HEG</span>
+                                    </span>
+                                </div>
+                                <div class="card-body" itemprop="articleBody">
+                                    
+                                    <div class="post-content"><p>이번 주 hyper에서 제일 오래 붙잡은 건 Inbox다. linear에 쌓인 내 이슈 큐를 채팅 rail 안으로 끌고 들어왔다. 들어가면 맨 위 이슈가 알아서 열리고, 하나 처리하면 다음 걸로 넘어가고, 목록 옆에서 바로 상태를 바꿀 수 있게 했다. 프로젝트별 필터도 붙였다. 만들면서 계속 들었던 생각은, 내가 원한 게 linear를 대체하는 게 아니라 그냥 linear를 안 여는 거였다는 것. 하루에 탭을 몇 번씩 왔다갔다 하는 게 싫었을 뿐이다. <strong>도구를 만드는 이유가 거창할 필요는 없고, 내가 하루에 열 번 짜증나던 걸 없애는 정도면 충분한 것 같다.</strong></p>
+<p>그리고 한 주의 절반쯤은 버튼을 옮기는 데 썼다. 흩어져 있던 컨트롤을 ui/button으로, 입력과 라벨을 ui/input과 ui/label로, 다이얼로그를 ui/dialog로, 메뉴는 DropdownMenu로, 콤보박스는 listbox로. shadcn이 안 주는 모양 하나는 ListRow라는 이름으로 직접 만들었다. 이런 작업은 다 끝나도 화면이 어제랑 똑같아서, 중간에 한 번은 이걸 왜 하고 있나 싶어진다. 근데 나는 왜 툴을 만들다가 자꾸 툴의 버튼을 정리하고 있지? 답은 채널 화면을 새로 그리려고 보니 같은 모양의 리스트 행을 매번 손으로 다시 짜고 있었기 때문이고, 그럼 지금 갚는 게 싸다. 마지막엔 다시 흩어지지 않게 가드까지 걸어뒀다 (안 걸어두면 두 달 뒤에 똑같은 짓을 할 게 뻔해서).</p>
+<p>모바일에는 share extension을 붙였다. 뭘 보고 있든 공유를 누르면 봇 DM으로 바로 넘어간다. 홈 화면 DM 위젯도 만들었는데, 처음엔 위젯을 눌러도 앱만 열리고 정작 DM은 안 열려서 그것부터 고쳐야 했다. 공유 시트에서 봇이 아예 안 골라지던 것도 마찬가지. 결국 채팅앱처럼 쓰려면 이런 진입점이 없으면 안 되는 것 같다. 문서도 한 번 갈아엎었다. 한국어 번역을 붙이고, 이미 끝난 plan 문서 열한 개를 지우고, 어딘가에 남아있던 "데이터베이스 없음"이라는 거짓말도 고쳤다 (예전엔 맞는 말이었다).</p>
+<p>--</p>
+<p>creaturex는 무게중심이 출시 채비 쪽으로 옮겨갔다. 도감 카드에서 학명 대신 일반명이 먼저 보이게 바꿨다. 만들 때부터 알고 있었지만 미뤄둔 거였는데, 아무리 봐도 Panthera tigris보다 호랑이가 먼저 나와야 정상이다. 보전 등급은 카드 색부터 뱃지, 목록까지 앱 전체의 시각 언어로 끌어올렸고, 상세 카드엔 홀로그래픽 포일 셰이더를 넣었다. 포켓몬 카드 반짝이는 그거. 기능적으론 아무 의미도 없는데 이번 주 작업 중에 제일 재밌었던 것 같다.</p>
+<p>도메인도 붙였다. creaturex.heg.wtf DNS를 올리고, universal link를 클레임하고, 설치 페이지 v1을 세웠다. 페이지는 결국 영어로 다시 썼고, 임시로 그려둔 스토어 배지를 애플 공식 에셋으로 바꾸고, 실기기 스크린샷을 넣었다. 앱보다 랜딩 페이지 만드는 게 더 오래 걸리는 날이 있는데 그게 좀 웃기다.</p>
+<p>--</p>
+<p>제주공항주차는 좀 창피한 걸 고쳤다. iOS deployment target이 26.0으로 박혀 있었다. 설치 가능한 기기가 사실상 없다는 뜻이다. 15.0으로 내리고 나서야 정상이 됐다. 며칠 동안 설치가 안 되는 앱을 스토어에 올려두고 있었던 셈인데, 이런 건 아무도 안 알려준다. 배너 광고가 화면별·광고단위별로 얼마나 나가는지 계측하는 것도 이번에 붙여서, 이제야 숫자를 볼 수 있게 됐다.</p>
+<p>drift-buddy-race는 짬짬이 물리를 고쳤다. 프레임레이트에 따라 차 속도가 달라지고 있었다. 모니터 주사율이 다르면 다른 게임이 되는 거다. 매 프레임 리렌더도 걷어내고, 트랙 분기는 코드에서 데이터로 뺐다. 게임은 고친 게 바로 눈에 보여서 좋다.</p>
+<p>heg-core에는 이번 주에만 지식이 서른 건 넘게 쌓였다. 내가 직접 넣는 게 아니라 대화 중에 알아서 적재되는 구조라, 커밋 로그를 보고 나서야 이만큼 쌓였구나 하고 안다. 쌓이는 건 좋은데 다시 꺼내 쓰는 경로가 아직 약한 것 같다. 적재는 자동인데 회수는 수동인 상태.</p>
+<p>레포 여섯 개를 한 주 내내 왔다갔다 했는데, 정작 하나도 끝났다고 말할 수 있는 게 없다. 이게 벌여놓기만 하는 건지 여러 갈래로 같이 미는 건지는 아직 모르겠다.</p>
+<p>26.08.09 — 다음 주엔 하나는 진짜 끝났으면.</p> </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="timeline-item" data-index="2" itemscope itemtype="https://schema.org/BlogPosting">
+                        <div class="timeline-marker">
+                            <div class="marker-dot"></div>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="content-card">
+                                <div class="card-header">
                                     <time class="post-date" datetime="2026-08-02T00:00:00+09:00" itemprop="datePublished">2026-08-02</time>
                                     <span itemprop="author" itemscope itemtype="https://schema.org/Person" style="display: none;">
                                         <span itemprop="name">HEG</span>
@@ -773,7 +822,7 @@
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="2" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="3" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -808,7 +857,7 @@
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="3" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="4" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -839,7 +888,7 @@
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="4" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="5" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -869,7 +918,7 @@
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="5" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="6" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -902,7 +951,7 @@
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="6" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="7" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -932,7 +981,7 @@
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="7" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="8" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -966,7 +1015,7 @@
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="8" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="9" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -996,7 +1045,7 @@
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="9" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="10" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1022,7 +1071,7 @@
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="10" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="11" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1049,7 +1098,7 @@
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="11" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="12" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1077,7 +1126,7 @@
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="12" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="13" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1102,7 +1151,7 @@
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="13" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="14" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1126,7 +1175,7 @@
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="14" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="15" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1152,7 +1201,7 @@
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="15" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="16" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1179,7 +1228,7 @@
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="16" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="17" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1208,7 +1257,7 @@
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="17" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="18" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1236,7 +1285,7 @@
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="18" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="19" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1277,7 +1326,7 @@
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="19" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="20" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1307,7 +1356,7 @@
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="20" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="21" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1337,7 +1386,7 @@
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="21" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="22" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1362,7 +1411,7 @@
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="22" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="23" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1411,7 +1460,7 @@ RPG 게임을 경험해보고 아직도 좋아하는 사람이 아니라면 안 
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="23" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="24" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1433,7 +1482,7 @@ RPG 게임을 경험해보고 아직도 좋아하는 사람이 아니라면 안 
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="24" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="25" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1458,7 +1507,7 @@ RPG 게임을 경험해보고 아직도 좋아하는 사람이 아니라면 안 
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="25" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="26" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1485,7 +1534,7 @@ RPG 게임을 경험해보고 아직도 좋아하는 사람이 아니라면 안 
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="26" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="27" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1509,7 +1558,7 @@ RPG 게임을 경험해보고 아직도 좋아하는 사람이 아니라면 안 
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="27" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="28" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1538,7 +1587,7 @@ RPG 게임을 경험해보고 아직도 좋아하는 사람이 아니라면 안 
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="28" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="29" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1559,7 +1608,7 @@ RPG 게임을 경험해보고 아직도 좋아하는 사람이 아니라면 안 
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="29" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="30" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1580,7 +1629,7 @@ RPG 게임을 경험해보고 아직도 좋아하는 사람이 아니라면 안 
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="30" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="31" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1603,7 +1652,7 @@ RPG 게임을 경험해보고 아직도 좋아하는 사람이 아니라면 안 
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="31" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="32" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1625,7 +1674,7 @@ RPG 게임을 경험해보고 아직도 좋아하는 사람이 아니라면 안 
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="32" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="33" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1648,7 +1697,7 @@ RPG 게임을 경험해보고 아직도 좋아하는 사람이 아니라면 안 
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="33" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="34" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1669,7 +1718,7 @@ RPG 게임을 경험해보고 아직도 좋아하는 사람이 아니라면 안 
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="34" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="35" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1690,7 +1739,7 @@ RPG 게임을 경험해보고 아직도 좋아하는 사람이 아니라면 안 
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="35" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="36" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1712,7 +1761,7 @@ RPG 게임을 경험해보고 아직도 좋아하는 사람이 아니라면 안 
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="36" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="37" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1734,7 +1783,7 @@ RPG 게임을 경험해보고 아직도 좋아하는 사람이 아니라면 안 
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="37" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="38" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
@@ -1756,7 +1805,7 @@ RPG 게임을 경험해보고 아직도 좋아하는 사람이 아니라면 안 
                         </div>
                     </article>
                     
-                    <article class="timeline-item" data-index="38" itemscope itemtype="https://schema.org/BlogPosting">
+                    <article class="timeline-item" data-index="39" itemscope itemtype="https://schema.org/BlogPosting">
                         <div class="timeline-marker">
                             <div class="marker-dot"></div>
                         </div>
