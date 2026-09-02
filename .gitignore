@@ -1,3 +1,4 @@
 .env
 commits.md
 .auto-post-status
+__pycache__/
