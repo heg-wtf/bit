@@ -11,7 +11,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Python 3.12+** with `uv` package manager
 - **zvc** (`0.1.6`) - static site generator (Jinja2 + Markdown + YAML)
 - **GitHub Pages** - deployment target (serves from `docs/`)
-- **Pretendard** font for body, **BitcountSingle** for headings
+- **Outfit** (Google Fonts) for UI/headings, system Korean sans-serif for body, **BitcountSingle** for the `bit` wordmark
+- Design tokens mirror heg.wtf (Tailwind gray + blue `#3b82f6`, light/dark via `prefers-color-scheme`); see `themes/bit/assets/style.css`
 
 ## Build & Development Commands
 
@@ -21,9 +22,18 @@ make build
 
 # Create a new blog post scaffold (prompts for YYMMDD date)
 make init
+
+# Validate the built site (ruff + local asset/anchor/meta checks on docs/)
+make lint
+
+# Unit tests for scripts/check_site.py
+make test
+
+# Serve docs/ locally on http://localhost:8000
+make server
 ```
 
-There is no test suite, linter config, or dev server in this project. Preview locally by opening `docs/index.html` or using VS Code Live Preview.
+`make build` expects `zvc` on PATH (activate `.venv` or run `PATH=.venv/bin:$PATH make build`). `make lint` runs after a build and validates every HTML file under `docs/`.
 
 ## Architecture
 
@@ -33,7 +43,7 @@ There is no test suite, linter config, or dev server in this project. Preview lo
 
 1. **Source**: Markdown files with YAML frontmatter in `contents/` (folders named by date YYMMDD)
 2. **Templates**: Jinja2 templates in `themes/bit/` — `index.html` (homepage timeline) and `post.html` (individual post)
-3. **Styling**: `themes/bit/assets/style.css` — monospace-first, minimalist aesthetic
+3. **Styling**: `themes/bit/assets/style.css` — bento tiles, same tokens as heg.wtf; home lists post cards (latest as feature), each post has its own page
 4. **Output**: `docs/` folder with structure `docs/YYYY/MM/DD/{slug}/index.html`
 
 ### Key Configuration

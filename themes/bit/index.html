@@ -3,44 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ settings.blog_title }}</title>
-    
+    <title>{{ settings.blog_title }} - #buildinpublic by HEG</title>
+
     <!-- SEO Meta Tags -->
-    <meta name="description" content="{{ settings.blog_desc }}">
+    <meta name="description" content="{{ settings.blog_desc }} — HEG(Hyper Engineering Group)의 주간 빌드 인 퍼블릭 로그">
     <meta name="keywords" content="블로그, 개발, HEG, 앱개발, 기술블로그, 마이크로블로그, buildinpublic">
     <meta name="author" content="HEG">
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
-    <link rel="canonical" href="https://bit.heg.wtf">
-    
+    <link rel="canonical" href="https://bit.heg.wtf/">
+
     <!-- Additional SEO -->
-    <meta name="theme-color" content="#ffffff">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#111827" media="(prefers-color-scheme: dark)">
+
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="./assets/favicon/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="./assets/favicon/site.webmanifest">
-    
+    <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicon/site.webmanifest">
+
     <!-- OpenGraph Meta Tags -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="{{ settings.blog_title }}">
+    <meta property="og:title" content="{{ settings.blog_title }} - #buildinpublic by HEG">
     <meta property="og:description" content="{{ settings.blog_desc }}">
-    <meta property="og:url" content="https://bit.heg.wtf">
+    <meta property="og:url" content="https://bit.heg.wtf/">
     <meta property="og:site_name" content="{{ settings.blog_title }} - #buildinpublic">
     <meta property="og:locale" content="ko_KR">
-    
+    <meta property="og:image" content="https://bit.heg.wtf/assets/favicon/android-chrome-512x512.png">
+
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="{{ settings.blog_title }}">
+    <meta name="twitter:title" content="{{ settings.blog_title }} - #buildinpublic by HEG">
     <meta name="twitter:description" content="{{ settings.blog_desc }}">
-    
-    <link rel="stylesheet" href="./assets/style.css">
+    <meta name="twitter:image" content="https://bit.heg.wtf/assets/favicon/android-chrome-512x512.png">
+
+    <link rel="stylesheet" href="/assets/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-56T2JCQQZZ"></script>
@@ -48,10 +51,11 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-56T2JCQQZZ');
     </script>
 
+    {% set posts = post_list|sort(attribute='pub_date', reverse=True) %}
+    {% set oldest = post_list|sort(attribute='pub_date')|first %}
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
     {
@@ -59,119 +63,140 @@
         "@type": "Blog",
         "name": "{{ settings.blog_title }}",
         "description": "{{ settings.blog_desc }}",
-        "url": "https://bit.heg.wtf",
-        "author": {
-            "@type": "Person",
-            "name": "HEG"
-        },
-        "publisher": {
-            "@type": "Person",
-            "name": "HEG"
-        },
+        "url": "https://bit.heg.wtf/",
+        "author": { "@type": "Organization", "name": "HEG", "url": "https://heg.wtf" },
+        "publisher": { "@type": "Organization", "name": "HEG", "url": "https://heg.wtf" },
         "inLanguage": "ko-KR",
         "blogPost": [
-            {% for post in post_list|sort(attribute='pub_date', reverse=True) %}
+            {% for post in posts %}
             {
                 "@type": "BlogPosting",
-                "headline": "{{ post.title|default('Post ' + post.pub_date) }}",
+                "headline": "{{ post.title }}",
                 "datePublished": "{{ post.pub_date }}T00:00:00+09:00",
                 "dateModified": "{{ post.pub_date }}T00:00:00+09:00",
-                "author": {
-                    "@type": "Person",
-                    "name": "HEG"
-                },
-                "publisher": {
-                    "@type": "Person",
-                    "name": "HEG"
-                },
-                "description": "{% if post.description %}{{ post.description|truncate(160) }}{% else %}{{ settings.blog_desc }}{% endif %}",
-                "url": "https://bit.heg.wtf/{{ post.pub_date }}/{{ post.slug|default(post.pub_date) }}/"
+                "author": { "@type": "Organization", "name": "HEG" },
+                "description": "{{ (post.description or (post.html_content|striptags))|truncate(160, True, '…')|replace('"', '\\"') }}",
+                "url": "https://bit.heg.wtf{{ post.link }}"
             }{% if not loop.last %},{% endif %}
             {% endfor %}
         ]
     }
     </script>
-
 </head>
 <body>
-    <div class="app-container">
-        <!-- Header Section -->
-        <header class="site-header">
-            <div class="header-content">
+    <!-- Navigation -->
+    <nav class="nav" aria-label="Primary">
+        <div class="wrap">
+            <div class="nav-brand">
+                <a href="https://heg.wtf" class="nav-heg" aria-label="HEG home">
+                    <span class="nav-dot" aria-hidden="true"></span>HEG
+                </a>
+                <span class="nav-sep" aria-hidden="true">/</span>
+                <a href="/" class="nav-bit">{{ settings.blog_title }}</a>
+            </div>
+            <div class="nav-menu">
+                <a href="https://heg.wtf/#projects">Projects</a>
+                <a href="https://heg.wtf/#mission">Mission</a>
+                <a href="/" class="build">#buildinpublic</a>
+            </div>
+        </div>
+    </nav>
 
-                <div class="site-info">
-                    <a href="/" style="text-decoration: none;"><h1 class="site-title">{{ settings.blog_title }}</h1></a>
-                    <small class="site-subtitle" style="color: #667eea">#buildinpublic</small>
+    <main>
+        <!-- Hero -->
+        <header class="hero">
+            <div class="wrap">
+                <h1 class="hero-mark">{{ settings.blog_title }}<em>.</em></h1>
+                <div class="hero-side">
+                    <p class="hero-eyebrow">#buildinpublic · weekly</p>
+                    <p class="hero-sub">{{ settings.blog_desc }}. HEG가 이번 주에 만들고, 지우고, 배운 것. 매주 한 편, 커밋 로그에서 시작해 사람 말로 끝냅니다.</p>
                 </div>
             </div>
         </header>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <div class="content-wrapper">
-                <!-- Timeline Container -->
-                <div class="timeline-container">
-                    <div class="timeline-line"></div>
-                    
-                    {% for post in post_list|sort(attribute='pub_date', reverse=True) %}
-                    <article class="timeline-item" data-index="{{ loop.index }}" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="timeline-marker">
-                            <div class="marker-dot"></div>
-                        </div>
-                        <div class="timeline-content">
-                            <div class="content-card">
-                                <div class="card-header">
-                                    <time class="post-date" datetime="{{ post.pub_date }}T00:00:00+09:00" itemprop="datePublished">{{ post.pub_date }}</time>
-                                    <span itemprop="author" itemscope itemtype="https://schema.org/Person" style="display: none;">
-                                        <span itemprop="name">HEG</span>
-                                    </span>
-                                </div>
-                                <div class="card-body" itemprop="articleBody">
-                                    {% if post.html_content %}
-                                    <div class="post-content">{{ post.html_content|safe }} </div>
-                                    {% elif post.description %}
-                                    <div class="post-content">{{ post.description }}</div>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                    {% endfor %}
-                    
-
+        <!-- Stats -->
+        <section class="section" aria-label="Log summary">
+            <div class="wrap">
+                <div class="bento">
+                    <div class="tile stat accent">
+                        <b>{{ posts|length }}</b>
+                        <span>Posts</span>
+                    </div>
+                    <div class="tile stat">
+                        <b class="text">{{ oldest.pub_date[:7]|replace('-', '.') }}</b>
+                        <span>Since</span>
+                    </div>
+                    <div class="tile stat">
+                        <b class="text">{{ posts[0].pub_date|replace('-', '.') }}</b>
+                        <span>Latest</span>
+                    </div>
+                    <a href="https://heg.wtf/#projects" class="tile link">
+                        <span class="arrow" aria-hidden="true">↗</span>
+                        <span class="tile-name">heg.wtf</span>
+                        <span class="tile-desc">What all of this ships into</span>
+                    </a>
                 </div>
             </div>
-        </main>
+        </section>
 
-        <!-- Footer -->
-        <footer class="site-footer">
-            <div class="footer-content">
-                <p>&copy; 2025 {{ settings.blog_title }}. All rights reserved.</p>
+        <!-- Posts -->
+        <section class="section" id="posts">
+            <div class="wrap">
+                <div class="section-head">
+                    <h2 class="section-title">Log</h2>
+                    <span class="section-note">newest first</span>
+                </div>
+                <div class="posts">
+                    {% for post in posts %}
+                    <a href="{{ post.link }}" class="post-card{% if loop.first %} feature{% endif %}" itemscope itemtype="https://schema.org/BlogPosting">
+                        <div class="post-card-head">
+                            <time class="post-card-date" datetime="{{ post.pub_date }}T00:00:00+09:00" itemprop="datePublished">{{ post.pub_date|replace('-', '.') }}</time>
+                            {% if loop.first %}<span class="post-card-label new">Latest</span>{% else %}<span class="post-card-label mono">{{ post.title }}</span>{% endif %}
+                        </div>
+                        <p class="post-card-excerpt" itemprop="description">{{ (post.description or (post.html_content|striptags|replace('--', '')))|truncate(loop.first and 260 or 150, True, '…') }}</p>
+                        <span class="post-card-more">읽기</span>
+                        <meta itemprop="author" content="HEG">
+                        <meta itemprop="url" content="https://bit.heg.wtf{{ post.link }}">
+                    </a>
+                    {% endfor %}
+                </div>
             </div>
-        </footer>
-    </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="wrap">
+            <p>© <span id="year"></span> {{ settings.blog_title }} · HEG</p>
+            <div class="footer-links">
+                <a href="https://heg.wtf">heg.wtf</a>
+                <a href="https://heg.wtf/privacy-policy.html">Privacy Policy</a>
+                <a href="/" class="build">#buildinpublic</a>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // 타임라인 아이템 애니메이션
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
+        document.getElementById('year').textContent = new Date().getFullYear();
 
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-in');
-                    }
+        (function revealCards() {
+            var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduceMotion || !('IntersectionObserver' in window)) return;
+            document.documentElement.classList.add('js');
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.remove('pending');
+                    observer.unobserve(entry.target);
                 });
-            }, observerOptions);
-
-            // 모든 타임라인 아이템 관찰
-            document.querySelectorAll('.timeline-item').forEach(item => {
-                observer.observe(item);
+            }, { threshold: 0.12, rootMargin: '0px 0px -32px 0px' });
+            var viewportBottom = window.innerHeight;
+            document.querySelectorAll('.post-card, .tile').forEach(function (card) {
+                if (card.getBoundingClientRect().top <= viewportBottom) return;
+                card.classList.add('pending');
+                observer.observe(card);
             });
-        });
+        })();
     </script>
 </body>
 </html>
