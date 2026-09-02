@@ -3,9 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    (function () {
+        try {
+            var stored = localStorage.getItem("bit-theme");
+            if (stored === "dark" || stored === "light") document.documentElement.dataset.theme = stored;
+        } catch (e) {}
+    })();
+    </script>
     
     
-    <title>2025.12.28 - bit · #buildinpublic by HEG</title>
+    <title>251228 · 2025-12-28 — bit</title>
 
     <!-- SEO Meta Tags -->
     <meta name="description" content="1pick과 그동안 진행하고 런칭하지 못했던 프로젝트들을 apple connect에서 삭제했다. 마음아픈 일이지만 어쨌든간에 잘 안되는건 버리고 새출발을 하는게 맞다고 생각이 들었다. 그래서 유지하기 어렵거나 의미나 수익이 없다면 지우기로 했다. thedelta도 고민을 하고 있습니다…">
@@ -17,8 +25,8 @@
 
     <!-- Additional SEO -->
     <meta name="color-scheme" content="light dark">
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#111827" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#f1f1eb" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#111311" media="(prefers-color-scheme: dark)">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico">
@@ -29,7 +37,7 @@
 
     <!-- OpenGraph Meta Tags -->
     <meta property="og:type" content="article">
-    <meta property="og:title" content="2025.12.28 - bit">
+    <meta property="og:title" content="251228 · 2025-12-28 — bit">
     <meta property="og:description" content="1pick과 그동안 진행하고 런칭하지 못했던 프로젝트들을 apple connect에서 삭제했다. 마음아픈 일이지만 어쨌든간에 잘 안되는건 버리고 새출발을 하는게 맞다고 생각이 들었다. 그래서 유지하기 어렵거나 의미나 수익이 없다면 지우기로 했다. thedelta도 고민을 하고 있습니다…">
     <meta property="og:url" content="https://bit.heg.wtf/2025/12/28/251228/">
     <meta property="og:site_name" content="bit - #buildinpublic">
@@ -39,14 +47,14 @@
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="2025.12.28 - bit">
+    <meta name="twitter:title" content="251228 · 2025-12-28 — bit">
     <meta name="twitter:description" content="1pick과 그동안 진행하고 런칭하지 못했던 프로젝트들을 apple connect에서 삭제했다. 마음아픈 일이지만 어쨌든간에 잘 안되는건 버리고 새출발을 하는게 맞다고 생각이 들었다. 그래서 유지하기 어렵거나 의미나 수익이 없다면 지우기로 했다. thedelta도 고민을 하고 있습니다…">
     <meta name="twitter:image" content="https://bit.heg.wtf/assets/favicon/android-chrome-512x512.png">
 
     <link rel="stylesheet" href="/assets/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-56T2JCQQZZ"></script>
@@ -77,87 +85,77 @@
     </script>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="nav" aria-label="Primary">
+    <!-- Title bar -->
+    <header class="bar">
         <div class="wrap">
-            <div class="nav-brand">
-                <a href="https://heg.wtf" class="nav-heg" aria-label="HEG home">
-                    <span class="nav-dot" aria-hidden="true"></span>HEG
-                </a>
-                <span class="nav-sep" aria-hidden="true">/</span>
-                <a href="/" class="nav-bit">bit</a>
-            </div>
-            <div class="nav-menu">
-                <a href="https://heg.wtf/#projects">Projects</a>
-                <a href="https://heg.wtf/#mission">Mission</a>
-                <a href="/" class="build">#buildinpublic</a>
-            </div>
+            <span class="bar-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="bar-title"><a href="https://heg.wtf">heg</a>@bit: ~/build.log — <a href="/" class="mark">bit</a> — less build.log:251228</span>
+            <button class="theme-toggle" type="button" data-theme-toggle aria-label="라이트/다크 전환">◐ theme</button>
         </div>
-    </nav>
+    </header>
 
     <main>
-        <article class="article" itemscope itemtype="https://schema.org/BlogPosting">
-            <div class="wrap wrap-narrow">
-                <header class="article-head">
-                    <p class="article-eyebrow mono">
-                        <a href="/" class="build">#buildinpublic</a>
-                        <span aria-hidden="true">·</span>
-                        <span itemprop="headline">251228</span>
-                    </p>
-                    <time class="article-date" datetime="2025-12-28T00:00:00+09:00" itemprop="datePublished">2025.12.28</time>
-                    
-                    <div class="article-tags" itemprop="keywords">
-                        <span class="tag">드라이버펍</span><span class="tag">heg</span>
-                    </div>
-                    
-                    <meta itemprop="author" content="HEG">
-                </header>
+        <section class="hero" aria-label="Command">
+            <div class="wrap">
+                <p class="prompt"><span class="user">heg</span>@<span class="host">bit</span> <span class="path">~</span> $ less +/251228 build.log</p>
+            </div>
+        </section>
 
-                <div class="post-content" itemprop="articleBody">
-                    <p>1pick과 그동안 진행하고 런칭하지 못했던 프로젝트들을 apple connect에서 삭제했다. 마음아픈 일이지만 어쨌든간에 잘 안되는건 버리고 새출발을 하는게 맞다고 생각이 들었다. 그래서 유지하기 어렵거나 의미나 수익이 없다면 지우기로 했다. </p>
+        <section class="viewer">
+            <div class="wrap">
+                <article class="entry" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2025-12-28T00:00:00+09:00" itemprop="datePublished">2025-12-28</time>
+                        <span class="entry-level">INFO</span>
+                        <span class="entry-id" itemprop="headline">251228</span>
+                        <ul class="entry-tags" itemprop="keywords"><li>드라이버펍</li><li>heg</li></ul>
+                        
+                        <meta itemprop="author" content="HEG">
+                    </header>
+                    <div class="entry-body" itemprop="articleBody">
+                        <p>1pick과 그동안 진행하고 런칭하지 못했던 프로젝트들을 apple connect에서 삭제했다. 마음아픈 일이지만 어쨌든간에 잘 안되는건 버리고 새출발을 하는게 맞다고 생각이 들었다. 그래서 유지하기 어렵거나 의미나 수익이 없다면 지우기로 했다. </p>
 <p>thedelta도 고민을 하고 있습니다. 결국 1인 창업가 입장에서 보면 데이터를 수집하거나 제공해야하는 사업은 자동화가 되지 않으면 절대 하면 안된다는 생각이 들었다. 왜냐하면 더 잘하는 실제 기업들이 존재하니까. </p>
 <p>클로드 맥스를 도입한지 일주일 정도 지났고 여러가지 세팅과 함께 원래 진행하려고하던 것들을 매우 쉽게 진행할 수 있게 되었다. </p>
 <p>드라이브펍 애기를 안할수가 없는데 일단 너무 잘 못한건 아직도 안드로이드를 출시하지 못했다는 점. 실행력이 딸리는것 같아서 아쉽고. 코스와 장소는 계속 추가를 하고 있고 커뮤니티 기능 및 프로필 기능까지해서 개발을 한 상태라 안드로이드 테스트 외주를 맡기려고 한다. 크몽이나 숨고에서 찾아봐야 할 것 같다.</p>
 <p>최근에 AI를 직접적으로 이용한 앱을 출시하려고 한다. 아마 다음주 1월초 정도면 아이폰 앱스토어에 올라갈것 같고. 전면광고까지 붙이는 실험을 해서 알마나 사용성이 있는지 확인할 예정이다. </p>
-                </div>
+                    </div>
+                    <footer class="entry-meta">469 chars · 5 paragraphs · 2 tags</footer>
+                </article>
 
-                <nav class="article-foot" aria-label="Post navigation">
-                    <a href="/" class="tile link">
-                        <span class="arrow" aria-hidden="true">←</span>
-                        <span class="tile-name">모든 글</span>
-                        <span class="tile-desc">bit.heg.wtf</span>
-                    </a>
-                    <a href="https://heg.wtf/#projects" class="tile link">
-                        <span class="arrow" aria-hidden="true">↗</span>
-                        <span class="tile-name">heg.wtf</span>
-                        <span class="tile-desc">이 글이 만들어 가는 것들</span>
-                    </a>
+                <nav class="viewer-end" aria-label="Post navigation">
+                    <b>(END)</b>
+                    <a href="/#251228" data-key="q"><kbd>q</kbd>back to log</a>
+                    <a href="https://heg.wtf" data-key="h"><kbd>h</kbd>heg.wtf</a>
                 </nav>
             </div>
-        </article>
+        </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
+    <div class="status" aria-hidden="true">
         <div class="wrap">
-            <p>© <span id="year"></span> bit · HEG</p>
-            <div class="footer-links">
-                <a href="https://heg.wtf">heg.wtf</a>
-                <a href="https://heg.wtf/privacy-policy.html">Privacy Policy</a>
-                <a href="/" class="build">#buildinpublic</a>
-            </div>
+            <span class="left"><b>bit</b>1:251228*</span>
+            <span class="right"><span>2025-12-28</span><span>UTF-8 · ko_KR</span><span><a href="https://heg.wtf">heg.wtf</a></span></span>
         </div>
-    </footer>
+    </div>
 
     <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
-
-        // Authors separate sections with a bare "--" line; render it as a rule.
-        document.querySelectorAll('.post-content p').forEach(function (paragraph) {
-            if (paragraph.textContent.trim() === '--') {
-                paragraph.replaceWith(document.createElement('hr'));
-            }
+    (function () {
+        var root = document.documentElement;
+        document.querySelector("[data-theme-toggle]").addEventListener("click", function () {
+            var systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            var current = root.dataset.theme || (systemDark ? "dark" : "light");
+            var next = current === "dark" ? "light" : "dark";
+            root.dataset.theme = next;
+            try { localStorage.setItem("bit-theme", next); } catch (e) {}
         });
+
+        // less-style keys: q returns to the log, h opens heg.wtf.
+        document.addEventListener("keydown", function (event) {
+            if (event.metaKey || event.ctrlKey || event.altKey) return;
+            var link = document.querySelector('[data-key="' + event.key + '"]');
+            if (link) window.location.href = link.href;
+        });
+    })();
     </script>
 </body>
 </html>

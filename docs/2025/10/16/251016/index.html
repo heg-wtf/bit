@@ -3,9 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    (function () {
+        try {
+            var stored = localStorage.getItem("bit-theme");
+            if (stored === "dark" || stored === "light") document.documentElement.dataset.theme = stored;
+        } catch (e) {}
+    })();
+    </script>
     
     
-    <title>2025.10.16 - bit · #buildinpublic by HEG</title>
+    <title>251016 · 2025-10-16 — bit</title>
 
     <!-- SEO Meta Tags -->
     <meta name="description" content="드라이버펍, 안드로이드 출시 초읽기 안드로이드 버전을 출시하기 위해서 테스트할 사람들을 찾고 있다. 12명을 찾으면 되는데 안드로이드는 진짜 이게 너무 불편한것 같다. 굉장히 나로써는 큰 도전이자 귀찮은 일이었는데 그래도 빨리 마무리 하고 싶다. 이게 진행이 안되니까 뒤에 있는 마케팅…">
@@ -17,8 +25,8 @@
 
     <!-- Additional SEO -->
     <meta name="color-scheme" content="light dark">
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#111827" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#f1f1eb" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#111311" media="(prefers-color-scheme: dark)">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico">
@@ -29,7 +37,7 @@
 
     <!-- OpenGraph Meta Tags -->
     <meta property="og:type" content="article">
-    <meta property="og:title" content="2025.10.16 - bit">
+    <meta property="og:title" content="251016 · 2025-10-16 — bit">
     <meta property="og:description" content="드라이버펍, 안드로이드 출시 초읽기 안드로이드 버전을 출시하기 위해서 테스트할 사람들을 찾고 있다. 12명을 찾으면 되는데 안드로이드는 진짜 이게 너무 불편한것 같다. 굉장히 나로써는 큰 도전이자 귀찮은 일이었는데 그래도 빨리 마무리 하고 싶다. 이게 진행이 안되니까 뒤에 있는 마케팅…">
     <meta property="og:url" content="https://bit.heg.wtf/2025/10/16/251016/">
     <meta property="og:site_name" content="bit - #buildinpublic">
@@ -39,14 +47,14 @@
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="2025.10.16 - bit">
+    <meta name="twitter:title" content="251016 · 2025-10-16 — bit">
     <meta name="twitter:description" content="드라이버펍, 안드로이드 출시 초읽기 안드로이드 버전을 출시하기 위해서 테스트할 사람들을 찾고 있다. 12명을 찾으면 되는데 안드로이드는 진짜 이게 너무 불편한것 같다. 굉장히 나로써는 큰 도전이자 귀찮은 일이었는데 그래도 빨리 마무리 하고 싶다. 이게 진행이 안되니까 뒤에 있는 마케팅…">
     <meta name="twitter:image" content="https://bit.heg.wtf/assets/favicon/android-chrome-512x512.png">
 
     <link rel="stylesheet" href="/assets/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-56T2JCQQZZ"></script>
@@ -77,89 +85,79 @@
     </script>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="nav" aria-label="Primary">
+    <!-- Title bar -->
+    <header class="bar">
         <div class="wrap">
-            <div class="nav-brand">
-                <a href="https://heg.wtf" class="nav-heg" aria-label="HEG home">
-                    <span class="nav-dot" aria-hidden="true"></span>HEG
-                </a>
-                <span class="nav-sep" aria-hidden="true">/</span>
-                <a href="/" class="nav-bit">bit</a>
-            </div>
-            <div class="nav-menu">
-                <a href="https://heg.wtf/#projects">Projects</a>
-                <a href="https://heg.wtf/#mission">Mission</a>
-                <a href="/" class="build">#buildinpublic</a>
-            </div>
+            <span class="bar-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="bar-title"><a href="https://heg.wtf">heg</a>@bit: ~/build.log — <a href="/" class="mark">bit</a> — less build.log:251016</span>
+            <button class="theme-toggle" type="button" data-theme-toggle aria-label="라이트/다크 전환">◐ theme</button>
         </div>
-    </nav>
+    </header>
 
     <main>
-        <article class="article" itemscope itemtype="https://schema.org/BlogPosting">
-            <div class="wrap wrap-narrow">
-                <header class="article-head">
-                    <p class="article-eyebrow mono">
-                        <a href="/" class="build">#buildinpublic</a>
-                        <span aria-hidden="true">·</span>
-                        <span itemprop="headline">251016</span>
-                    </p>
-                    <time class="article-date" datetime="2025-10-16T00:00:00+09:00" itemprop="datePublished">2025.10.16</time>
-                    
-                    <div class="article-tags" itemprop="keywords">
-                        <span class="tag">드라이버펍</span><span class="tag">heg</span>
-                    </div>
-                    
-                    <meta itemprop="author" content="HEG">
-                </header>
+        <section class="hero" aria-label="Command">
+            <div class="wrap">
+                <p class="prompt"><span class="user">heg</span>@<span class="host">bit</span> <span class="path">~</span> $ less +/251016 build.log</p>
+            </div>
+        </section>
 
-                <div class="post-content" itemprop="articleBody">
-                    <h3>드라이버펍, 안드로이드 출시 초읽기</h3>
+        <section class="viewer">
+            <div class="wrap">
+                <article class="entry" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2025-10-16T00:00:00+09:00" itemprop="datePublished">2025-10-16</time>
+                        <span class="entry-level">INFO</span>
+                        <span class="entry-id" itemprop="headline">251016</span>
+                        <ul class="entry-tags" itemprop="keywords"><li>드라이버펍</li><li>heg</li></ul>
+                        
+                        <meta itemprop="author" content="HEG">
+                    </header>
+                    <div class="entry-body" itemprop="articleBody">
+                        <h3>드라이버펍, 안드로이드 출시 초읽기</h3>
 <p>안드로이드 버전을 출시하기 위해서 테스트할 사람들을 찾고 있다. 12명을 찾으면 되는데 안드로이드는 진짜 이게 너무 불편한것 같다. 굉장히 나로써는 큰 도전이자 귀찮은 일이었는데 그래도 빨리 마무리 하고 싶다. 이게 진행이 안되니까 뒤에 있는 마케팅이나 웹뷰 공유나 그런 부분이 다 진행하기가 어렵다. 정확히 말하자면 임팩트가 반토막 날 게 뻔한데 왜 다른걸 진행해야할지 나조차 설득이 안됐다. </p>
 <p>어제까지 아이콘 문제를 AI로 해결하려다가 포기하고 그냥 구글 검색으로 찾았다. <a href="https://icon.kitchen/">https://icon.kitchen</a> 기존에 쓰던 툴보다 편하기도하고 안드로이드에 대한 지원 뿐만 아니라 쉽게 아이콘을 만들수 있을것 같아서 만드는데 걸리는 시간이 더 줄것 같다. </p>
 <h2>크롤러</h2>
 <p>기존에 쓰던 네이버 크롤러가 네이버 내부의 정책이 바뀌면서 더 이상 naver id를 수집하지 못하게 되었다. 그래서 완전하진 않지만 그래도 까페, 블로그에 있는 특정 키워드에 대한 글쓴이를 찾을수 있는 크롤러를 만들었다. 이걸 가지고 안드로이드를 만들고 난후에 이메일 마케팅을 진행하려고 한다. 그 툴 역시 AI로 기존에 만들어둔게 있어서 그걸 이용하면 된다. </p>
 <h2>next</h2>
 <p>올해 한개의 앱을 더 내고 싶은데 고민이다. lifetime 유료앱을 내려고 하는데 AI로 뭔가 실험을 하고 싶고, 아이들이나 주부를 대상으로 만들고 싶다. 수익적으로 더 파고 들어야 하는건 맞는데 좀 더 재밌게 다양한 시도를 해보고 싶다. 돈 태우고 광고때리고 광고로 수익을 가져가는게 나쁜건 아닌데, 팔리는 서비스 자체를 만들고 싶다. </p>
-                </div>
+                    </div>
+                    <footer class="entry-meta">602 chars · 4 paragraphs · 2 tags</footer>
+                </article>
 
-                <nav class="article-foot" aria-label="Post navigation">
-                    <a href="/" class="tile link">
-                        <span class="arrow" aria-hidden="true">←</span>
-                        <span class="tile-name">모든 글</span>
-                        <span class="tile-desc">bit.heg.wtf</span>
-                    </a>
-                    <a href="https://heg.wtf/#projects" class="tile link">
-                        <span class="arrow" aria-hidden="true">↗</span>
-                        <span class="tile-name">heg.wtf</span>
-                        <span class="tile-desc">이 글이 만들어 가는 것들</span>
-                    </a>
+                <nav class="viewer-end" aria-label="Post navigation">
+                    <b>(END)</b>
+                    <a href="/#251016" data-key="q"><kbd>q</kbd>back to log</a>
+                    <a href="https://heg.wtf" data-key="h"><kbd>h</kbd>heg.wtf</a>
                 </nav>
             </div>
-        </article>
+        </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
+    <div class="status" aria-hidden="true">
         <div class="wrap">
-            <p>© <span id="year"></span> bit · HEG</p>
-            <div class="footer-links">
-                <a href="https://heg.wtf">heg.wtf</a>
-                <a href="https://heg.wtf/privacy-policy.html">Privacy Policy</a>
-                <a href="/" class="build">#buildinpublic</a>
-            </div>
+            <span class="left"><b>bit</b>1:251016*</span>
+            <span class="right"><span>2025-10-16</span><span>UTF-8 · ko_KR</span><span><a href="https://heg.wtf">heg.wtf</a></span></span>
         </div>
-    </footer>
+    </div>
 
     <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
-
-        // Authors separate sections with a bare "--" line; render it as a rule.
-        document.querySelectorAll('.post-content p').forEach(function (paragraph) {
-            if (paragraph.textContent.trim() === '--') {
-                paragraph.replaceWith(document.createElement('hr'));
-            }
+    (function () {
+        var root = document.documentElement;
+        document.querySelector("[data-theme-toggle]").addEventListener("click", function () {
+            var systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            var current = root.dataset.theme || (systemDark ? "dark" : "light");
+            var next = current === "dark" ? "light" : "dark";
+            root.dataset.theme = next;
+            try { localStorage.setItem("bit-theme", next); } catch (e) {}
         });
+
+        // less-style keys: q returns to the log, h opens heg.wtf.
+        document.addEventListener("keydown", function (event) {
+            if (event.metaKey || event.ctrlKey || event.altKey) return;
+            var link = document.querySelector('[data-key="' + event.key + '"]');
+            if (link) window.location.href = link.href;
+        });
+    })();
     </script>
 </body>
 </html>
