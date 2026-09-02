@@ -3,10 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>bit - #buildinpublic by HEG</title>
+    <script>
+    // Apply the stored theme before first paint, and decide whether the load sequence runs (once per session, motion allowed).
+    (function () {
+        try {
+            var stored = localStorage.getItem("bit-theme");
+            if (stored === "dark" || stored === "light") document.documentElement.dataset.theme = stored;
+        } catch (e) {}
+        try {
+            // Skip the sequence when jumping to an anchored entry (e.g. back from a post) or when motion is reduced.
+            var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            if (!reduce && !location.hash && !sessionStorage.getItem("bit-seq-done")) document.documentElement.classList.add("seq");
+        } catch (e) {}
+    })();
+    </script>
+    
+    
+    <title>bit — #buildinpublic log of HEG</title>
 
     <!-- SEO Meta Tags -->
-    <meta name="description" content="bit of heg — HEG(Hyper Engineering Group)의 주간 빌드 인 퍼블릭 로그">
+    <meta name="description" content="bit of heg — HEG(Hyper Engineering Group)의 주간 빌드 인 퍼블릭 로그. tail -f build.log">
     <meta name="keywords" content="블로그, 개발, HEG, 앱개발, 기술블로그, 마이크로블로그, buildinpublic">
     <meta name="author" content="HEG">
     <meta name="robots" content="index, follow">
@@ -15,8 +31,8 @@
 
     <!-- Additional SEO -->
     <meta name="color-scheme" content="light dark">
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#111827" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#f1f1eb" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#111311" media="(prefers-color-scheme: dark)">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico">
@@ -27,7 +43,7 @@
 
     <!-- OpenGraph Meta Tags -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="bit - #buildinpublic by HEG">
+    <meta property="og:title" content="bit — #buildinpublic log of HEG">
     <meta property="og:description" content="bit of heg">
     <meta property="og:url" content="https://bit.heg.wtf/">
     <meta property="og:site_name" content="bit - #buildinpublic">
@@ -36,14 +52,14 @@
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="bit - #buildinpublic by HEG">
+    <meta name="twitter:title" content="bit — #buildinpublic log of HEG">
     <meta name="twitter:description" content="bit of heg">
     <meta name="twitter:image" content="https://bit.heg.wtf/assets/favicon/android-chrome-512x512.png">
 
     <link rel="stylesheet" href="/assets/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-56T2JCQQZZ"></script>
@@ -54,8 +70,6 @@
     gtag('config', 'G-56T2JCQQZZ');
     </script>
 
-    
-    
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
     {
@@ -464,537 +478,827 @@
     </script>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="nav" aria-label="Primary">
+    <!-- Title bar -->
+    <header class="bar">
         <div class="wrap">
-            <div class="nav-brand">
-                <a href="https://heg.wtf" class="nav-heg" aria-label="HEG home">
-                    <span class="nav-dot" aria-hidden="true"></span>HEG
-                </a>
-                <span class="nav-sep" aria-hidden="true">/</span>
-                <a href="/" class="nav-bit">bit</a>
-            </div>
-            <div class="nav-menu">
-                <a href="https://heg.wtf/#projects">Projects</a>
-                <a href="https://heg.wtf/#mission">Mission</a>
-                <a href="/" class="build">#buildinpublic</a>
-            </div>
+            <span class="bar-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="bar-title"><a href="https://heg.wtf">heg</a>@bit: ~/build.log — <a href="/" class="mark">bit</a> — tail -f</span>
+            <button class="theme-toggle" type="button" data-theme-toggle aria-label="라이트/다크 전환">◐ theme</button>
         </div>
-    </nav>
+    </header>
 
     <main>
-        <!-- Hero -->
-        <header class="hero">
+        <!-- Prompt -->
+        <section class="hero" aria-label="Log summary">
             <div class="wrap">
-                <h1 class="hero-mark">bit<em>.</em></h1>
-                <div class="hero-side">
-                    <p class="hero-eyebrow">#buildinpublic · weekly</p>
-                    <p class="hero-sub">bit of heg. HEG가 이번 주에 만들고, 지우고, 배운 것. 매주 한 편, 커밋 로그에서 시작해 사람 말로 끝냅니다.</p>
-                </div>
-            </div>
-        </header>
-
-        <!-- Stats -->
-        <section class="section" aria-label="Log summary">
-            <div class="wrap">
-                <div class="bento">
-                    <div class="tile stat accent">
-                        <b>39</b>
-                        <span>Posts</span>
-                    </div>
-                    <div class="tile stat">
-                        <b class="text">2025.08</b>
-                        <span>Since</span>
-                    </div>
-                    <div class="tile stat">
-                        <b class="text">2026.08.09</b>
-                        <span>Latest</span>
-                    </div>
-                    <a href="https://heg.wtf/#projects" class="tile link">
-                        <span class="arrow" aria-hidden="true">↗</span>
-                        <span class="tile-name">heg.wtf</span>
-                        <span class="tile-desc">What all of this ships into</span>
-                    </a>
+                <p class="prompt"><span class="user">heg</span>@<span class="host">bit</span> <span class="path">~</span> $ <span class="command" data-command="tail -f build.log --since 2025-08 --weekly">tail -f build.log --since 2025-08 --weekly</span><span class="cursor" data-prompt-cursor aria-hidden="true"></span></p>
+                <div class="output">
+                    <div>bit <b>v0.39</b> — bit of heg · build-in-public log of <a href="https://heg.wtf">HEG</a></div>
+                    <div><span class="ok">✓</span> reading build.log … <b>39 entries</b> <span class="dim">(2025-08-12 → 2026-08-09)</span></div>
+                    <div><span class="ok">✓</span> source: heg-wtf/* commits → one post a week, written by hand</div>
+                    <div><span class="warn">!</span> following. new entries land on sundays. <span class="dim">^C to stop</span></div>
+                    <div class="dim">──────────────────────────────────────────────</div>
                 </div>
             </div>
         </section>
 
-        <!-- Posts -->
-        <section class="section" id="posts">
+        <!-- Log -->
+        <section class="log" id="log">
             <div class="wrap">
-                <div class="section-head">
-                    <h2 class="section-title">Log</h2>
-                    <span class="section-note">newest first</span>
-                </div>
-                <div class="posts">
-                    
-                    <a href="/2026/08/09/260809/" class="post-card feature" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2026-08-09T00:00:00+09:00" itemprop="datePublished">2026.08.09</time>
-                            <span class="post-card-label new">Latest</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">내 linear 큐를 hyper 사이드바에 쑤셔넣은 주. 그리고 앱 최소 iOS 버전이 26.0으로 박혀 있는 걸 발견했다</p>
-                        <span class="post-card-more">읽기</span>
+                
+                <article class="entry" id="260809" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2026-08-09T00:00:00+09:00" itemprop="datePublished">2026-08-09</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2026/08/09/260809/" itemprop="url"><span itemprop="headline">260809</span></a>
+                        <span class="entry-message" itemprop="description">내 linear 큐를 hyper 사이드바에 쑤셔넣은 주. 그리고 앱 최소 iOS 버전이 26.0으로 박혀 있는 걸 발견했다</span>
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2026/08/09/260809/">
-                    </a>
-                    
-                    <a href="/2026/08/02/260802/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2026-08-02T00:00:00+09:00" itemprop="datePublished">2026.08.02</time>
-                            <span class="post-card-label mono">260802</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">이번 주는 hyper 봇들 입 좀 다물게 만드느라 거의 다 썼다 (creturex 뱃지 시스템도 나왔음)</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>이번 주 hyper에서 제일 오래 붙잡은 건 Inbox다. linear에 쌓인 내 이슈 큐를 채팅 rail 안으로 끌고 들어왔다. 들어가면 맨 위 이슈가 알아서 열리고, 하나 처리하면 다음 걸로 넘어가고, 목록 옆에서 바로 상태를 바꿀 수 있게 했다. 프로젝트별 필터도 붙였다. 만들면서 계속 들었던 생각은, 내가 원한 게 linear를 대체하는 게 아니라 그냥 linear를 안 여는 거였다는 것. 하루에 탭을 몇 번씩 왔다갔다 하는 게 싫었을 뿐이다. <strong>도구를 만드는 이유가 거창할 필요는 없고, 내가 하루에 열 번 짜증나던 걸 없애는 정도면 충분한 것 같다.</strong></p>
+<p>그리고 한 주의 절반쯤은 버튼을 옮기는 데 썼다. 흩어져 있던 컨트롤을 ui/button으로, 입력과 라벨을 ui/input과 ui/label로, 다이얼로그를 ui/dialog로, 메뉴는 DropdownMenu로, 콤보박스는 listbox로. shadcn이 안 주는 모양 하나는 ListRow라는 이름으로 직접 만들었다. 이런 작업은 다 끝나도 화면이 어제랑 똑같아서, 중간에 한 번은 이걸 왜 하고 있나 싶어진다. 근데 나는 왜 툴을 만들다가 자꾸 툴의 버튼을 정리하고 있지? 답은 채널 화면을 새로 그리려고 보니 같은 모양의 리스트 행을 매번 손으로 다시 짜고 있었기 때문이고, 그럼 지금 갚는 게 싸다. 마지막엔 다시 흩어지지 않게 가드까지 걸어뒀다 (안 걸어두면 두 달 뒤에 똑같은 짓을 할 게 뻔해서).</p>
+<p>모바일에는 share extension을 붙였다. 뭘 보고 있든 공유를 누르면 봇 DM으로 바로 넘어간다. 홈 화면 DM 위젯도 만들었는데, 처음엔 위젯을 눌러도 앱만 열리고 정작 DM은 안 열려서 그것부터 고쳐야 했다. 공유 시트에서 봇이 아예 안 골라지던 것도 마찬가지. 결국 채팅앱처럼 쓰려면 이런 진입점이 없으면 안 되는 것 같다. 문서도 한 번 갈아엎었다. 한국어 번역을 붙이고, 이미 끝난 plan 문서 열한 개를 지우고, 어딘가에 남아있던 "데이터베이스 없음"이라는 거짓말도 고쳤다 (예전엔 맞는 말이었다).</p>
+<hr />
+<p>creaturex는 무게중심이 출시 채비 쪽으로 옮겨갔다. 도감 카드에서 학명 대신 일반명이 먼저 보이게 바꿨다. 만들 때부터 알고 있었지만 미뤄둔 거였는데, 아무리 봐도 Panthera tigris보다 호랑이가 먼저 나와야 정상이다. 보전 등급은 카드 색부터 뱃지, 목록까지 앱 전체의 시각 언어로 끌어올렸고, 상세 카드엔 홀로그래픽 포일 셰이더를 넣었다. 포켓몬 카드 반짝이는 그거. 기능적으론 아무 의미도 없는데 이번 주 작업 중에 제일 재밌었던 것 같다.</p>
+<p>도메인도 붙였다. creaturex.heg.wtf DNS를 올리고, universal link를 클레임하고, 설치 페이지 v1을 세웠다. 페이지는 결국 영어로 다시 썼고, 임시로 그려둔 스토어 배지를 애플 공식 에셋으로 바꾸고, 실기기 스크린샷을 넣었다. 앱보다 랜딩 페이지 만드는 게 더 오래 걸리는 날이 있는데 그게 좀 웃기다.</p>
+<hr />
+<p>제주공항주차는 좀 창피한 걸 고쳤다. iOS deployment target이 26.0으로 박혀 있었다. 설치 가능한 기기가 사실상 없다는 뜻이다. 15.0으로 내리고 나서야 정상이 됐다. 며칠 동안 설치가 안 되는 앱을 스토어에 올려두고 있었던 셈인데, 이런 건 아무도 안 알려준다. 배너 광고가 화면별·광고단위별로 얼마나 나가는지 계측하는 것도 이번에 붙여서, 이제야 숫자를 볼 수 있게 됐다.</p>
+<p>drift-buddy-race는 짬짬이 물리를 고쳤다. 프레임레이트에 따라 차 속도가 달라지고 있었다. 모니터 주사율이 다르면 다른 게임이 되는 거다. 매 프레임 리렌더도 걷어내고, 트랙 분기는 코드에서 데이터로 뺐다. 게임은 고친 게 바로 눈에 보여서 좋다.</p>
+<p>heg-core에는 이번 주에만 지식이 서른 건 넘게 쌓였다. 내가 직접 넣는 게 아니라 대화 중에 알아서 적재되는 구조라, 커밋 로그를 보고 나서야 이만큼 쌓였구나 하고 안다. 쌓이는 건 좋은데 다시 꺼내 쓰는 경로가 아직 약한 것 같다. 적재는 자동인데 회수는 수동인 상태.</p>
+<p>레포 여섯 개를 한 주 내내 왔다갔다 했는데, 정작 하나도 끝났다고 말할 수 있는 게 없다. 이게 벌여놓기만 하는 건지 여러 갈래로 같이 미는 건지는 아직 모르겠다.</p>
+<p>26.08.09 — 다음 주엔 하나는 진짜 끝났으면.</p></div>
+                    <footer class="entry-meta">1593 chars · 12 paragraphs · <a href="/2026/08/09/260809/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="260802" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2026-08-02T00:00:00+09:00" itemprop="datePublished">2026-08-02</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2026/08/02/260802/" itemprop="url"><span itemprop="headline">260802</span></a>
+                        <span class="entry-message" itemprop="description">이번 주는 hyper 봇들 입 좀 다물게 만드느라 거의 다 썼다 (creturex 뱃지 시스템도 나왔음)</span>
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2026/08/02/260802/">
-                    </a>
-                    
-                    <a href="/2026/07/26/260726/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2026-07-26T00:00:00+09:00" itemprop="datePublished">2026.07.26</time>
-                            <span class="post-card-label mono">260726</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">hyper 대화를 통째로 채널로 갈아엎었다. 만든 것보다 지운 게 더 시원했던 한 주</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>이번 주도 결국 hyper였다. 커밋만 세어봐도 40개에 가까운데, 나머지 레포를 다 합쳐도 그 절반이 안 된다.</p>
+<p>지난주에 대화를 전부 채널로 갈아엎었으니, 이번 주는 그 채널 안에서 봇들이 "언제 말해야 하는가"를 계속 손봤다. 여러 봇이 같은 방에 있으면 필연적으로 생기는 문제인데, 부르지도 않았는데 끼어들거나, 자기가 방금 한 말을 또 하거나, 한 턴에 여러 번 떠드는 게 계속 거슬렸다. 그래서 호출됐을 때만 말하게 막고, 한 턴엔 한 라운드만 돌게 하고, 새 메시지가 자기 얘기일 때만 턴에 끼어들게 했다. 릴레이도 정해진 홉 수 하나로만 판단하게 단순화했고, 그 홉 수를 넘겨서 멘션이 조용히 버려지던 것도 이제는 최소한 버려졌다는 티는 내게 고쳤다. 사람이 중간에 메시지를 보내면 큐에 쌓이는 대신 봇의 턴을 바로 끊고 들어가게 만든 것도 이번 주다. <strong>결국 다 여러 봇이 있는 방을 진짜 단체 채팅방처럼 느껴지게 만드는 작업이었던 것 같다.</strong> 근데 "자연스럽다"는 감각이 고칠 때마다 미묘하게 달라져서, 하나 잡으면 다른 데서 또 어색함이 튀어나온다. 이게 규칙 몇 개로 끝날 문제인가 싶기도 하고.</p>
+<hr />
+<p>재미있었던 건 봇이 스스로 팔로우업을 예약하는 기능이다. "이따 확인해서 알려줄게" 하고 끝내버리는 게 아니라, 그 약속을 실제로 스케줄러에 등록해서 나중에 정말로 돌아와서 말하게 만들었다. 사람도 @멘션 대상이 되게 하고, 누가 나를 부르면 알림이 오게 한 것도 같은 맥락이다. 링크를 붙이면 OpenGraph 카드로 언퍼닝되는 것, 메시지를 위/아래 화살표로 다시 불러오는 것, 시스템 알림이 "user"라는 이름의 봇처럼 보이던 걸 콜아웃으로 분리한 것도 이번 주에 처리했다 — 마지막 건 왜 이제야 눈에 띄었나 싶다.</p>
+<p>인프라도 건드렸다. CI를 셀프호스팅 맥 러너로 옮겼는데, hyper뿐 아니라 creturex CI도 같은 이유로 같은 주에 옮겼다. claude-agent-sdk는 0.1.48에서 0.2.128로 올렸다 — 버전 숫자만 보면 겁부터 나는 폭인데, 막상 올리고 나서 큰 사고는 없었던 것 같다 (아직 며칠 안 지나서 모르는 거지만). ad-revenue 스킬 쪽 리프레시 토큰을 손으로 갱신하던 것도 스크립트 하나로 대체했다.</p>
+<hr />
+<p>creturex에서는 뱃지 시스템을 붙였다. 스키마 마이그레이션하고, award_badges 평가기와 인정(recognition) 훅을 만들고, 기존 데이터 백필까지 돌렸다. 근데 배포하자마자 Hall of Collectors가 본인 것만 보이는 버그가 났다. 원래 다른 사람이 모은 뱃지도 보여야 재미있는 화면인데, 그러면 그냥 개인 마이페이지가 되는 거라 서둘러 고쳤다. 새 기능 만드는 것보다 이런 걸 놓쳤을 때가 더 아쉽다.</p>
+<p>heg.wtf는 홈페이지를 다시 짰다. CreatureX를 앱스토어 링크로 걸었고, 제주공항주차라는 프로젝트도 새로 올렸다. 포트폴리오에 프로젝트가 하나씩 늘어나는 걸 보면 뿌듯하다가도, 이렇게 벌여놓은 걸 다 챙길 수 있나 하는 생각이 문득 든다. driverpub은 AdMob이랑 안드로이드 릴리즈 빌드가 깨져서 그거 고치는 데 시간을 좀 썼다 (live_activities 패키지를 1.9.5에서 2.4.9로 올렸더니 풀렸다 — 이런 사소한 의존성 하나가 릴리즈를 통째로 막을 수 있다는 걸 또 배웠다).</p>
+<p>hyper에 이렇게 오래 붙어있는 게 맞는 속도인지는 잘 모르겠다. 다음 주는 좀 덜 고치고 더 써볼 생각이다.</p>
+<p>26.08.02 — 봇들 좀 조용해졌으면.</p></div>
+                    <footer class="entry-meta">1313 chars · 10 paragraphs · <a href="/2026/08/02/260802/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="260726" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2026-07-26T00:00:00+09:00" itemprop="datePublished">2026-07-26</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2026/07/26/260726/" itemprop="url"><span itemprop="headline">260726</span></a>
+                        <span class="entry-message" itemprop="description">hyper 대화를 통째로 채널로 갈아엎었다. 만든 것보다 지운 게 더 시원했던 한 주</span>
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2026/07/26/260726/">
-                    </a>
-                    
-                    <a href="/2026/07/19/260719/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2026-07-19T00:00:00+09:00" itemprop="datePublished">2026.07.19</time>
-                            <span class="post-card-label mono">260719</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">hyper는 껍데기 씌워 트레이로 들이고, Loupe는 앱스토어 서류랑 씨름한 한 주</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>이번 주는 hyper의 대화 구조를 통째로 뜯어고쳤다.</p>
+<p>그동안 hyper에는 봇과의 1:1 대화가 있고, 여러 봇을 묶는 그룹이 따로 있었다. 처음엔 그게 자연스러워 보였는데, 봇이 늘어나니까 같은 주제를 어디서 얘기했는지 내가 못 찾겠더라. 1:1에서 시작한 얘기를 그룹으로 못 옮기고, 그룹에서 정리한 걸 다시 1:1로 못 가져오고. 결국 슬랙처럼 채널 하나로 다 통일하기로 했다. DM도 그냥 봇 하나짜리 채널이다.</p>
+<p>한번에 갈아엎는 대신 단계를 잘게 쪼갰다. 채널 저장소를 먼저 만들고, 그 위에 라운드/릴레이/스레드를 도는 턴 러너를 올리고, 기존 그룹을 채널로 승격시키는 마이그레이션을 붙이고, 루틴을 채널로 흘려보내고, HTTP API와 SSE를 뚫고, 웹 UI와 네이티브 UI를 각각 얹고, 마지막에 플래그로 컷오버. 여러 갈래를 동시에 밀어붙였다. <strong>마이그레이션보다 롤백을 먼저 만들었는데, 이번 작업에서 제일 잘한 선택인 것 같다.</strong> 되돌릴 수 있다는 걸 알고 나니까 그 뒤로는 겁 없이 밀 수 있었다 (실제로 롤백을 쓴 적은 없지만, 그건 별개다).</p>
+<hr />
+<p>그리고 나서는 계속 지웠다. 레거시 1:1 채팅과 그룹 채팅 웹 컴포넌트, 그룹 HTTP 표면, 네이티브의 죽은 대화/그룹 탭과 그 생성 시트, 안 쓰는 훅, 완료된 plan 문서 스물한 개. 음성 모드(STT/TTS)도 이번에 통째로 들어냈다. 만들 때는 꽤 공들였던 기능인데, 몇 달을 안 쓰더라. 텍스트로 봇한테 시키는 게 훨씬 빠르고 정확한데 굳이 말을 걸 이유가 없었던 것 같다.</p>
+<p>새 기능 커밋보다 삭제 커밋을 볼 때가 더 후련했다. 왜 만들 때보다 지울 때 기분이 좋은 걸까. 만드는 건 미래에 대한 약속이고 지우는 건 그 약속을 이제 안 지켜도 된다는 확인이라 그런가 (아닐 수도 있고).</p>
+<hr />
+<p>채널이 생기고 나니 슬랙에서 당연한 게 여기엔 하나도 없다는 게 보였다. 그래서 남은 시간은 대부분 그걸 채우는 데 썼다. 멘션 자동완성과 멘션 칩, 리액션, 북마크, ⌘K 검색과 메시지로 점프, 슬래시 커맨드, 클립보드 이미지를 붙여넣으면 그대로 첨부되는 것, 프로필 이름과 아바타, 같은 사람이 연달아 쓴 메시지는 하나로 합치기. 하나하나는 별거 아닌데 이게 없으면 채팅 같지가 않다.</p>
+<p>제일 마음에 드는 건 봇이 지금 뭘 하고 있는지 흘려보내는 거다. 예전엔 봇한테 뭘 시키면 한참 조용하다가 결과만 툭 떨어졌다. 그 침묵이 늘 불안했다. 지금은 도구를 부르는 중이면 부르는 중이라고, 루틴이 돌고 있으면 돌고 있다고 그 자리에 보여준다. 결과가 빨라진 건 아무것도 없는데 체감은 완전히 다르다.</p>
+<p>봇 말투도 손봤다. 이모지 불릿을 강제로 붙이던 규칙을 걷어내고, 절을 이어붙이는 em dash를 금지하고, 조직 공통 규칙을 봇에 물려서 톤 감사를 돌게 했다. 봇이 사람처럼 말하게 만들려고 규칙을 이렇게까지 쌓는 게 맞나 싶긴 한데, AI가 쓴 티 나는 문장을 매일 읽는 것보단 낫다고 생각하는 중이다.</p>
+<hr />
+<p>이번 주엔 문서도 꽤 고쳤다. README에 없는 기능이 적혀 있고, 아키텍처 문서가 이미 사라진 모듈을 가리키고 있었다. 채널로 갈아엎으면서 코드는 다 바뀌었는데 문서만 옛날 세계에 남아 있던 거다. 다 고치고 나서 문서가 또 어긋나면 테스트가 깨지도록 가드를 두 개 붙였다. 파이썬·타입스크립트·스위프트 린트도 CI에 다 물렸고, 타입 힌트 누락 여든여섯 건을 한 번에 정리했다. 재미있는 일은 아닌데, 이런 걸 안 해두면 다음에 크게 갈아엎을 때 내가 고생한다.</p>
+<p>곁다리로 제주 주차 앱은 1.0.0 첫 제출 준비를 마쳤다. 패키지 이름 통일하고, 런치 화면 정리하고, 요금 계산 결과 다듬고, 배너를 폭 100% 어댑티브로 바꾸고, 스크린샷 캡처 하니스까지. 서류 채우는 게 힘든 건 지난주에 이미 배웠는데도 또 오래 걸렸다. 맛집 앱에는 AdMob 배너를 붙였고, heg-core엔 이번 주에도 지식이 조금씩 쌓였다.</p>
+<p>다음 주엔 채널을 실제로 며칠 써보면서 뭐가 불편한지 볼 생각이다. 만든 사람이 쓰기 시작하면 그때부터가 진짜인 것 같다.</p>
+<p>26.07.26 — 새로 만든 줄보다 지운 줄이 더 많았던 주.</p></div>
+                    <footer class="entry-meta">1502 chars · 15 paragraphs · <a href="/2026/07/26/260726/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="260719" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2026-07-19T00:00:00+09:00" itemprop="datePublished">2026-07-19</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2026/07/19/260719/" itemprop="url"><span itemprop="headline">260719</span></a>
+                        <span class="entry-message" itemprop="description">hyper는 껍데기 씌워 트레이로 들이고, Loupe는 앱스토어 서류랑 씨름한 한 주</span>
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2026/07/19/260719/">
-                    </a>
-                    
-                    <a href="/2026/07/12/260712/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2026-07-12T00:00:00+09:00" itemprop="datePublished">2026.07.12</time>
-                            <span class="post-card-label mono">260712</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">이름 바꾸고, 뜯어내고, 되돌린 한 주 (덤으로 새 사진앱 하나)</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>이번 주 hyper는 브라우저 밖으로 나왔다.</p>
+<p>지난 몇 주 hyper 대시보드는 그냥 브라우저 탭이었다. 편하긴 한데, 탭은 어쩐지 임시라는 느낌을 지울 수가 없다. 켜야 보이고, 닫으면 사라지고. 그래서 로컬 대시보드를 통째로 감싸는 네이티브 macOS 앱을 tauri v2로 만들었다. 트레이에 아이콘이 상주하고(둥근 사각형에 상태 점 하나 깜빡이는), 로그인하면 자동으로 뜨고, 대시보드에서 설치 파일을 바로 받게 했다. 사실 안쪽은 여전히 같은 웹이고 껍데기 하나 씌운 게 전부다. 근데 트레이에 늘 떠 있으니까 이 도구를 대하는 내 태도가 좀 달라지는 것 같다. <strong>웹을 네이티브로 감싼 건 기능적으론 아무것도 아닌데, 상주한다는 것 하나가 생각보다 크다.</strong> 이게 그냥 기분 문제인지는 아직 모르겠다 (지난주에 이름 바꾸고 개운했던 거랑 비슷한 결인가 싶기도 하고).</p>
+<p>겸사겸사 봇이 광고 수익을 긁어오는 스킬도 하나 붙였다. admob은 앱별로, adsense는 사이트별로 얼마 벌었는지 한군데서 보여주게. 요즘 자잘한 앱이 늘다 보니(주차 앱들에, 곧 나올 사진 앱까지) 이것들이 실제로 돈이 되긴 하는지 궁금했다. 물론 액수는 민망한 수준이다. 근데 숫자를 눈앞에 두는 거랑 안 두는 건 다르니까. 왜 이걸 지금 굳이 보고 싶어졌는지는 나도 잘 모르겠다.</p>
+<p>모바일 쪽은 불을 껐다. 봇 응답이 스트리밍으로 흘러들어올 때 SwiftUI가 뷰 전체를 몇십 번씩 다시 그리면서 버벅였다. 글자 한 조각 들어올 때마다 화면을 통째로 재렌더하고 있었으니 당연히 느렸다. 그걸 잡고, 무한 반복하던 pulse 애니메이션도 symbolEffect로 갈아끼웠다. 새 기능은 아닌데, 안 하면 계속 거슬리는 종류의 일이다. 지난주에 abyss로 남겨뒀던 죽은 코드도 이번에 다 쓸어냈다 (이름 바꾸고 나면 이런 뒷정리가 한참 따라온다).</p>
+<hr />
+<p>지난주에 며칠 됐다고 거칠다던 그 사진 앱(denvik, 표시 이름 Loupe)을 이번 주엔 App Store에 올리기로 마음먹었다. 그래서 절반은 이름과 서류 일이었다. 스토어 이름을 'Loupe - AI Photo Search'로 확정하고, 부제·키워드 짜고, Team ID 박고, 암호화 수출 선언에 개인정보방침 초안까지. 화면에 남아 있던 Denvik 흔적도 Loupe로 다 통일했다. 사실 만드는 것보다 이 서류 채우는 게 더 진을 빼는 것 같다.</p>
+<p>나머지 절반은 온통 성능이었다. 일단 os_signpost로 인터랙션 지연을 계측하는 것부터 깔고, 그 위에서 눈에 밟히는 버벅임을 하나하나 잡았다. 색인 중 UI가 최대 1초씩 얼어붙던 hang, 상세뷰 들어갈 때 검은 갭, ESC 누르면 EXIF 읽느라 1초 멈추던 것, 그리드 스크롤 프리페치, 상세 지도를 탭할 때만 로드하게 지연 마운트... 검색 자체도 레코드 재정규화를 걷어내서 약 2.8배 빨라졌다. 검색 모델은 MobileCLIP S0에서 S2로 올렸고, 흔들리거나 포커스 나간 사진을 라플라시안 선명도로 찾는 것도 붙였다.</p>
+<p><strong>작은 사진 앱 하나에 이렇게까지 성능을 파는 게 맞나 싶은데, 손이 자꾸 간다.</strong> 아무도 눈치 못 챌 1초짜리 버벅임인데, 그게 있으면 내가 못 견디는 것 같다. 이게 사용자를 위한 건지 그냥 내 강박인지는 잘 모르겠다. 다만 온디바이스로 자연어 검색이 딱딱 걸릴 때의 손맛은 매끄러워야 완성되는 거라, 결국 다 필요한 일이라고 스스로를 설득하는 중이다 (설득이 되나).</p>
+<p>곁다리로 주차 앱도 하나 갈라냈다. 예전에 만든 airport-parking을 포크해서 제주 전용으로 축소한 jeju-parking. AdMob SDK 들어내고, 거짓 만차가 뜨던 버그 잡고, Firebase랑 패키지 새로 붙였다. 템플릿 하나 잘 만들어두면 지역만 갈아끼워 새 앱을 뽑아낼 수 있는지 확인하는 실험에 가깝다. 이게 의미가 있나 싶다가도, 만드는 비용이 거의 안 드니까 일단 던져본다. heg-core엔 이번 주에도 조용히 지식이 쌓였다. 봇들이 알게 된 걸 한군데 모으는 그 저장소인데, 외부 서비스 계정 레지스트리 같은 것도 노트로 정리해 넣었다. 눈에 띄는 변화는 없지만 이런 게 나중에 어디서 힘을 쓸 거라고 믿는 수밖에.</p>
+<p>한 줄로 하면, hyper는 껍데기를 얻었고 Loupe는 스토어 문 앞까지 갔다. 다음 주엔 Loupe를 진짜 심사에 넣을 수 있을지 모르겠다. 서류가 제일 무섭다.</p>
+<p>26.07.19 — 코드보다 개인정보방침 쓰는 게 더 오래 걸린 주.</p></div>
+                    <footer class="entry-meta">1649 chars · 11 paragraphs · <a href="/2026/07/19/260719/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="260712" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2026-07-12T00:00:00+09:00" itemprop="datePublished">2026-07-12</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2026/07/12/260712/" itemprop="url"><span itemprop="headline">260712</span></a>
+                        <span class="entry-message" itemprop="description">이름 바꾸고, 뜯어내고, 되돌린 한 주 (덤으로 새 사진앱 하나)</span>
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2026/07/12/260712/">
-                    </a>
-                    
-                    <a href="/2026/06/21/260621/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2026-06-21T00:00:00+09:00" itemprop="datePublished">2026.06.21</time>
-                            <span class="post-card-label mono">260621</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">이번 주는 abyss가 멱살 잡고 끌고 갔다. 그룹 채팅을 0에서 끝까지 한 번에 밀어붙였고, habiku는 안쪽을 단단하게, creaturex는 출시 준비, godfather는 깃발만 꽂았다. abyss 이번 주의 주인공. 한 봇이랑 1:1로 떠들던 앱에 "그룹 채…</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>이번 주는 새로 뭘 붙이기보다 이름을 바꾸고, 만들어둔 걸 다시 뜯어내는 데 대부분을 썼다. 코드가 늘기보다 줄어든 주에 가깝다.</p>
+<p>가장 큰 건 abyss를 hyper로 바꾼 일이다. 몇 달을 붙잡고 있던 프로젝트인데, 어느 날 abyss(심연)라는 이름이 갑자기 무겁게 느껴졌다. 뭔가 계속 아래로 가라앉는 느낌이랄까. hyper가 heg랑도 결이 맞고(hyperengineeringgroup) 훨씬 가볍다. 근데 이름 하나 바꾸는 게 이렇게 손이 많이 갈 줄은 몰랐다. python 패키지명, iOS 디렉토리, 번들 id(com.heg.abyss → com.heg.hyper), 대시보드, 심지어 그룹 워크스페이스 심링크까지 abyss 흔적을 하나하나 걷어냈다. 순수하게 기능이 늘어난 건 하나도 없는데 며칠이 갔다. <strong>그럼에도 다 바꾸고 나니 이상하게 개운했다.</strong> 이름이 바뀌니까 프로젝트를 대하는 내 마음도 살짝 달라지는 것 같다 (이건 좀 비합리적인가 싶기도 하고).</p>
+<p>이름만 바꾼 게 아니라 안쪽도 많이 덜어냈다. 봇한테 붙여뒀던 기억 장치들 — episodic diary(봇이 스스로 일기를 쓰는), persona drift(성격이 시간에 따라 흔들리는), about_me(사용자에 대한 공유 지식) — 를 이번 주에 다 들어냈다. 만들 때는 다들 그럴싸했는데, 몇 주 지켜보니 제값을 못 하고 있었다. 화려한데 실제로 대화를 나아지게 하진 않는 것들. 결국 facts store 하나만 남겼다. 봇한테 뭘 기억하게 할까를 몇 달 고민했는데, 답은 자꾸 덜어내는 쪽으로 가는 것 같다. 만드는 것보다 지우는 게 더 어려운 건 왜일까.</p>
+<p>그 자리에 넣은 건 좀 다른 결의 기억이다. skill distillation — 봇이 대화하면서 스스로 스킬을 써 내려가고, 그렇게 자란다. 봇이 초안을 만들면 대시보드에서 내가 승인하는 흐름을 붙였고, built-in / custom 구분도 없앴다. 봇이 만든 스킬이나 내가 만든 스킬이나 이제 같은 것이다. <strong>봇이 스스로 만든 걸 내가 승인한다는 게 뭔가 묘하다.</strong> 얘가 자기한테 필요한 도구를 알아서 정의하고, 나는 그걸 검수하는 사람이 된 셈이다. 이게 지금 하는 게 맞나 싶으면서도, 이 방향이 재밌긴 하다. 겸사겸사 heg-core라는 공유 지식 저장소도 깔았다 (cron으로 추출 → git에 커밋 → qmd로 검색). 봇들이 각자 알게 된 걸 한군데 모으는 실험.</p>
+<p>그리고 하나 인정할 것. 이번 주에 대시보드 ui를 shadcn에서 HeroUI v3로 통째로 옮기는 작업을 슬라이스 단위로 열몇 번에 걸쳐 했다. tooltip, tabs, switch, select, dialog, card, button... 하나씩 다 옮겼다. 그래놓고 결국 전부 되돌렸다. 다시 shadcn으로. 옮기고 나서 보니 얻는 것보다 잃는 게 많았고, 이럴 거면 안 하느니만 못하다는 판단이 섰다. 며칠치 커밋을 revert 한 방에 날려버리는 기분이 좋을 리는 없다. 근데 잘못 든 길에서 계속 걸어가는 것보단 낫다고 생각한다. 되돌릴 줄 아는 것도 능력이면 능력이고 (자기위안인가).</p>
+<p>composer도 새로 짰다. slack 스타일로 입력하면서 서식이 바로 먹는 라이브 포매팅 컴포저를 웹 1:1 → 웹 그룹 → 네이티브 iOS 순으로 세 번 만들었다. 웹은 lexical로, iOS는 네이티브로, @멘션 자동완성까지. 같은 걸 세 번 만드는 건 지겨울 법도 한데 플랫폼마다 결이 달라서 생각보다 지겹진 않았다.</p>
+<hr />
+<p>새 프로젝트도 하나 시작했다. denvik. macOS 사진 앱인데(표시 이름은 Loupe로 정했다) 핵심은 온디바이스 AI 사진 검색이다. 사진을 클라우드에 올리지 않고 내 맥 안에서만 검색하고 싶었다. MobileCLIP을 Core ML로 돌려서 온디바이스 임베딩을 만들고, 한국어로 검색하면 한→영 번역 훅을 태워서 매칭한다. 날짜/즐겨찾기/사진종류 필터에, 지역명을 넣으면 gps 반경으로 거르는 위치 기반 검색까지 붙였다. UI는 맥 사진 앱 결을 따라가면서 Liquid Glass를 입혔다. 아직 며칠 안 된 프로젝트라 거칠지만, 온디바이스로 자연어 검색이 실제로 먹을 때는 좀 신기하긴 했다. 이게 남이 쓸 만한 게 될지는 모르겠다. 일단 내가 쓰고 싶어서 만드는 중.</p>
+<p>hyper 쪽만 보면 만든 것보다 이름 바꾸고, 뜯어내고, 되돌린 게 더 많은 주였다. 근데 이런 주가 오히려 다음 주를 가볍게 만드는 것 같기도 하고 (맞나?).</p>
+<p>26.07.12 — 이번 주 revert 한 방이 제일 아팠음.</p></div>
+                    <footer class="entry-meta">1699 chars · 10 paragraphs · <a href="/2026/07/12/260712/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="260621" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2026-06-21T00:00:00+09:00" itemprop="datePublished">2026-06-21</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2026/06/21/260621/" itemprop="url"><span itemprop="headline">260621</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2026/06/21/260621/">
-                    </a>
-                    
-                    <a href="/2026/06/14/260614/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2026-06-14T00:00:00+09:00" itemprop="datePublished">2026.06.14</time>
-                            <span class="post-card-label mono">260614</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">이번 주는 creaturex 몰빵. 지난 주에 MVP 골격을 세웠으면, 이번 주는 살을 붙이는 한 주였다. abyss랑 habiku는 한 손가락씩. creaturex 먼저 이름부터 바꿨다. creturex → creaturex. 오타 같던 철자를 제대로 잡고 런치 자…</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>이번 주는 abyss가 멱살 잡고 끌고 갔다. 그룹 채팅을 0에서 끝까지 한 번에 밀어붙였고, habiku는 안쪽을 단단하게, creaturex는 출시 준비, godfather는 깃발만 꽂았다.</p>
+<h2>abyss</h2>
+<p>이번 주의 주인공. 한 봇이랑 1:1로 떠들던 앱에 "그룹 채팅"을 통째로 넣었다.</p>
+<p>데이터 모델부터 깔고(HEG-79), 여러 봇이 한 방에서 순서대로 말하는 멀티봇 오케스트레이션(HEG-80, 81), 세션 API랑 SSE(HEG-83), 그 위에 모바일 화면·생성·멤버 관리·@멘션 자동완성·첨부파일까지 줄줄이 올렸다. 그룹 안에서 봇들이 알아서 턴을 주고받는 오케스트레이터 모드(HEG-84)가 핵심이다. 봇 하나가 아니라 팀을 부르는 느낌.</p>
+<p>푸시도 제대로 붙였다. 백엔드 FCM 전송(HEG-100)부터 Flutter 앱 수신, 서비스 계정 키가 막히는 환경 대비해서 ADC 인증까지. 크론·하트비트 결과도 푸시로 받게 했고, 앱이 닫혀 있어도 답장 푸시가 오게 잡았다. 푸시 탭하면 해당 채팅이 바로 열린다.</p>
+<p>나머지는 다듬기. 새 대화 시트, 스와이프 삭제·이름변경, 음성 버튼 토글, 스마트 자동 스크롤, 슬래시 커맨드 자동완성, 탭바 개편 + 설정 탭. 안 쓰던 GitHub Pages 랜딩은 걷어냈다. 군더더기 정리.</p>
+<h2>habiku</h2>
+<p>겉보다 속을 채운 주. Apple 로그인을 넣어서 익명 계정을 영구 계정으로 잇고 데이터를 복구하게 했다. 기기 바꿔도 기록이 안 날아가야 하니까 이건 꼭 필요한 작업.</p>
+<p>진행탭도 보강했다. 7일↔30일 토글, 최고 연속·누적·전주 대비 증감·습관별 완료율·지난 리뷰 카드까지. 주간 리뷰는 수동 진입을 빼고 자동 트리거만 남겼고, 완료율 분모를 경과일수로 고쳤다(고정 /7은 첫 주에 거짓말을 한다). 콜드스타트 로딩도 병렬 init으로 줄였다.</p>
+<h2>creaturex</h2>
+<p>출시 모드. App Store 재제출용으로 빌드번호 올리고, iOS 권한 설명문을 영어 로컬라이제이션에 맞췄다. Crashlytics 붙여서 죽는 순간을 잡고, lint+test CI도 깔았다. 도감 카드엔 IUCN 등급색이랑 캡처별 사진 swipe. 만드는 단계에서 내보내는 단계로 넘어가는 중.</p>
+<h2>godfather</h2>
+<p>새 프로젝트. macOS 메뉴바 앱이고 아직 init 커밋 하나. 뭐가 될지는 다음 주에.</p></div>
+                    <footer class="entry-meta">886 chars · 9 paragraphs · <a href="/2026/06/21/260621/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="260614" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2026-06-14T00:00:00+09:00" itemprop="datePublished">2026-06-14</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2026/06/14/260614/" itemprop="url"><span itemprop="headline">260614</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2026/06/14/260614/">
-                    </a>
-                    
-                    <a href="/2026/06/07/260607/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2026-06-07T00:00:00+09:00" itemprop="datePublished">2026.06.07</time>
-                            <span class="post-card-label mono">260607</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">이번 주는 양이 많았다. creturex가 지난 주 깃발만 꽂고 이번 주에 혼자 터졌고, abyss는 Phase 3부터 8까지 밀어붙였다. habiku도 조용히 쌓였다. creturex 지난 주 init 하나였는데 이번 주에 PR 19개. 0에서 MVP까지 한 주 만…</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>이번 주는 creaturex 몰빵. 지난 주에 MVP 골격을 세웠으면, 이번 주는 살을 붙이는 한 주였다. abyss랑 habiku는 한 손가락씩.</p>
+<h2>creaturex</h2>
+<p>먼저 이름부터 바꿨다. creturex → creaturex. 오타 같던 철자를 제대로 잡고 런치 자산까지 싹 갈아엎었다. 이런 건 미루면 미룰수록 손이 더 가니까 일찍 끊는 게 맞다.</p>
+<p>진짜 큰 줄기는 "도감 깊이 채우기"였다. 카드 상세화면에 Wikipedia 종 설명, 전 세계 발견 기록 수, IUCN 보전 등급, 발견 위치 지도 섹션까지 붙였다. 그냥 "찍었다" 끝이 아니라, 찍은 생물에 대해 알게 되는 흐름. 분류도 과/속/종 3단계로 제대로 보여준다.</p>
+<p>지도는 flutter_map에서 google_maps_flutter로 갈아탔다. 마커도 원형에서 사진 카드 형태로 바꾸고. 리더보드(Hall of Naturalists)에 프로필 아바타도 올렸다.</p>
+<p>뒤쪽도 챙겼다. Sentry 에러 캡처, Firebase Analytics 핵심 플로우 이벤트, Slack 알림에 codename·국가·언어 표시. 스캔 화면 깜빡임이랑 좌표 정밀도 버그도 줄줄이 잡았다. 0에서 시작한 게 슬슬 "앱" 같아진다.</p>
+<h2>abyss</h2>
+<p>모바일 채팅 본문을 16px로 키웠다(HEG-60). 딱 그거 하나. 이번 주는 쉬어가는 주.</p>
+<h2>habiku</h2>
+<p>데일리 체크인에 하루 피드백 수집이랑 목적 가드레일을 붙였다(HEG-45). 코치 앱이 사용자 하루를 더 잘 읽게 만드는 작업. 작지만 방향은 맞다.</p></div>
+                    <footer class="entry-meta">588 chars · 7 paragraphs · <a href="/2026/06/14/260614/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="260607" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2026-06-07T00:00:00+09:00" itemprop="datePublished">2026-06-07</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2026/06/07/260607/" itemprop="url"><span itemprop="headline">260607</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2026/06/07/260607/">
-                    </a>
-                    
-                    <a href="/2026/05/31/260531/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2026-05-31T00:00:00+09:00" itemprop="datePublished">2026.05.31</time>
-                            <span class="post-card-label mono">260531</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">이번 주는 손이 여기저기 갔다. abyss는 꾸준히, habiku는 0에서 1까지, creturex는 깃발만 꽂았다. abyss 이번엔 워크스페이스 쪽을 만졌다. 채팅 패널 안에서 마크다운을 인라인으로 미리보는 기능을 붙였다. 대화하다가 파일 내용을 바로 보는 거, …</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>이번 주는 양이 많았다. creturex가 지난 주 깃발만 꽂고 이번 주에 혼자 터졌고, abyss는 Phase 3부터 8까지 밀어붙였다. habiku도 조용히 쌓였다.</p>
+<h2>creturex</h2>
+<p>지난 주 init 하나였는데 이번 주에 PR 19개. 0에서 MVP까지 한 주 만에.</p>
+<p>Flutter 셋업, Supabase 데이터 모델, Gemini 인식 어댑터, 온보딩, 스캔 HUD, 위치 마스킹, 포획 이력, 오프라인 큐, 다국어(한/영/일), 앱 내 설정, 도감 잠금 해제 애니메이션, 스플래시 화면까지. 뭔가 쭉 늘어놓으니까 많아 보이는데 실제로도 많았다.</p>
+<p>카메라로 뭔가를 "발굴"하는 앱이다. 위치를 마스킹해서 좌표는 비공개로, 공유는 되는 구조. 아직 구체적인 그림을 공개하긴 이른데, 방향 자체는 잡혔다.</p>
+<h2>abyss</h2>
+<p>지난 주 Phase 1, 2로 공진화 기반을 깔았으면 이번 주는 Phase 3부터 8까지 달렸다.</p>
+<p>SELF.md로 봇이 스스로 돌아보고(Phase 3), 에피소드·사실 기억(Phase 4), 스킬 제안 큐(Phase 5), 목표 추적(Phase 6), 크로스봇 위임(Phase 7), 페르소나 드리프트 + 대시보드(Phase 8)까지. 읽어보면 SF처럼 들리는데 다 코드다.</p>
+<p>그 사이에 이미지 첨부 인라인 썸네일, 클립보드 붙여넣기, Linear MCP 연동도 들어갔다. abyss에서 Linear 이슈를 바로 다루는 게 되니까 흐름이 끊기지 않는다. SDK 스트리밍 타임아웃 버그도 잡았다.</p>
+<h2>habiku</h2>
+<p>LLM 제공사를 MiniMax에서 Claude로 바꿨다. 함수별로 모델을 독립 선택하는 구조라 교체가 깔끔했다.</p>
+<p>iOS 홈스크린 위젯이 들어갔고, 설정 섹션 재정비, 데이터 초기화, 데일리 체크인 알림 수정, 다국어(한/영/일)까지. 지난 주에 골격을 다 세웠으니 이번 주는 완성도를 올린 느낌이다. Welcome split-flap 속도도 1.6배 빠르게 했다. 이런 작은 디테일이 은근 중요하다.</p>
+<h2>한우찾기</h2>
+<p>FCM 푸시 토큰 등록 붙이고 1.0.6+1 릴리즈했다. 로컬 알림 OS 권한 요청 누락이랑 한우뉴스 크롤러 cron 실패도 잡았다. 조용하지만 착실하게.</p></div>
+                    <footer class="entry-meta">829 chars · 10 paragraphs · <a href="/2026/06/07/260607/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="260531" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2026-05-31T00:00:00+09:00" itemprop="datePublished">2026-05-31</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2026/05/31/260531/" itemprop="url"><span itemprop="headline">260531</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2026/05/31/260531/">
-                    </a>
-                    
-                    <a href="/2026/05/24/260524/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2026-05-24T00:00:00+09:00" itemprop="datePublished">2026.05.24</time>
-                            <span class="post-card-label mono">260524</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">이번 주도 abyss 몰빵. PR 10개. 큰 줄기는 "공진화(co-evolution)"다. abyss 봇이랑 사용자가 같이 자라는 그림을 그리고 있다. Phase 1로 숫자 피드백(1/2/3)을 받기 시작했고, Phase 2a에선 ABOUT_ME라는 공유 지식 베이…</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>이번 주는 손이 여기저기 갔다. abyss는 꾸준히, habiku는 0에서 1까지, creturex는 깃발만 꽂았다.</p>
+<h2>abyss</h2>
+<p>이번엔 워크스페이스 쪽을 만졌다. 채팅 패널 안에서 마크다운을 인라인으로 미리보는 기능을 붙였다. 대화하다가 파일 내용을 바로 보는 거, 생각보다 흐름이 안 끊겨서 좋다. 모바일 채팅 버블엔 복사 버튼 달고, 페이지 타이틀에 위치도 보이게 했다.</p>
+<p>버그도 하나 잡았다. 워크스페이스 API가 모바일 세션 id에 'chat_' 접두사를 두 번 붙이던 거. 이런 건 꼭 한 번 데이고 나서 발견된다. 문서도 워크스페이스 프리뷰를 README / CLAUDE.md / TECHNICAL-NOTES에 엮어뒀다.</p>
+<h2>habiku</h2>
+<p>이번 주의 진짜 주인공. 빈 폴더에서 시작해 PR 9개로 골격을 다 세웠다. AI 퍼포먼스 코치 앱이다.</p>
+<p>AI 전략 엔진(MiniMax M2.5 + Supabase)부터 깔고, 루틴 완료 → 알림 → 홈으로 이어지는 흐름을 붙였다. Today Supabase 동기화에 E2E 테스트까지, 데일리 체크인("오늘을 돌아보고 내일을 빚는다"), 3탭 셸에 Progress·Settings, 주간 리뷰랑 Today 스트릭/Day N/넛지까지. 마지막엔 공유 위젯이랑 상수 정리하고, 코칭 수학을 순수 함수로 빼서 단위 테스트 붙였다. 로직 짰으면 테스트는 당연한 거.</p>
+<p>일주일 만에 이만큼 모양이 잡히니 기분 좋다.</p>
+<h2>creturex</h2>
+<p>프로젝트 시작. 아직 init 커밋 하나뿐이다. 뭐가 될지는 다음 주에.</p></div>
+                    <footer class="entry-meta">584 chars · 7 paragraphs · <a href="/2026/05/31/260531/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="260524" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2026-05-24T00:00:00+09:00" itemprop="datePublished">2026-05-24</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2026/05/24/260524/" itemprop="url"><span itemprop="headline">260524</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2026/05/24/260524/">
-                    </a>
-                    
-                    <a href="/2026/05/03/260503/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2026-05-03T00:00:00+09:00" itemprop="datePublished">2026.05.03</time>
-                            <span class="post-card-label mono">260503</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">이번 주는 abyss 한 곳에 몰빵한 주다. 한 주에 PR이 스무 개 넘게 올라왔다. 정신없었다. abyss 큰 줄기는 두 가지. Claude Code 통합 Phase 1~6 마무리, 그리고 대시보드 강화. CC changelog plan을 6단계로 쪼개서 진행하던 …</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>이번 주도 abyss 몰빵. PR 10개. 큰 줄기는 "공진화(co-evolution)"다.</p>
+<h2>abyss</h2>
+<p>봇이랑 사용자가 같이 자라는 그림을 그리고 있다. Phase 1로 숫자 피드백(1/2/3)을 받기 시작했고, Phase 2a에선 ABOUT_ME라는 공유 지식 베이스를 깔았다. 봇이 사용자에 대해 아는 걸 한 곳에 모으는 거다. Phase 2b에선 AI가 ABOUT_ME를 직접 제안하고 사용자가 확인하는 흐름까지 붙였다. 대시보드에서 바로 본다. 이 흐름이 만들어지니까 봇이 "기억하는 느낌"이 확 살아난다.</p>
+<p>문서도 한 번 싹 정리했다. ABOUT_ME랑 숫자 피드백을 README, ARCHITECTURE, TECHNICAL-NOTES, ROADMAP, CLAUDE.md에 한 번에 박았다. 새 개념 들어올 때 문서 안 고치면 나중에 후회한다.</p>
+<p>자잘한 것들도 많았다. 루틴 답장 푸시 알림, 루틴 상세 자동 스크롤 픽스, 봇 별명(role label) — "앤 (집사)" 같은 — 옵션 추가, 채팅·루틴 읽음/안읽음 표시. about-me 페이지 영문 카피 번역도 했고, 마지막으로 Python 3.12 지원하느라 PEP 758 문법 걷어냈다. 의존성 환경 맞추는 건 어쩔 수 없다.</p>
+<p>공진화 그림이 슬슬 형태가 잡힌다. 다음 Phase가 기대된다.</p></div>
+                    <footer class="entry-meta">508 chars · 5 paragraphs · <a href="/2026/05/24/260524/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="260503" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2026-05-03T00:00:00+09:00" itemprop="datePublished">2026-05-03</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2026/05/03/260503/" itemprop="url"><span itemprop="headline">260503</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2026/05/03/260503/">
-                    </a>
-                    
-                    <a href="/2026/04/19/260419/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2026-04-19T00:00:00+09:00" itemprop="datePublished">2026.04.19</time>
-                            <span class="post-card-label mono">260419</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">몇 주째 조용하다가 이번 주는 두 프로젝트에서 동시에 움직였다. 드라이버펍 GPS로 코스를 자동 기록하는 기능을 Phase 1~6 한 번에 넣었다. 원래 코스 등록이란 게 수동으로 찍어주는 거였는데, 달리는 동안 GPS가 알아서 기록해주면 등록 자체가 훨씬 쉬워진다.…</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>이번 주는 abyss 한 곳에 몰빵한 주다. 한 주에 PR이 스무 개 넘게 올라왔다. 정신없었다.</p>
+<h2>abyss</h2>
+<p>큰 줄기는 두 가지. Claude Code 통합 Phase 1~6 마무리, 그리고 대시보드 강화.</p>
+<p>CC changelog plan을 6단계로 쪼개서 진행하던 게 이번 주에 끝났다. env var 주입(Phase 1), MCP alwaysLoad와 500K meta(Phase 2), PreCompact 훅(Phase 3), PostToolUse telemetry와 skill-conditional 훅(Phase 4), disableSkillShellExecution과 sandbox.deniedDomains(Phase 5), ultrareview wrapper와 per-bot effort level(Phase 6). 이걸 다 끝내고 plan 문서들도 싹 지웠다. 끝난 plan은 빨리 치우는 게 정신건강에 좋다.</p>
+<p>대시보드도 많이 건드렸다. 빈도 히트맵 추가하고, Telegram 봇 프로필 사진 보여주고, 채팅 UI를 양방향 동기화로 한번 올렸다가 되돌리고 다시 top-level <code>/chat</code>으로 분리해서 올렸다. 파일 첨부(이미지·PDF)도 붙였고, raw next build 로그 대신 빌드 체크리스트로 바꿨다. 한 번에 들어가니 정리가 깔끔해졌다.</p>
+<p>그 외 자잘한 것들. openai_compat 백엔드 추가해서 MiniMax 직접 붙였고, bot.yaml에서 api_key 바로 받게 했다. 마크다운→텔레그램 HTML 변환에서 링크 URL 새니타이징하는 보안 픽스도 했다. 회귀 테스트로 display_name 복원이랑 사이드바 collapse 잠금 잡고, 커버리지도 끌어올렸다. 버전은 2026.04.29 → 2026.04.30로 두 번 올렸다.</p>
+<p>조용한 주가 몇 번 지나면 이렇게 한 번에 터진다. 다음 주는 좀 쉬어가도 될 듯.</p></div>
+                    <footer class="entry-meta">748 chars · 6 paragraphs · <a href="/2026/05/03/260503/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="260419" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2026-04-19T00:00:00+09:00" itemprop="datePublished">2026-04-19</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2026/04/19/260419/" itemprop="url"><span itemprop="headline">260419</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2026/04/19/260419/">
-                    </a>
-                    
-                    <a href="/2026/04/12/260412/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2026-04-12T00:00:00+09:00" itemprop="datePublished">2026.04.12</time>
-                            <span class="post-card-label mono">260412</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">2주 연속 커밋 하나짜리 주다. 조용하다. cclaw 봇 세션에서 상속된 플러그인을 비활성화하는 수정을 했다. 지난주에 훅 상속을 끊었는데, 이번엔 플러그인 쪽도 같은 처리를 한 거다. 부모 설정에서 내려오는 것들이 봇 세션에 영향을 주면 안 되는데, 훅만 막고 플러…</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>몇 주째 조용하다가 이번 주는 두 프로젝트에서 동시에 움직였다.</p>
+<h2>드라이버펍</h2>
+<p>GPS로 코스를 자동 기록하는 기능을 Phase 1~6 한 번에 넣었다. 원래 코스 등록이란 게 수동으로 찍어주는 거였는데, 달리는 동안 GPS가 알아서 기록해주면 등록 자체가 훨씬 쉬워진다. 드라이버펍의 결이 "기록"인 만큼, 기록하는 마찰을 줄이는 게 제일 중요하다고 봤다.</p>
+<p>Phase를 6단계로 나눠서 PR 하나로 밀어버렸는데, 이게 맞는 방식인지는 모르겠다. 나눠 올렸으면 리뷰가 더 쉬웠을 텐데, 혼자 하는 프로젝트라 그냥 묶어버렸다.</p>
+<h2>alive</h2>
+<p>한 주에 몰아쳐서 꽤 많이 건드렸다. 푸시 탭 네비게이션이랑 포그라운드 알림을 구현했고, 타임존·로케일 하드코딩을 걷어냈다. 감정 스키마 마이그레이션도 같이. 이런 건 나중에 고치려면 더 아픈 것들이라 미리 정리한 게 다행이다.</p>
+<p>체크인 쿨다운을 24시간에서 6시간으로 줄였다. 하루 한 번은 너무 뻑뻑하다는 감이 있었는데, 6시간이면 하루에 몇 번 들여다볼 수 있어서 훨씬 살아있는 느낌이 날 거 같다.</p>
+<p>CI Flutter 버전도 3.32.2에서 3.38.6으로 올리고, 테스트도 보강했다. 조용한 주가 몇 번 지나더니 이번엔 몰아서 터진 주다.</p></div>
+                    <footer class="entry-meta">462 chars · 6 paragraphs · <a href="/2026/04/19/260419/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="260412" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2026-04-12T00:00:00+09:00" itemprop="datePublished">2026-04-12</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2026/04/12/260412/" itemprop="url"><span itemprop="headline">260412</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2026/04/12/260412/">
-                    </a>
-                    
-                    <a href="/2026/04/05/260405/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2026-04-05T00:00:00+09:00" itemprop="datePublished">2026.04.05</time>
-                            <span class="post-card-label mono">260405</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">이번 주는 진짜 조용했다. 커밋 하나. cclaw 봇 세션 설정에서 상속된 훅을 비활성화하는 수정을 했다. 부모 설정이 봇 세션으로 흘러들어오면서 의도치 않은 동작이 생기는 문제였는데, 지난주에 isolation directive 추가한 것의 연장선이다. 봇이 독립적…</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>2주 연속 커밋 하나짜리 주다. 조용하다.</p>
+<h2>cclaw</h2>
+<p>봇 세션에서 상속된 플러그인을 비활성화하는 수정을 했다. 지난주에 훅 상속을 끊었는데, 이번엔 플러그인 쪽도 같은 처리를 한 거다. 부모 설정에서 내려오는 것들이 봇 세션에 영향을 주면 안 되는데, 훅만 막고 플러그인은 그대로 두면 반쪽짜리 격리니까.</p>
+<p>격리는 한 번에 끝나는 게 아니라 구멍을 하나씩 메꿔가는 작업이다. 지난주 훅, 이번 주 플러그인. 다음엔 또 뭐가 나올지 모르겠지만, 이런 식으로 하나씩 잡아가면 결국엔 완전한 격리가 된다.</p>
+<p>두 주째 안정화 모드인데, 나쁘지 않다. 지금은 이런 시간이 필요하다.</p></div>
+                    <footer class="entry-meta">239 chars · 4 paragraphs · <a href="/2026/04/12/260412/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="260405" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2026-04-05T00:00:00+09:00" itemprop="datePublished">2026-04-05</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2026/04/05/260405/" itemprop="url"><span itemprop="headline">260405</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2026/04/05/260405/">
-                    </a>
-                    
-                    <a href="/2026/03/29/260329/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2026-03-29T00:00:00+09:00" itemprop="datePublished">2026.03.29</time>
-                            <span class="post-card-label mono">260329</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">이번 주는 조용한 주였다. 커밋 수만 보면 그렇다. cclaw 랜딩 페이지를 또 업데이트했다. v2026.03.25로 버전을 올렸는데, 지난주에 세 번 올리더니 이번 주도 어김없이. 랜딩 페이지는 한 번 손대면 끝이 없다는 걸 매주 증명하고 있다. 봇 쪽에서는 CLA…</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>이번 주는 진짜 조용했다. 커밋 하나.</p>
+<h2>cclaw</h2>
+<p>봇 세션 설정에서 상속된 훅을 비활성화하는 수정을 했다. 부모 설정이 봇 세션으로 흘러들어오면서 의도치 않은 동작이 생기는 문제였는데, 지난주에 isolation directive 추가한 것의 연장선이다. 봇이 독립적으로 돌아가려면 이런 격리가 확실해야 한다.</p>
+<p>커밋 하나짜리 주라고 의미가 없는 건 아니다. 오히려 이런 수정이 운영에서 가장 중요한 것들이다. 화려한 기능 추가보다 조용히 안정성을 챙기는 주. 지난 몇 주가 기능 추가의 연속이었으니, 이번 주는 쉬어가는 타이밍이었다.</p></div>
+                    <footer class="entry-meta">230 chars · 3 paragraphs · <a href="/2026/04/05/260405/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="260329" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2026-03-29T00:00:00+09:00" itemprop="datePublished">2026-03-29</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2026/03/29/260329/" itemprop="url"><span itemprop="headline">260329</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2026/03/29/260329/">
-                    </a>
-                    
-                    <a href="/2026/03/24/260324/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2026-03-24T00:00:00+09:00" itemprop="datePublished">2026.03.24</time>
-                            <span class="post-card-label mono">260324</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">이번 주는 cclaw 한 우물만 팠다. 근데 그 한 우물이 꽤 깊었다. cclaw 가장 눈에 띄는 건 cclaw 랜딩 페이지를 만든 거다. cclaw.heg.wtf에 GitHub Pages로 배포했는데, ASCII 다이어그램으로 시작해서 CSS 기반 비주얼 다이어그램…</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>이번 주는 조용한 주였다. 커밋 수만 보면 그렇다.</p>
+<h2>cclaw</h2>
+<p>랜딩 페이지를 또 업데이트했다. v2026.03.25로 버전을 올렸는데, 지난주에 세 번 올리더니 이번 주도 어김없이. 랜딩 페이지는 한 번 손대면 끝이 없다는 걸 매주 증명하고 있다.</p>
+<p>봇 쪽에서는 CLAUDE.md에 isolation directive를 추가했다. 부모 설정을 무시하도록 격리하는 건데, 봇이 여러 개 돌아가면서 설정이 꼬이는 문제가 있었나 보다. 이런 건 한 번 겪으면 바로 고치게 된다.</p>
+<p>PID 검증에서 OverflowError 터지는 버그도 잡았다. foreground PID 기록도 같이 수정했는데, 이런 자잘한 버그가 운영 안정성을 갉아먹는 거라 빨리 잡은 게 다행이다.</p>
+<p>커밋은 네 개뿐이지만, 안정화에 집중한 주였다. 지난 몇 주가 기능 폭발이었으니 이번 주는 숨 고르기 같은 느낌이다. 이런 주도 필요하다.</p></div>
+                    <footer class="entry-meta">344 chars · 5 paragraphs · <a href="/2026/03/29/260329/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="260324" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2026-03-24T00:00:00+09:00" itemprop="datePublished">2026-03-24</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2026/03/24/260324/" itemprop="url"><span itemprop="headline">260324</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2026/03/24/260324/">
-                    </a>
-                    
-                    <a href="/2026/03/13/260313/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2026-03-13T00:00:00+09:00" itemprop="datePublished">2026.03.13</time>
-                            <span class="post-card-label mono">260313</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">이번 주는 cclaw가 한 단계 레벨업한 주였다. 그리고 뜬금없이 레이싱 게임도 만들었다. cclaw ClawHouse라는 웹 대시보드를 새로 만들었다. Phase 1부터 시작해서 대화 뷰어, 봇 편집, CLI까지 일주일 만에 Phase 3까지 밀어붙였다. 다크/라이…</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>이번 주는 cclaw 한 우물만 팠다. 근데 그 한 우물이 꽤 깊었다.</p>
+<h2>cclaw</h2>
+<p>가장 눈에 띄는 건 cclaw 랜딩 페이지를 만든 거다. cclaw.heg.wtf에 GitHub Pages로 배포했는데, ASCII 다이어그램으로 시작해서 CSS 기반 비주얼 다이어그램으로 바꾸고, 히어로 카피도 몇 번이나 고치고, 결국 일주일 동안 세 번이나 버전을 올렸다. 랜딩 페이지 하나에 이렇게 공을 들일 줄이야. 그래도 이제 누군가한테 "이거 뭐하는 건데?"라고 물으면 링크 하나 던지면 되니까, 잘한 거라고 본다.</p>
+<p>ClawHouse 대시보드도 계속 진화 중이다. 커스텀 스킬 CRUD를 넣어서 대시보드에서 바로 스킬을 만들고 수정할 수 있게 했고, 메모리 에디터에 마크다운 렌더링도 추가했다. 크론 에디터, 로그 관리, 세션 삭제, 개별 대화 파일 삭제까지. 대시보드가 점점 제대로 된 관리 도구가 되어가고 있다.</p>
+<p>GitHub에서 스킬을 임포트하는 기능도 넣었다. CLI에서도 텔레그램에서도 쓸 수 있게 했는데, 이러면 다른 사람이 만든 스킬을 가져다 쓸 수 있는 생태계의 시작점이 되는 거다. 크론 편집도 CLI에서 $EDITOR로, 텔레그램에서 ForceReply로 할 수 있게 만들었다.</p>
+<p>설정 쪽도 손봤다. 타임존이랑 언어 설정을 Select 드롭다운으로 바꿨고, vitest 커버리지 설정도 추가했다. ESLint 에러 잡고 에러 핸들링 빠진 곳도 메꿨다. 이런 자잘한 것들이 쌓여야 도구가 안정되는 거니까.</p>
+<p>이번 주는 cclaw를 밖에서도 안에서도 다듬은 주였다. 밖으로는 랜딩 페이지, 안으로는 대시보드와 스킬 시스템. 점점 혼자 쓰는 도구에서 남한테 보여줄 수 있는 프로젝트가 되어가고 있다.</p></div>
+                    <footer class="entry-meta">646 chars · 6 paragraphs · <a href="/2026/03/24/260324/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="260313" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2026-03-13T00:00:00+09:00" itemprop="datePublished">2026-03-13</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2026/03/13/260313/" itemprop="url"><span itemprop="headline">260313</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2026/03/13/260313/">
-                    </a>
-                    
-                    <a href="/2026/03/09/260309/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2026-03-09T00:00:00+09:00" itemprop="datePublished">2026.03.09</time>
-                            <span class="post-card-label mono">260309</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">이번 주는 거의 cclaw 주간이었다. 꼭 가야할 장소 데이터를 꾸준히 밀어넣고 있다. 이번 주에만 37개 장소를 새로 추가했다. 서울이랑 제주 구색을 갖추겠다고 했는데 조금씩 채워지고 있는 느낌이다. 데이터가 쌓여야 앱이 의미가 생기니까, 지금은 그냥 묵묵히 넣는 …</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>이번 주는 cclaw가 한 단계 레벨업한 주였다. 그리고 뜬금없이 레이싱 게임도 만들었다.</p>
+<h2>cclaw</h2>
+<p>ClawHouse라는 웹 대시보드를 새로 만들었다. Phase 1부터 시작해서 대화 뷰어, 봇 편집, CLI까지 일주일 만에 Phase 3까지 밀어붙였다. 다크/라이트 테마에 실시간 상태 폴링도 넣었고, 사이드바에 봇 목록 메뉴까지 붙였다. 디스크 사용량 표시도 추가해서 서버 상태를 한눈에 볼 수 있게 됐다. pip install로 설치할 수 있게 패키징까지 했으니 이제 누구든 쓸 수 있다.</p>
+<p>가장 큰 건 멀티봇 그룹 협업 시스템이다. 봇 여러 개가 하나의 그룹에서 같이 돌아가는 건데, 이거 은근 구현이 복잡했다. QMD 마크다운 지식 검색도 시스템 전체 기본으로 넣었고, Claude Agent SDK용 Node.js 브릿지도 만들었다. 버전을 세 번이나 올렸다. 일주일에 세 번이라니.</p>
+<h2>드리프트 버디 레이스</h2>
+<p>Lovable로 레이싱 게임을 만들기 시작했다. 부스트 기능 넣고, 관중석 만들고, 건물이랑 카메라맨 배치하고, 유럽풍 도시 환경까지 구현했다. 데미지 시스템은 넣었다 뺐다를 한 열 번 반복한 것 같다. 결국 빼기로 했다. 랩 감지 로직도 몇 번이나 고쳤고, GitHub Pages 배포까지 완료했다. 커밋 수만 봐도 얼마나 삽질했는지 느껴진다.</p>
+<h2>alive</h2>
+<p>Alive 앱 랜딩 페이지를 새로 만들고 앱스토어 다운로드 링크도 달았다. 간단한 작업이지만 이런 거 하나하나가 앱을 진짜 서비스처럼 보이게 만든다.</p>
+<p>이번 주는 확실히 만드는 재미에 빠진 한 주였다. 대시보드 만들고, 게임 만들고, 랜딩 페이지 만들고. 뭘 만들든 일단 손이 가면 멈출 수가 없다.</p></div>
+                    <footer class="entry-meta">626 chars · 6 paragraphs · <a href="/2026/03/13/260313/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="260309" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2026-03-09T00:00:00+09:00" itemprop="datePublished">2026-03-09</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2026/03/09/260309/" itemprop="url"><span itemprop="headline">260309</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2026/03/09/260309/">
-                    </a>
-                    
-                    <a href="/2026/03/02/260302/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2026-03-02T00:00:00+09:00" itemprop="datePublished">2026.03.02</time>
-                            <span class="post-card-label mono">260302</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">블로그를 2월 12일에 올리고 거의 한달만인데 이번에는 좀 길다. 드리븐 안드로이드에 출시를 하고 스레드에 몇번 홍보를 하고 2월 앱푸시를 세팅했다. 하루에 약 1-4명정도 신규 가입자가 있는 상태. 이제는 어느정도 운영레벨로 들어가도 되는 상태라고 보고 있다. 사용…</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>이번 주는 거의 cclaw 주간이었다.</p>
+<h2>꼭 가야할</h2>
+<p>장소 데이터를 꾸준히 밀어넣고 있다. 이번 주에만 37개 장소를 새로 추가했다. 서울이랑 제주 구색을 갖추겠다고 했는데 조금씩 채워지고 있는 느낌이다. 데이터가 쌓여야 앱이 의미가 생기니까, 지금은 그냥 묵묵히 넣는 중.</p>
+<h2>cclaw</h2>
+<p>진짜 이번 주도 cclaw에 빠져 살았다. 가장 큰 변화는 QMD라는 마크다운 지식 검색을 시스템 전체에 기본으로 넣은 거다. 봇이 알아서 문서를 찾아서 답변할 수 있게 됐다.</p>
+<p>자연어로 크론 스케줄을 관리하는 기능도 넣었다. 텔레그램에서 "매일 아침 9시에 뉴스 보내줘" 같은 식으로 말하면 알아서 스케줄을 잡아준다. 이거 은근 편하다.</p>
+<p>그리고 Claude Agent SDK를 위한 Node.js 브릿지를 만들었고, 텔레그램 스트리밍 응답도 구현했다. 봇이 생각하는 동안 메시지가 실시간으로 올라오는 건데, 체감 속도가 확 달라졌다. 다이소몰 검색 스킬도 추가했고, 스킬 분류 체계도 builtin/custom으로 정리했다.</p>
+<p>버전도 두 번이나 올렸다. 일주일에 두 번 릴리즈라니, 확실히 속도가 붙었다. 이제는 도구 자체가 점점 쓸만해지고 있어서, 만드는 게 더 재밌어지는 선순환이 시작된 것 같다.</p></div>
+                    <footer class="entry-meta">464 chars · 6 paragraphs · <a href="/2026/03/09/260309/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="260302" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2026-03-02T00:00:00+09:00" itemprop="datePublished">2026-03-02</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2026/03/02/260302/" itemprop="url"><span itemprop="headline">260302</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2026/03/02/260302/">
-                    </a>
-                    
-                    <a href="/2026/02/12/260212/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2026-02-12T00:00:00+09:00" itemprop="datePublished">2026.02.12</time>
-                            <span class="post-card-label mono">260212</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">이번 주는 진짜 미친 한 주였다. 동시에 프로젝트를 몇 개를 돌리고 있는 건지 나도 잘 모르겠다. 머스트고 머스트고가 이번 주 MVP다. 지역-목적 종속 관계를 구현해서 필터가 훨씬 자연스러워졌고, 공유 기능이랑 현위치 표시도 넣었다. 앱 이름도 바꾸고 아이콘도 새로…</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>블로그를 2월 12일에 올리고 거의 한달만인데 이번에는 좀 길다. </p>
+<h2>드리븐</h2>
+<p>안드로이드에 출시를 하고 스레드에 몇번 홍보를 하고 2월 앱푸시를 세팅했다. 하루에 약 1-4명정도 신규 가입자가 있는 상태. <br />
+이제는 어느정도 운영레벨로 들어가도 되는 상태라고 보고 있다. 사용 관련 지표는 아래와 같다. </p>
+<p><img src="/2026/03/02/260302/driven-analytics.png" alt="driven-analytics" width="200" style="display:inline-block;"></p>
+<h2>머스트고 -&gt; 꼭 가야할</h2>
+<p>약간 앱 이름이 아직은 마음이 안들긴 한데, 어쨋든 아이폰은 출시하고 안드로이드는 출시를 안한 상황. <br />
+데이터를 서울과 제주를 어느정도 채우고 진행을 해야하는데 아직 그러진 못하고 있다. (사실 이건 <a href="https://github.com/heg-wtf/cclaw">cclaw</a>에 빠져서..)<br />
+일단 3월 목표는 서울과 제주 구색을 갖추고 안드로이드까지 가는 것, 아직 iOS는 판매량 자체도 N/A로 떠서 <br />
+이것도 안드로이드를 타겟으로 해야겠다.</p>
+<h2>운영레벨</h2>
+<p>사실상 운영레벨로 들어간 앱들은 실시간 공항주차, 드리븐, 한우찾기, 마블노트 이정도인것 같고 <br />
+생각보다 안드로이드 쪽에서 그렇게 다운로드가 많진 않은데 이건 플레이콘솔을 좀 더 공부를 해야할 것 같다. </p>
+<p><img src="/2026/03/02/260302/ios-0302.png" alt="ios-0302" width="200" style="display:inline-block;"></p>
+<p>사실 구정 연휴 직전에 openclaw에 빠져서 <a href="https://github.com/heg-wtf/cclaw">cclaw</a>라고 관련 프로젝트를 계속 이어오고 있다. HEG 프로젝트와는 무관하지만 그래도 재밌어서 2주정도 해오고 있는데 이제는 조금 일주일에 1일 정도로 한정해서 진행하려고 한다. </p>
+<h2><a href="https://github.com/heg-wtf/cclaw">cclaw</a></h2>
+<p>진짜 이번 주 커밋의 대부분이 <a href="https://github.com/heg-wtf/cclaw">cclaw</a>다. 빌트인 스킬을 대량으로 추가했는데, Supabase, Gmail, Google Calendar, Twitter, Jira, DART 공시, 번역까지 다 넣었다. 이제 텔레그램 봇 하나로 웬만한 건 다 할 수 있게 됐다. 스킬마다 이모지도 달아서 어떤 스킬이 응답하는지 한눈에 보이게 했고, 크론 스케줄러에 타임존 지원도 넣었다.</p>
+<p>그리고 <code>/compact</code> 명령어를 만들었는데 빌트인 스킬 MD 파일 14개를 압축해서 토큰을 68%나 줄였다. 이건 꽤 뿌듯하다. Global Memory 기능도 추가해서 봇들끼리 기억을 공유할 수 있게 했고, AES-256 암호화 백업 커맨드도 만들었다. 보안 감사 리포트도 한번 돌려봤는데 33개 이슈가 나왔다. 하나씩 잡아야지.</p>
+<h2>네이버/카카오/다이소 CLI</h2>
+<p>네이버 오픈 API CLI 도구를 새로 만들었다. 검색 API 5종 지원하고 pip으로 설치할 수 있게 했다. 카카오 로컬 API CLI도 같이 만들었고, 다이소몰 상품 검색 CLI도 초기 구현했다. 셋 다 <a href="https://github.com/heg-wtf/cclaw">cclaw</a> 빌트인 스킬로 연동하려고 만든 건데, 이렇게 작은 CLI 도구들을 조합해서 큰 시스템을 만드는 게 재밌다. 유닉스 철학이랄까.</p>
+<p>이번 주는 확실히 도구를 만드는 주였다. 앱 만드는 것도 좋지만 개발 도구를 만드는 건 또 다른 재미가 있다.</p></div>
+                    <footer class="entry-meta">1004 chars · 11 paragraphs · <a href="/2026/03/02/260302/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="260212" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2026-02-12T00:00:00+09:00" itemprop="datePublished">2026-02-12</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2026/02/12/260212/" itemprop="url"><span itemprop="headline">260212</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2026/02/12/260212/">
-                    </a>
-                    
-                    <a href="/2026/01/09/260109/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2026-01-09T00:00:00+09:00" itemprop="datePublished">2026.01.09</time>
-                            <span class="post-card-label mono">260109</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">드라이브펍 -> 드리븐 드라이브펍을 드리븐으로 이름을 변경했다. 차쟁이 + 펍 이런느낌이었는데 너무 나만 충만한 느낌이지 않았나 싶다. 드리븐은 영화이름에서 따온것인데 나쁘지 않는것 같다. 1월달 firebase messaging을 등록했다. 지금 약 200명 정도 …</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>이번 주는 진짜 미친 한 주였다. 동시에 프로젝트를 몇 개를 돌리고 있는 건지 나도 잘 모르겠다.</p>
+<h2>머스트고</h2>
+<p>머스트고가 이번 주 MVP다. 지역-목적 종속 관계를 구현해서 필터가 훨씬 자연스러워졌고, 공유 기능이랑 현위치 표시도 넣었다. 앱 이름도 바꾸고 아이콘도 새로 만들었다. 네이버 지도 크롤러를 따로 만들었는데, 장소 데이터를 자동으로 긁어오는 게 생각보다 잘 돼서 기분이 좋다. Crashlytics도 붙여놨으니 이제 앱이 죽으면 바로 알 수 있다. 랜딩 페이지도 네이버 지도 길찾기 연동까지 해놨다. 확실히 손이 많이 가는 프로젝트인데 그만큼 애착도 간다.</p>
+<h2>드리븐</h2>
+<p>안드로이드 강제 업데이트 기능을 넣고 1.1.2, 1.1.3까지 올렸다. Remote Config 기본값 관련 버그도 잡았는데, 이런 소소한 거 하나가 실제 유저한테는 꽤 크리티컬하다. 양쪽 플랫폼 동시에 관리하는 게 쉽지는 않지만 해야지 뭐.</p>
+<h2>미니게임101</h2>
+<p>미니게임 10개짜리 앱을 만들었다. GenZ 다크 네온 UI로 완전히 갈아엎고 영어 로컬라이제이션까지 했다. 해외 시장을 노린 건데 과연 반응이 있을지. 순수하게 재미로 시작한 프로젝트인데 의외로 손이 엄청 간다.</p>
+<h2>그 외</h2>
+<p>프로스트와이즈 Flutter UI를 전체 구현하고 푸시 알림 아키텍처도 잡았다. Supabase 백업 CLI 도구도 새로 만들었는데 이건 운영하면서 꼭 필요할 것 같아서 미리 만들어둔 거다. 스타트업 묵시록이라는 GitBook 스타일 사이트도 시작했다. 공항주차장 앱도 안드로이드 세팅 중이고.</p>
+<p>프로젝트 개수가 점점 늘어나고 있는데, 지금은 일단 다 벌려놓고 반응 오는 쪽에 집중하는 전략으로 가려고 한다. 뭐가 될지는 아무도 모르니까.</p></div>
+                    <footer class="entry-meta">639 chars · 6 paragraphs · <a href="/2026/02/12/260212/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="260109" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2026-01-09T00:00:00+09:00" itemprop="datePublished">2026-01-09</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2026/01/09/260109/" itemprop="url"><span itemprop="headline">260109</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2026/01/09/260109/">
-                    </a>
-                    
-                    <a href="/2026/01/06/260106/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2026-01-06T00:00:00+09:00" itemprop="datePublished">2026.01.06</time>
-                            <span class="post-card-label mono">260106</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">어제 찾기 시리즈를 다시 만들기 시작했다. 생각보다 지금 시장에서 잘 크고 있는 업체자체가 크지 않고 기능도 별로라서 해볼만하다는 게 내 생각이다. 예전에 만들었던 앱을 겨우 찾았다. 그떄 그 아이콘 원본을 가져다 쓰기로 했다. 뭔가 뭉클하다. 클로드는 진짜 미쳤다 …</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><h2>드라이브펍 -&gt; 드리븐</h2>
+<p>드라이브펍을 드리븐으로 이름을 변경했다. 차쟁이 + 펍 이런느낌이었는데 너무 나만 충만한 느낌이지 않았나 싶다. <br />
+드리븐은 영화이름에서 따온것인데 나쁘지 않는것 같다. 1월달 firebase messaging을 등록했다. 지금 약 200명 정도 있는데 <br />
+좀더 늘려야 겠다. 모수가 너무 적다. 일단 1.0.10(1.1.0)에서 드라이브 코스 리뷰를 추가했다. 리뷰가 의미가 있을까? 하는 생각도 들었지만<br />
+여러 드라이브코스들을 중심으로 사람들이 애기를 많이 했으면 좋겠다는 생각을 하고 있다. 그래서 커뮤니티로 발전했으면 좋겠다.</p>
+<h2>찾기 시리즈</h2>
+<p>한우 찾기, 돼지 찾기, 계란 찾기 시리즈를 만들고 있다. 한우 찾기는 내가 2015년에 시작한 서비스인데 그동안 안 했다가 다시 시작을 했고, 돼지 찾기랑 계란 찾기는 뭐 비슷한 축산물 이역제 서비스니까 한번 해보려고 하고 있다. 권고비임이 과연 잘 될지 잘 모르겠다. 여러 가지 경쟁자들이 있다 보니까 사실 많이 망설여지는 것도 있다.</p>
+<h2>base</h2>
+<p>베이스 앱을 $99.99로 해서 만들었는데, 앱으로만 쓰다보니까 확실히 애플 미리 알림에 비해서 조금 부족한 부분이 많이 있어서 맥 앱을 개발하고 있다. 사실 이게 한국에서는 팔지 않다 보니까. 이게 외국에서 어떤 수요가 있을지 모르겠고, 나도 미리알림 앱을 계속 쓰고 있는데 좀 더 내가 만든 앱이 미리알림 앱을 대체했으면 좋겠다. 언제가 될지 모르겠지만 그래도 계속 개발을 하려고 한다. 재밌을 것 같다.</p>
+<p>계속해서 다양한 앱들을 만들고 있다. 클로드가 확실히 앱을 만드는 데 있어서 실행의 민주화를 주었다고 생각한다. 그렇지만 정말 중요한 것은 기획력, 그리고 마케팅인 것 같고, 이제는 바이블 코딩으로 인해서 모든 사람들이 쉽게 앱을 만들 수 있는 시대가 된 것 같다. 그래서 정말 누구나 메이커가 될 수 있는 시대가 됐기 때문에. 어, 좀 더 버티컬하고 취향을 가진 사람들이 재밌는 앱들이 많이 나왔으면 좋겠다. 지금 이 글은 whisper flow를 이용해서 쓰고 있다.</p></div>
+                    <footer class="entry-meta">756 chars · 4 paragraphs · <a href="/2026/01/09/260109/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="260106" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2026-01-06T00:00:00+09:00" itemprop="datePublished">2026-01-06</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2026/01/06/260106/" itemprop="url"><span itemprop="headline">260106</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2026/01/06/260106/">
-                    </a>
-                    
-                    <a href="/2026/01/01/260101/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2026-01-01T00:00:00+09:00" itemprop="datePublished">2026.01.01</time>
-                            <span class="post-card-label mono">260101</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">클로드 코드로 약봉지AI 앱을 만들었다. gemini를 이용하기도 했고. 만든 이유자체는 나는 만성 질환이 있는데, 매일 먹는 약도 3-4가지인데 감기나 혹은 다른 염증성 질환에 걸리면 병원에서 약을 받는데 그때마다 약마다의 같이 먹어도 되는지가 굉장히 의심스럽다. …</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>어제 찾기 시리즈를 다시 만들기 시작했다. 생각보다 지금 시장에서 잘 크고 있는 업체자체가 크지 않고 기능도 별로라서 해볼만하다는 게 내 생각이다. 예전에 만들었던 앱을 겨우 찾았다. 그떄 그 아이콘 원본을 가져다 쓰기로 했다. 뭔가 뭉클하다. </p>
+<p>클로드는 진짜 미쳤다 알아서 파싱도 해준다. 기특한 녀석. 찾기 시리즈에서 좀 더 사업자 중심적인 기능들을 추가하려고한다. 어제 처음으로 4시간동안 프로젝트 3개 정도를 돌려서 4시간 내 10% 이하까지 써봤다. 쉽지 않더라. </p>
+<p>안드로이드 출시 관련해서는 고민이 많다<br />
+가장 큰 문제는 10개의 테스트. 기기나 계정을 10개가 있어야한다는 것인데 이건 그냥 외주로 돌려야 할 것 같다. 지금 출시해야하는 앱이 5-6개 정도인데 5-6만원이면 싼것 같기도하다. 기기 12대 마련하려면 절반만 한다고해도 50은 들것 같다. </p>
+<p>앱을 만드는 속도가 빨라졌다. 역시 처음에는 질보다 양이다. 기획-개발-수익기능-출시까지 3일안에 끊을수 있을것 같다.(iOS 기준) 2026년도에는 메이커로 완전 내 취미와 생황을 여기에 맞출것 같다. 그외에는 식단과 운동 정도? 아프면 아무것도 할 수가 없다. </p></div>
+                    <footer class="entry-meta">439 chars · 4 paragraphs · <a href="/2026/01/06/260106/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="260101" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2026-01-01T00:00:00+09:00" itemprop="datePublished">2026-01-01</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2026/01/01/260101/" itemprop="url"><span itemprop="headline">260101</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2026/01/01/260101/">
-                    </a>
-                    
-                    <a href="/2025/12/30/251230/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2025-12-30T00:00:00+09:00" itemprop="datePublished">2025.12.30</time>
-                            <span class="post-card-label mono">251230</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">어제 profitics라는 서비스를 고민하게 되었고, 어쨋든 나만 쓰는 서비스라도 만들어보자는 생각에 시작을 했는데 생각보다 순조롭게 진행되어서 재밌다. google adsense, admob 등 여러 구글 멀티 어카운트를 사용하는 사람들을 위해서 전환없이 볼 수 있…</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>클로드 코드로 약봉지AI 앱을 만들었다. gemini를 이용하기도 했고. <br />
+만든 이유자체는 나는 만성 질환이 있는데, 매일 먹는 약도 3-4가지인데 <br />
+감기나 혹은 다른 염증성 질환에 걸리면 병원에서 약을 받는데 <br />
+그때마다 약마다의 같이 먹어도 되는지가 굉장히 의심스럽다. </p>
+<p>물론 대부분의 병원에서 약관련 정보들을 <br />
+환자를 중심으로 조회해서 보는것으로 알고 있는데 <br />
+실제 환자가 어떤 약을 현재 복용하고 있는지는 <br />
+환자 본인만 안다. 예를 들어, 한국에서는 약에 대부분 위보호제 같은것을 넣는데 <br />
+여러개의 약을 먹다보면 중복해서 먹을수도 있다. </p>
+<p>그래서 약봉지를 찍으면 약의 장단점을 볼수 있고 <br />
+내가 복용하고 있는 약을 기록할 수 있게 했다. <br />
+그리고 다음에 다시 찍으면 그 복용약을 중심으로 <br />
+상호연관성을 AI가 알려주도록 구성했다. </p>
+<p>어제 심사완료 되긴 했는데 오늘 앱 중단이 되어서 다시 올린 상태 <br />
+이유는 모르겠는데 혹시나 짤린게 아닌가 싶기도하고. 의약쪽은 위험할 수도 있으니.. </p>
+<hr />
+<p>다음 앱은 base라는 앱이다. 사실 todo 앱을 만들고 싶었다. <br />
+여러가지 todo 앱을 쓰면서 지금은 미리 알림을 쓰고 있지만 <br />
+많은것을 담는것 보다는 정말 오늘 내가해야하는 N가지를 확실하게 <br />
+마무리 하는게 개인에게 더 좋다고 생각을 한다. </p>
+<p>이전에는 task를 완료하면 경험치를 쌓고 성장시키는 형태를 생각했는데 <br />
+너무 복잡하고, 성인들중에 그런 시스템에 얼마나 관심이 있을까? <br />
+RPG 게임을 경험해보고 아직도 좋아하는 사람이 아니라면 안 쓸것 같아서 접었다. </p>
+<p>그래도 이 앱은 대한민국은 빼고 출시를 하고 $99.99로 <br />
+실험적으로 출시를 해본다. </p>
+<p>일단 이 앱을 내 생활에 적용을 해보면서 더 디벨롭 해볼 생각이다. </p>
+<p>-- </p>
+<p>2026년에는 많은 앱들을 만들고 <br />
+다양한 시도들을 할 것 같다. </p></div>
+                    <footer class="entry-meta">661 chars · 11 paragraphs · <a href="/2026/01/01/260101/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="251230" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2025-12-30T00:00:00+09:00" itemprop="datePublished">2025-12-30</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2025/12/30/251230/" itemprop="url"><span itemprop="headline">251230</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2025/12/30/251230/">
-                    </a>
-                    
-                    <a href="/2025/12/28/251228/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2025-12-28T00:00:00+09:00" itemprop="datePublished">2025.12.28</time>
-                            <span class="post-card-label mono">251228</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">1pick과 그동안 진행하고 런칭하지 못했던 프로젝트들을 apple connect에서 삭제했다. 마음아픈 일이지만 어쨌든간에 잘 안되는건 버리고 새출발을 하는게 맞다고 생각이 들었다. 그래서 유지하기 어렵거나 의미나 수익이 없다면 지우기로 했다. thedelta도 고…</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>어제 profitics라는 서비스를 고민하게 되었고, 어쨋든 나만 쓰는 서비스라도 만들어보자는 생각에 시작을 했는데 생각보다 순조롭게 진행되어서 재밌다. google adsense, admob 등 여러 구글 멀티 어카운트를 사용하는 사람들을 위해서 전환없이 볼 수 있는 대시보드 사이트를 만들려고 한다. </p>
+<p>일단 만들고 주위 사람들에게 홍보해야지</p></div>
+                    <footer class="entry-meta">151 chars · 2 paragraphs · <a href="/2025/12/30/251230/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="251228" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2025-12-28T00:00:00+09:00" itemprop="datePublished">2025-12-28</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2025/12/28/251228/" itemprop="url"><span itemprop="headline">251228</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2025/12/28/251228/">
-                    </a>
-                    
-                    <a href="/2025/10/16/251016/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2025-10-16T00:00:00+09:00" itemprop="datePublished">2025.10.16</time>
-                            <span class="post-card-label mono">251016</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">드라이버펍, 안드로이드 출시 초읽기 안드로이드 버전을 출시하기 위해서 테스트할 사람들을 찾고 있다. 12명을 찾으면 되는데 안드로이드는 진짜 이게 너무 불편한것 같다. 굉장히 나로써는 큰 도전이자 귀찮은 일이었는데 그래도 빨리 마무리 하고 싶다. 이게 진행이 안되니까…</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>1pick과 그동안 진행하고 런칭하지 못했던 프로젝트들을 apple connect에서 삭제했다. 마음아픈 일이지만 어쨌든간에 잘 안되는건 버리고 새출발을 하는게 맞다고 생각이 들었다. 그래서 유지하기 어렵거나 의미나 수익이 없다면 지우기로 했다. </p>
+<p>thedelta도 고민을 하고 있습니다. 결국 1인 창업가 입장에서 보면 데이터를 수집하거나 제공해야하는 사업은 자동화가 되지 않으면 절대 하면 안된다는 생각이 들었다. 왜냐하면 더 잘하는 실제 기업들이 존재하니까. </p>
+<p>클로드 맥스를 도입한지 일주일 정도 지났고 여러가지 세팅과 함께 원래 진행하려고하던 것들을 매우 쉽게 진행할 수 있게 되었다. </p>
+<p>드라이브펍 애기를 안할수가 없는데 일단 너무 잘 못한건 아직도 안드로이드를 출시하지 못했다는 점. 실행력이 딸리는것 같아서 아쉽고. 코스와 장소는 계속 추가를 하고 있고 커뮤니티 기능 및 프로필 기능까지해서 개발을 한 상태라 안드로이드 테스트 외주를 맡기려고 한다. 크몽이나 숨고에서 찾아봐야 할 것 같다.</p>
+<p>최근에 AI를 직접적으로 이용한 앱을 출시하려고 한다. 아마 다음주 1월초 정도면 아이폰 앱스토어에 올라갈것 같고. 전면광고까지 붙이는 실험을 해서 알마나 사용성이 있는지 확인할 예정이다. </p></div>
+                    <footer class="entry-meta">469 chars · 5 paragraphs · <a href="/2025/12/28/251228/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="251016" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2025-10-16T00:00:00+09:00" itemprop="datePublished">2025-10-16</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2025/10/16/251016/" itemprop="url"><span itemprop="headline">251016</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2025/10/16/251016/">
-                    </a>
-                    
-                    <a href="/2025/10/03/251003/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2025-10-03T00:00:00+09:00" itemprop="datePublished">2025.10.03</time>
-                            <span class="post-card-label mono">251003</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">어제 몇개의 작업을 했다. 일단 localmap.cc를 다시 살렸다. 동네지도라는 컨셉으로 자료를 모으고 잊혀져가는 과거의 동네지도들을 서빙하고 싶어졌다. 자료를 모으는 방식은 1인 창업가에겐 불리한 방식이다. 이 부분을 자동화해야겠다는 생각이 들었다. 원픽도 사실 …</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><h3>드라이버펍, 안드로이드 출시 초읽기</h3>
+<p>안드로이드 버전을 출시하기 위해서 테스트할 사람들을 찾고 있다. 12명을 찾으면 되는데 안드로이드는 진짜 이게 너무 불편한것 같다. 굉장히 나로써는 큰 도전이자 귀찮은 일이었는데 그래도 빨리 마무리 하고 싶다. 이게 진행이 안되니까 뒤에 있는 마케팅이나 웹뷰 공유나 그런 부분이 다 진행하기가 어렵다. 정확히 말하자면 임팩트가 반토막 날 게 뻔한데 왜 다른걸 진행해야할지 나조차 설득이 안됐다. </p>
+<p>어제까지 아이콘 문제를 AI로 해결하려다가 포기하고 그냥 구글 검색으로 찾았다. <a href="https://icon.kitchen/">https://icon.kitchen</a> 기존에 쓰던 툴보다 편하기도하고 안드로이드에 대한 지원 뿐만 아니라 쉽게 아이콘을 만들수 있을것 같아서 만드는데 걸리는 시간이 더 줄것 같다. </p>
+<h2>크롤러</h2>
+<p>기존에 쓰던 네이버 크롤러가 네이버 내부의 정책이 바뀌면서 더 이상 naver id를 수집하지 못하게 되었다. 그래서 완전하진 않지만 그래도 까페, 블로그에 있는 특정 키워드에 대한 글쓴이를 찾을수 있는 크롤러를 만들었다. 이걸 가지고 안드로이드를 만들고 난후에 이메일 마케팅을 진행하려고 한다. 그 툴 역시 AI로 기존에 만들어둔게 있어서 그걸 이용하면 된다. </p>
+<h2>next</h2>
+<p>올해 한개의 앱을 더 내고 싶은데 고민이다. lifetime 유료앱을 내려고 하는데 AI로 뭔가 실험을 하고 싶고, 아이들이나 주부를 대상으로 만들고 싶다. 수익적으로 더 파고 들어야 하는건 맞는데 좀 더 재밌게 다양한 시도를 해보고 싶다. 돈 태우고 광고때리고 광고로 수익을 가져가는게 나쁜건 아닌데, 팔리는 서비스 자체를 만들고 싶다. </p></div>
+                    <footer class="entry-meta">602 chars · 4 paragraphs · <a href="/2025/10/16/251016/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="251003" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2025-10-03T00:00:00+09:00" itemprop="datePublished">2025-10-03</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2025/10/03/251003/" itemprop="url"><span itemprop="headline">251003</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2025/10/03/251003/">
-                    </a>
-                    
-                    <a href="/2025/09/27/250927/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2025-09-27T00:00:00+09:00" itemprop="datePublished">2025.09.27</time>
-                            <span class="post-card-label mono">250927</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">회사일로 너무 바빠서 일을 진행을 못하고 있다. 짜증이 난다. 돈은 회사에서 나오는데 웃긴건 일을 하면 할 수록 점점 더 이쪽에 더 포커스를 맞춰야 한다는것을 직감적으로 느끼게 된다. 결국 지금은 모수를 늘리고 마케팅을 해야한다. 모수를 늘리는 방법은 2가지다. 안드…</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>어제 몇개의 작업을 했다. 일단 <a href="https://localmap.cc">localmap.cc</a>를 다시 살렸다. 동네지도라는 컨셉으로 자료를 모으고 잊혀져가는 과거의 동네지도들을 서빙하고 싶어졌다. 자료를 모으는 방식은 1인 창업가에겐 불리한 방식이다. 이 부분을 자동화해야겠다는 생각이 들었다. </p>
+<p>원픽도 사실 지금 lightsail로 되어 있는데 lightsail은 에이전트 자동화 서버로 사용하고, 아예 supabase edge function으로 이전하려고한다. 빨리 진행해야지 ㅠ</p>
+<p>드라이버펍은 일단 구글플레이 콘솔에서는 본인확인이 되었는데 생각을 해보니 애플뮤직 기반의 드라이브 뮤직은 안드로이드에서 안맞을것 같아서 그 부분은 빼고 진행해야할 것 같다. </p>
+<p>추석 연휴동안 새로운 앱을 또 만들어보려고하고, 여러가지 사항들을 정비하려고한다. 재밌을것 같다. </p></div>
+                    <footer class="entry-meta">320 chars · 4 paragraphs · <a href="/2025/10/03/251003/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="250927" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2025-09-27T00:00:00+09:00" itemprop="datePublished">2025-09-27</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2025/09/27/250927/" itemprop="url"><span itemprop="headline">250927</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2025/09/27/250927/">
-                    </a>
-                    
-                    <a href="/2025/09/12/250912/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2025-09-12T00:00:00+09:00" itemprop="datePublished">2025.09.12</time>
-                            <span class="post-card-label mono">250912</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">오늘 아침에 일어나서 firebase에서 푸시 설정해두었고, 1.0.9 버전을 작업을 했다. 필터링 조금 변경하는 작업 그리고 firebase remote config에서 변수 추가해서 추가로 제어하는 부분, hidden field를 가지고 드라이브코스와 장소를 숨기…</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>회사일로 너무 바빠서 일을 진행을 못하고 있다. 짜증이 난다. 돈은 회사에서 나오는데 웃긴건 일을 하면 할 수록 점점 더 이쪽에 더 포커스를 맞춰야 한다는것을 직감적으로 느끼게 된다. 결국 지금은 모수를 늘리고 마케팅을 해야한다. 모수를 늘리는 방법은 2가지다. 안드로이드 앱을 출시하고, 지속적인 메일링을 통한 앱 다운로드를 늘리는 방법.</p>
+<p>과연 이걸 전업으로 할 수 있을까하는 생각이 든다. </p>
+<p>일단 그래도 계속 만들고 싶다. 취향이 돈이 되고 업이 되는 시대다. </p>
+<p>더이상 코드.개발 이런 제품을 만드는 레벨은 점점 더 낮아지고 있다. <br />
+주말에 중년의 개발자들을 만나도 동일한 애기만 한다. 뭘 만들어야 할지 모른다는거다. </p>
+<p>결국 개인의 생활, 혹은 타인의 관찰을 통해서 소재를 발굴하는게 맞다. <br />
+늘 정답은 나한테 있는게 아닐까? </p>
+<p>경험과 취향에 적절한 돈을 써야한다. <br />
+그래야 취향이 생기고 그 안에서 기회가 생긴다. </p></div>
+                    <footer class="entry-meta">339 chars · 6 paragraphs · <a href="/2025/09/27/250927/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="250912" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2025-09-12T00:00:00+09:00" itemprop="datePublished">2025-09-12</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2025/09/12/250912/" itemprop="url"><span itemprop="headline">250912</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2025/09/12/250912/">
-                    </a>
-                    
-                    <a href="/2025/09/02/250902/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2025-09-02T00:00:00+09:00" itemprop="datePublished">2025.09.02</time>
-                            <span class="post-card-label mono">250902</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">속초에서 너무 놀고와서 내 스스로에게 미안해졌다. 그리고 조급해졌다. 모아두었던 메일로 콜드메일을 보냈다. 타겟팅도 없었다. 문구도 매우 평범했다. 1일정도 보냈는데 지금까지 전혀 가입이 없다. 더 작은 커뮤니티에 더 작은 모수도 이정도는 아니였던것 같은데. 확실히 …</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>오늘 아침에 일어나서 firebase에서 푸시 설정해두었고, <code>1.0.9</code> 버전을 작업을 했다. 필터링 조금 변경하는 작업 그리고 firebase remote config에서 변수 추가해서 추가로 제어하는 부분, hidden field를 가지고 드라이브코스와 장소를 숨기거나 오픈하는 기능을 추가했다. </p></div>
+                    <footer class="entry-meta">135 chars · 1 paragraphs · <a href="/2025/09/12/250912/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="250902" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2025-09-02T00:00:00+09:00" itemprop="datePublished">2025-09-02</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2025/09/02/250902/" itemprop="url"><span itemprop="headline">250902</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2025/09/02/250902/">
-                    </a>
-                    
-                    <a href="/2025/09/01/250901/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2025-09-01T00:00:00+09:00" itemprop="datePublished">2025.09.01</time>
-                            <span class="post-card-label mono">250901</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">tools 속초에 있는 동안 문득 그런 생각이 들었다. 내가 자주 가는 사이트들의 기능들을 모아두자. 그러면 나도 쓰면서 더 낫게 만들고 다른 사람들도 들어와서 쓸테니까? 어떻게보면 안일하지? 유틸 사이트가 세상에 얼마나 많은데 ㅎㅎㅎ 근데 그 생각에 갇히면 이무것도…</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>속초에서 너무 놀고와서 내 스스로에게 미안해졌다. 그리고 조급해졌다. 모아두었던 메일로 콜드메일을 보냈다. 타겟팅도 없었다. 문구도 매우 평범했다. 1일정도 보냈는데 지금까지 전혀 가입이 없다. 더 작은 커뮤니티에 더 작은 모수도 이정도는 아니였던것 같은데. 확실히 타겟팅이 정말 중요한것 같다. 조급해하지말고, 계획대로 가보자.</p></div>
+                    <footer class="entry-meta">145 chars · 1 paragraphs · <a href="/2025/09/02/250902/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="250901" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2025-09-01T00:00:00+09:00" itemprop="datePublished">2025-09-01</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2025/09/01/250901/" itemprop="url"><span itemprop="headline">250901</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2025/09/01/250901/">
-                    </a>
-                    
-                    <a href="/2025/08/26/250826/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2025-08-26T00:00:00+09:00" itemprop="datePublished">2025.08.26</time>
-                            <span class="post-card-label mono">250826</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">어제 자동화툴로 보내는 작업을 진행했다. 생각보다 보내는게 문제가 아니라 어떤 문구로 어떤 내용을 담아서 보내느냐가 문제인것 같다. 오늘 오전에 3명이 추가 가입 했지만 약간 성장세가 멈춘 느낌인데, 다른 커뮤니티에 침투를 해야할 것 같다. 아니면 제목에서 BMW를 …</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>tools </p>
+<p>속초에 있는 동안 문득 그런 생각이 들었다. 내가 자주 가는 사이트들의 기능들을 모아두자. 그러면 나도 쓰면서 더 낫게 만들고 다른 사람들도 들어와서 쓸테니까? 어떻게보면 안일하지? 유틸 사이트가 세상에 얼마나 많은데 ㅎㅎㅎ 근데 그 생각에 갇히면 이무것도 못한다. 커서를 키고 일단 AI가 만들었고 몇가지 고치면서 쓸만해졌다. 나부터 쓰자</p>
+<p>그래서 만든게 <a href="https://tools.heg.wtf">tools.heg.wtf</a>다. 생각나는대로 개발하면서 필요한, 혹은 업무하면서 필요한 것들을 커서에게 만들어달라고 하고 있다. 물론 AI에게 물어보면 되지 않냐고? 그것도 맞는데 물어보는 경우가 더 귀찮은 경우가 많다. 그래서 만들었다. 도움이 되었으면 하는 바램 </p></div>
+                    <footer class="entry-meta">271 chars · 3 paragraphs · <a href="/2025/09/01/250901/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="250826" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2025-08-26T00:00:00+09:00" itemprop="datePublished">2025-08-26</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2025/08/26/250826/" itemprop="url"><span itemprop="headline">250826</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2025/08/26/250826/">
-                    </a>
-                    
-                    <a href="/2025/08/24/250824/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2025-08-24T00:00:00+09:00" itemprop="datePublished">2025.08.24</time>
-                            <span class="post-card-label mono">240824</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">드라이버 펍 1.0.8 버전 오픈, 광고를 달았다. 내일부터 자동화 테스트하고 아직 pushpush 완성은 못했지만 차주 안에 그래도 자동화 돌려는 볼듯, 다음주 목표는 새로운 코스/장소 추가 및 마케팅 자동화 테스트! 추가로 코스에 대한 댓글 혹은 웹사이트 공유를 …</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>어제 자동화툴로 보내는 작업을 진행했다. 생각보다 보내는게 문제가 아니라 어떤 문구로 어떤 내용을 담아서 보내느냐가 문제인것 같다. 오늘 오전에 3명이 추가 가입 했지만 약간 성장세가 멈춘 느낌인데, 다른 커뮤니티에 침투를 해야할 것 같다. 아니면 제목에서 BMW를 빼서 그런것 같기도하고, 사진이 문제일까? 고민이 많다. 고무적인 점은 그래도 블로그 글이나 메일을 통해서 안드로이드가 언제 나오냐는 문의가 있다는 점인듯, 어제 사용자가 5명인데 나를 빼면 4명이겠지. ㅠ</p>
+<p>안드로이드 빨리 런칭하고 까페에 정식으로 홍보하고 으쌰으쌰. </p></div>
+                    <footer class="entry-meta">229 chars · 2 paragraphs · <a href="/2025/08/26/250826/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="240824" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2025-08-24T00:00:00+09:00" itemprop="datePublished">2025-08-24</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2025/08/24/250824/" itemprop="url"><span itemprop="headline">240824</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2025/08/24/250824/">
-                    </a>
-                    
-                    <a href="/2025/08/22/250822/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2025-08-22T00:00:00+09:00" itemprop="datePublished">2025.08.22</time>
-                            <span class="post-card-label mono">240822</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">pushpush 라는 cli 툴을 만들고 있다. 목표는 자동화 발송. 이전에 애기했던 콜드메일 자동화랑 같은 맥락. 어제 찻집에 가서 조금 생각을 정리했다. AI가 있으니까 좀 더 빠르게 일을 할 수 있어서 좋은것 같은데 중심은 내가 잡아야지. 주말동안 광고 붙여서 …</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>드라이버 펍 1.0.8 버전 오픈, 광고를 달았다. 내일부터 자동화 테스트하고 아직 <code>pushpush</code> 완성은 못했지만 차주 안에 그래도 자동화 돌려는 볼듯, 다음주 목표는 새로운 코스/장소 추가 및 마케팅 자동화 테스트! 추가로 코스에 대한 댓글 혹은 웹사이트 공유를 기획을 마무리. 어쨋든 이 앱을 통해서 드라이브코스를 발견하고 서로 어울리는데 도움이 됐으면 좋을것 같다. </p>
+<p><code>#buildinpublic</code>을 트위터(X)나 다른 SNS에 안하고 있는데 이 사이트에 유입이 간혹 들어오는걸 보면 신기하다. 광고를 달아야하나 싶을 정도인데, 근데 SNS가 확실히 더 영향력이 있겠지만 어떤 기록적인 측면에서 나만의 다이어리, 수첩에 쓴다는 느낌을 받고 싶었다. SNS는 쓰는만큼 봐야하는것도(자의든 타의든 보이니까!) 집중이 안된다. 지금 이 글을 쓰는 순간에도 cursor 외엔 다른 툴이 없으니 온전히 내가 내 생각에 집중해서 글을 쓸 수 있다. </p>
+<p>이게 과연 내 삶을 1년내에 대체할 수 있을까? 라는 의문을 가지고 있지만 무조건 도전을 해야한다. 1-2%의 사람들이 사는 방식이라고해서 내가 못 살 이유는 없다. 경제적 주체로써 의사결정을 하고 자유롭게 살고 싶다. </p></div>
+                    <footer class="entry-meta">453 chars · 3 paragraphs · <a href="/2025/08/24/250824/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="240822" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2025-08-22T00:00:00+09:00" itemprop="datePublished">2025-08-22</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2025/08/22/250822/" itemprop="url"><span itemprop="headline">240822</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2025/08/22/250822/">
-                    </a>
-                    
-                    <a href="/2025/08/20/250820/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2025-08-20T00:00:00+09:00" itemprop="datePublished">2025.08.20</time>
-                            <span class="post-card-label mono">240820</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">어제 콜드메일 BMW 타겟으로 보낸게 대박이 났다. 17명이 신규 가입을 했다. 약 13000명에게 보냈는데, 기존에도 있긴 했지만 17명이 한번에 하루에 들어온건 처음이다. 스팸함으로 들어가는 비율을 생각하면 적은 수치는 아닌것 같고, 거의 무자본으로 돌릴수 있게 …</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p><code>pushpush</code> 라는 cli 툴을 만들고 있다. 목표는 자동화 발송. 이전에 애기했던 콜드메일 자동화랑 같은 맥락. 어제 찻집에 가서 조금 생각을 정리했다. AI가 있으니까 좀 더 빠르게 일을 할 수 있어서 좋은것 같은데 중심은 내가 잡아야지. 주말동안 광고 붙여서 1.0.8 버전 오픈하자. 다음주부터는 바로 자동화 들어가야할 것 같고, 월요일부터 일단 스케쥴대로 움직여서 성과를 만들어내야지!</p></div>
+                    <footer class="entry-meta">169 chars · 1 paragraphs · <a href="/2025/08/22/250822/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="240820" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2025-08-20T00:00:00+09:00" itemprop="datePublished">2025-08-20</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2025/08/20/250820/" itemprop="url"><span itemprop="headline">240820</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2025/08/20/250820/">
-                    </a>
-                    
-                    <a href="/2025/08/19/250819/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2025-08-19T00:00:00+09:00" itemprop="datePublished">2025.08.19</time>
-                            <span class="post-card-label mono">240819</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">bonsainsta는 아직 출시를 못했다. 이 상태면 리젝될것 같다. 왜냐하면 인스타그램이랑 다를바가 없어서. 추가로 2가지 기능을 더 넣으려고 한다. 자신만의 태그 그리고 로컬 알림 기능, 어쨋든 목적 자체가 분재를 매일 찍어서 올리는 것이기 때문에 그에 부합하는 …</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>어제 콜드메일 BMW 타겟으로 보낸게 대박이 났다. 17명이 신규 가입을 했다. 약 13000명에게 보냈는데, 기존에도 있긴 했지만 17명이 한번에 하루에 들어온건 처음이다. 스팸함으로 들어가는 비율을 생각하면 적은 수치는 아닌것 같고, 거의 무자본으로 돌릴수 있게 된게 좋다. 매주 코스를 추가하고 그 코스를 애기하는 콜드메일을 보내면? BMW를 넘어서, 벤츠, 아우디 등등 다양한 동호회의 사람들에게 보낸다면? 매우 재밌다. 우연히 메일함에 들어갔다가. 어떤 분이 왜 안드로이드는 없냐는 말! 이번주에 꼭 진행한닷</p></div>
+                    <footer class="entry-meta">223 chars · 1 paragraphs · <a href="/2025/08/20/250820/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="240819" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2025-08-19T00:00:00+09:00" itemprop="datePublished">2025-08-19</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2025/08/19/250819/" itemprop="url"><span itemprop="headline">240819</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2025/08/19/250819/">
-                    </a>
-                    
-                    <a href="/2025/08/15/250815/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2025-08-15T00:00:00+09:00" itemprop="datePublished">2025.08.15</time>
-                            <span class="post-card-label mono">240815</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">분재관리 앱을 만들어 보려고 하다가 포기했다. 이유는 아직 분재에 내가 그렇게 전문적이진 않아서. 대신에 분재를 매일 찍어서 인스타 스토리에 올릴수 있는 앱을 어제부터 만들고 있다. 중국/일본/대만/한국에 출시하려고 한다. 원래 계획은 openai api를 이용해서 …</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>bonsainsta는 아직 출시를 못했다. 이 상태면 리젝될것 같다. 왜냐하면 인스타그램이랑 다를바가 없어서. 추가로 2가지 기능을 더 넣으려고 한다. 자신만의 태그 그리고 로컬 알림 기능, 어쨋든 목적 자체가 분재를 매일 찍어서 올리는 것이기 때문에 그에 부합하는 기능이 들어가야한다. </p>
+<p><a href="https://apps.apple.com/kr/app/%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C%EC%BD%94%EC%8A%A4-%EC%B6%94%EC%B2%9C-driverpub/id6744569013">드라이버펍</a>은 세종-포천 구간을 2개 추가했고 오늘 오전에 약 8000개 정도 메일을 보냈는데 오늘 bmw쪽은 다 보내고 내일 추가로 다른쪽에 콜드 메일을 보내랴고 한다. 이번주에 광고 올려서 1.0.8 배포하고 안드로이드도 테스터 돌려야한다. 개인적으로 안드로이드 20명 테스트는 진짜 최악인것 같다. 이것을 위한 플랫폼을 만드는게 더 나을지도 모르겠다. 피봇아닌 피봇생각 😂</p></div>
+                    <footer class="entry-meta">287 chars · 2 paragraphs · <a href="/2025/08/19/250819/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="240815" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2025-08-15T00:00:00+09:00" itemprop="datePublished">2025-08-15</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2025/08/15/250815/" itemprop="url"><span itemprop="headline">240815</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2025/08/15/250815/">
-                    </a>
-                    
-                    <a href="/2025/08/13/250813/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2025-08-13T00:00:00+09:00" itemprop="datePublished">2025.08.13</time>
-                            <span class="post-card-label mono">240813</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">드라이버펍 1.0.7 릴리즈를 했다. 방금. 이 앱의 끝은 뭘까? 사실 어느정도 자동화를 하고 다음 앱으로 넘어가야할 것 같다. 콜드이메일을 자동화하고 데이터를 넣으면 자동으로 앱 푸시가 가서 리텐션이 유지가 되는 형태로 자동화를 하고 싶다. 결국 이 서비스의 BM은…</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>분재관리 앱을 만들어 보려고 하다가 포기했다. 이유는 아직 분재에 내가 그렇게 전문적이진 않아서. 대신에 분재를 매일 찍어서 인스타 스토리에 올릴수 있는 앱을 어제부터 만들고 있다. 중국/일본/대만/한국에 출시하려고 한다. 원래 계획은 openai api를 이용해서 분재 태그를 만들어서 스토리에 붙일수 있는 스토리를 여러개 만들어서 제공해주는 것이었는데, 아쉽게 인스타그램 SDK에서는 여러 스티커가 안되서 일단 <code>#bonsainsta</code> 스티커만 제공하는 식으로 빠르게 오픈해보려고 한다. 8/17일 정도에 업데이트 하는것을 목표로 하고 있다. </p>
+<p><img src="/2025/08/15/250815/logo.png" alt="logo" width="200" style="display:inline-block;"></p></div>
+                    <footer class="entry-meta">239 chars · 2 paragraphs · <a href="/2025/08/15/250815/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="240813" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2025-08-13T00:00:00+09:00" itemprop="datePublished">2025-08-13</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2025/08/13/250813/" itemprop="url"><span itemprop="headline">240813</span></a>
+                        
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2025/08/13/250813/">
-                    </a>
-                    
-                    <a href="/2025/08/12/init/" class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
-                        <div class="post-card-head">
-                            <time class="post-card-date" datetime="2025-08-12T00:00:00+09:00" itemprop="datePublished">2025.08.12</time>
-                            <span class="post-card-label mono">init</span>
-                        </div>
-                        <p class="post-card-excerpt" itemprop="description">init. 작은 마이크로 블로그 형식의 사이트를 만들었다. bit라고 이름을 지었는데, 진짜 별건 아니다.</p>
-                        <span class="post-card-more">읽기</span>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p><a href="https://apps.apple.com/kr/app/%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C%EC%BD%94%EC%8A%A4-%EC%B6%94%EC%B2%9C-driverpub/id6744569013">드라이버펍 1.0.7 릴리즈</a>를 했다. 방금. 이 앱의 끝은 뭘까? 사실 어느정도 자동화를 하고 다음 앱으로 넘어가야할 것 같다. 콜드이메일을 자동화하고 데이터를 넣으면 자동으로 앱 푸시가 가서 리텐션이 유지가 되는 형태로 자동화를 하고 싶다. 결국 이 서비스의 BM은 광고수익으로 봐야하지 않을까? 아니면 협업수익정도로 보고 있다. 1차적인 마무리는 자동화 + admob + 안드로이드 출시정도로 보고 있다. 그 상태에서 결국 유저를 늘리고 코스 컨텐츠를 늘리면서 커뮤니티로 발전 시켜야 하지 않을까? 콜드 이메일로 다운로드를 유도 하고 있는데 한 1000건 정도 보내면 5명 정도 가입하는것 같다. 물론 정확하진 않다. 그리고 내일 해본건 오전 10시 - 13시 사이에 3분 단위로 총 5000건 정도를 발송해봐야겠다. 주로 야간 시간에만 발송을 했었는데 어떻게 될지. 편하게 발송 유료 서비스 쓰면 되는데 내가 선택한 길. 일단 해보자. </p>
+<p>다음 앱에 대해서 아이디어가 있는데 분재 앱을 만들어볼까 고민중이다. 분재 키우는 앱들은 많은데, 분재를 통한 스스로 뭔가를 가꾸고 다음어 주고 그걸 인스타에 공유하고 그런건 별로 없는것 같아서 아쉽다. AI를 어떻게 섞어볼까도 고민... </p></div>
+                    <footer class="entry-meta">457 chars · 2 paragraphs · <a href="/2025/08/13/250813/">permalink</a></footer>
+                </article>
+                
+                <article class="entry" id="init" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2025-08-12T00:00:00+09:00" itemprop="datePublished">2025-08-12</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2025/08/12/init/" itemprop="url"><span itemprop="headline">init</span></a>
+                        <span class="entry-message" itemprop="description">init. 작은 마이크로 블로그 형식의 사이트를 만들었다. bit라고 이름을 지었는데, 진짜 별건 아니다.</span>
                         <meta itemprop="author" content="HEG">
-                        <meta itemprop="url" content="https://bit.heg.wtf/2025/08/12/init/">
-                    </a>
-                    
-                </div>
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>init. 작은 마이크로 블로그 형식의 사이트를 만들었다. bit라고 이름을 지었는데, 진짜 별건 아니다. 앞으로 HEG라는 이름으로 이런 저런 앱과 웹 서비스, 그리고 AI 서비스를 만들려고 하는데 여기에서 자잘한 실험과 시도들 그리고 매일 매일의 기록들을 써보려고 한다. 오늘은 여기까지!</p></div>
+                    <footer class="entry-meta">126 chars · 1 paragraphs · <a href="/2025/08/12/init/">permalink</a></footer>
+                </article>
+                
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="wrap">
-            <p>© <span id="year"></span> bit · HEG</p>
-            <div class="footer-links">
-                <a href="https://heg.wtf">heg.wtf</a>
-                <a href="https://heg.wtf/privacy-policy.html">Privacy Policy</a>
-                <a href="/" class="build">#buildinpublic</a>
-            </div>
-        </div>
+    <footer class="tail">
+        <div class="wrap"><span class="path">▸</span> waiting for next entry <span class="dim">(next sunday)</span> <span class="cursor" aria-hidden="true"></span></div>
     </footer>
 
-    <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
+    <div class="status" aria-hidden="true">
+        <div class="wrap">
+            <span class="left"><b>bit</b>0:build.log*</span>
+            <span class="right"><span>39 entries</span><span>latest 2026-08-09</span><span>UTF-8 · ko_KR</span><span><a href="https://heg.wtf">heg.wtf</a></span></span>
+        </div>
+    </div>
 
-        (function revealCards() {
-            var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            if (reduceMotion || !('IntersectionObserver' in window)) return;
-            document.documentElement.classList.add('js');
-            var observer = new IntersectionObserver(function (entries) {
-                entries.forEach(function (entry) {
-                    if (!entry.isIntersecting) return;
-                    entry.target.classList.remove('pending');
-                    observer.unobserve(entry.target);
-                });
-            }, { threshold: 0.12, rootMargin: '0px 0px -32px 0px' });
-            var viewportBottom = window.innerHeight;
-            document.querySelectorAll('.post-card, .tile').forEach(function (card) {
-                if (card.getBoundingClientRect().top <= viewportBottom) return;
-                card.classList.add('pending');
-                observer.observe(card);
-            });
-        })();
+    <script>
+    (function () {
+        var root = document.documentElement;
+
+        // Theme toggle: flips against the currently effective theme and stores the override.
+        var toggle = document.querySelector("[data-theme-toggle]");
+        toggle.addEventListener("click", function () {
+            var systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            var current = root.dataset.theme || (systemDark ? "dark" : "light");
+            var next = current === "dark" ? "light" : "dark";
+            root.dataset.theme = next;
+            try { localStorage.setItem("bit-theme", next); } catch (e) {}
+        });
+
+        // Load sequence: type the command, then stream output lines and entries like tail -f.
+        if (!root.classList.contains("seq")) return;
+        var command = document.querySelector(".command");
+        var promptCursor = document.querySelector("[data-prompt-cursor]");
+        var outputLines = Array.prototype.slice.call(document.querySelectorAll(".output > div"));
+        var entries = Array.prototype.slice.call(document.querySelectorAll(".entry"));
+        var tail = document.querySelector(".tail");
+        var fullCommand = command.dataset.command;
+        var index = 0;
+
+        function finish() {
+            root.classList.remove("seq");
+            try { sessionStorage.setItem("bit-seq-done", "1"); } catch (e) {}
+        }
+        function typeCommand() {
+            if (index <= fullCommand.length) {
+                command.textContent = fullCommand.slice(0, index);
+                index += 1;
+                setTimeout(typeCommand, 28 + Math.random() * 40);
+                return;
+            }
+            promptCursor.style.display = "none";
+            revealOutput(0);
+        }
+        function revealOutput(k) {
+            if (k < outputLines.length) {
+                outputLines[k].classList.add("revealed");
+                setTimeout(function () { revealOutput(k + 1); }, 140);
+                return;
+            }
+            revealEntries(0);
+        }
+        function revealEntries(k) {
+            // Stream the first few entries; the rest appear at once so the page never feels stuck.
+            if (k < entries.length && k < 6) {
+                entries[k].classList.add("revealed");
+                setTimeout(function () { revealEntries(k + 1); }, 160);
+                return;
+            }
+            entries.slice(k).forEach(function (entry) { entry.classList.add("revealed"); });
+            tail.classList.add("revealed");
+            finish();
+        }
+
+        command.textContent = "";
+        setTimeout(typeCommand, 300);
+        // Safety net: if anything stalls, show everything.
+        setTimeout(function () { if (root.classList.contains("seq")) finish(); }, 6000);
+    })();
     </script>
 </body>
 </html>

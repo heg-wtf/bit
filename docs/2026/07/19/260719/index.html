@@ -3,9 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    (function () {
+        try {
+            var stored = localStorage.getItem("bit-theme");
+            if (stored === "dark" || stored === "light") document.documentElement.dataset.theme = stored;
+        } catch (e) {}
+    })();
+    </script>
     
     
-    <title>2026.07.19 - bit · #buildinpublic by HEG</title>
+    <title>260719 · 2026-07-19 — bit</title>
 
     <!-- SEO Meta Tags -->
     <meta name="description" content="hyper는 껍데기 씌워 트레이로 들이고, Loupe는 앱스토어 서류랑 씨름한 한 주">
@@ -17,8 +25,8 @@
 
     <!-- Additional SEO -->
     <meta name="color-scheme" content="light dark">
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#111827" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#f1f1eb" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#111311" media="(prefers-color-scheme: dark)">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico">
@@ -29,7 +37,7 @@
 
     <!-- OpenGraph Meta Tags -->
     <meta property="og:type" content="article">
-    <meta property="og:title" content="2026.07.19 - bit">
+    <meta property="og:title" content="260719 · 2026-07-19 — bit">
     <meta property="og:description" content="hyper는 껍데기 씌워 트레이로 들이고, Loupe는 앱스토어 서류랑 씨름한 한 주">
     <meta property="og:url" content="https://bit.heg.wtf/2026/07/19/260719/">
     <meta property="og:site_name" content="bit - #buildinpublic">
@@ -39,14 +47,14 @@
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="2026.07.19 - bit">
+    <meta name="twitter:title" content="260719 · 2026-07-19 — bit">
     <meta name="twitter:description" content="hyper는 껍데기 씌워 트레이로 들이고, Loupe는 앱스토어 서류랑 씨름한 한 주">
     <meta name="twitter:image" content="https://bit.heg.wtf/assets/favicon/android-chrome-512x512.png">
 
     <link rel="stylesheet" href="/assets/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-56T2JCQQZZ"></script>
@@ -77,93 +85,83 @@
     </script>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="nav" aria-label="Primary">
+    <!-- Title bar -->
+    <header class="bar">
         <div class="wrap">
-            <div class="nav-brand">
-                <a href="https://heg.wtf" class="nav-heg" aria-label="HEG home">
-                    <span class="nav-dot" aria-hidden="true"></span>HEG
-                </a>
-                <span class="nav-sep" aria-hidden="true">/</span>
-                <a href="/" class="nav-bit">bit</a>
-            </div>
-            <div class="nav-menu">
-                <a href="https://heg.wtf/#projects">Projects</a>
-                <a href="https://heg.wtf/#mission">Mission</a>
-                <a href="/" class="build">#buildinpublic</a>
-            </div>
+            <span class="bar-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="bar-title"><a href="https://heg.wtf">heg</a>@bit: ~/build.log — <a href="/" class="mark">bit</a> — less build.log:260719</span>
+            <button class="theme-toggle" type="button" data-theme-toggle aria-label="라이트/다크 전환">◐ theme</button>
         </div>
-    </nav>
+    </header>
 
     <main>
-        <article class="article" itemscope itemtype="https://schema.org/BlogPosting">
-            <div class="wrap wrap-narrow">
-                <header class="article-head">
-                    <p class="article-eyebrow mono">
-                        <a href="/" class="build">#buildinpublic</a>
-                        <span aria-hidden="true">·</span>
-                        <span itemprop="headline">260719</span>
-                    </p>
-                    <time class="article-date" datetime="2026-07-19T00:00:00+09:00" itemprop="datePublished">2026.07.19</time>
-                    
-                    <div class="article-tags" itemprop="keywords">
-                        <span class="tag">하이퍼</span><span class="tag">Loupe</span><span class="tag">제주주차</span><span class="tag">heg-core</span><span class="tag">heg</span>
-                    </div>
-                    
-                    <meta itemprop="author" content="HEG">
-                </header>
+        <section class="hero" aria-label="Command">
+            <div class="wrap">
+                <p class="prompt"><span class="user">heg</span>@<span class="host">bit</span> <span class="path">~</span> $ less +/260719 build.log</p>
+            </div>
+        </section>
 
-                <div class="post-content" itemprop="articleBody">
-                    <p>이번 주 hyper는 브라우저 밖으로 나왔다.</p>
+        <section class="viewer">
+            <div class="wrap">
+                <article class="entry" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2026-07-19T00:00:00+09:00" itemprop="datePublished">2026-07-19</time>
+                        <span class="entry-level">INFO</span>
+                        <span class="entry-id" itemprop="headline">260719</span>
+                        <ul class="entry-tags" itemprop="keywords"><li>하이퍼</li><li>Loupe</li><li>제주주차</li><li>heg-core</li><li>heg</li></ul>
+                        <span class="entry-message" itemprop="description">hyper는 껍데기 씌워 트레이로 들이고, Loupe는 앱스토어 서류랑 씨름한 한 주</span>
+                        <meta itemprop="author" content="HEG">
+                    </header>
+                    <div class="entry-body" itemprop="articleBody">
+                        <p>이번 주 hyper는 브라우저 밖으로 나왔다.</p>
 <p>지난 몇 주 hyper 대시보드는 그냥 브라우저 탭이었다. 편하긴 한데, 탭은 어쩐지 임시라는 느낌을 지울 수가 없다. 켜야 보이고, 닫으면 사라지고. 그래서 로컬 대시보드를 통째로 감싸는 네이티브 macOS 앱을 tauri v2로 만들었다. 트레이에 아이콘이 상주하고(둥근 사각형에 상태 점 하나 깜빡이는), 로그인하면 자동으로 뜨고, 대시보드에서 설치 파일을 바로 받게 했다. 사실 안쪽은 여전히 같은 웹이고 껍데기 하나 씌운 게 전부다. 근데 트레이에 늘 떠 있으니까 이 도구를 대하는 내 태도가 좀 달라지는 것 같다. <strong>웹을 네이티브로 감싼 건 기능적으론 아무것도 아닌데, 상주한다는 것 하나가 생각보다 크다.</strong> 이게 그냥 기분 문제인지는 아직 모르겠다 (지난주에 이름 바꾸고 개운했던 거랑 비슷한 결인가 싶기도 하고).</p>
 <p>겸사겸사 봇이 광고 수익을 긁어오는 스킬도 하나 붙였다. admob은 앱별로, adsense는 사이트별로 얼마 벌었는지 한군데서 보여주게. 요즘 자잘한 앱이 늘다 보니(주차 앱들에, 곧 나올 사진 앱까지) 이것들이 실제로 돈이 되긴 하는지 궁금했다. 물론 액수는 민망한 수준이다. 근데 숫자를 눈앞에 두는 거랑 안 두는 건 다르니까. 왜 이걸 지금 굳이 보고 싶어졌는지는 나도 잘 모르겠다.</p>
 <p>모바일 쪽은 불을 껐다. 봇 응답이 스트리밍으로 흘러들어올 때 SwiftUI가 뷰 전체를 몇십 번씩 다시 그리면서 버벅였다. 글자 한 조각 들어올 때마다 화면을 통째로 재렌더하고 있었으니 당연히 느렸다. 그걸 잡고, 무한 반복하던 pulse 애니메이션도 symbolEffect로 갈아끼웠다. 새 기능은 아닌데, 안 하면 계속 거슬리는 종류의 일이다. 지난주에 abyss로 남겨뒀던 죽은 코드도 이번에 다 쓸어냈다 (이름 바꾸고 나면 이런 뒷정리가 한참 따라온다).</p>
-<p>--</p>
+<hr />
 <p>지난주에 며칠 됐다고 거칠다던 그 사진 앱(denvik, 표시 이름 Loupe)을 이번 주엔 App Store에 올리기로 마음먹었다. 그래서 절반은 이름과 서류 일이었다. 스토어 이름을 'Loupe - AI Photo Search'로 확정하고, 부제·키워드 짜고, Team ID 박고, 암호화 수출 선언에 개인정보방침 초안까지. 화면에 남아 있던 Denvik 흔적도 Loupe로 다 통일했다. 사실 만드는 것보다 이 서류 채우는 게 더 진을 빼는 것 같다.</p>
 <p>나머지 절반은 온통 성능이었다. 일단 os_signpost로 인터랙션 지연을 계측하는 것부터 깔고, 그 위에서 눈에 밟히는 버벅임을 하나하나 잡았다. 색인 중 UI가 최대 1초씩 얼어붙던 hang, 상세뷰 들어갈 때 검은 갭, ESC 누르면 EXIF 읽느라 1초 멈추던 것, 그리드 스크롤 프리페치, 상세 지도를 탭할 때만 로드하게 지연 마운트... 검색 자체도 레코드 재정규화를 걷어내서 약 2.8배 빨라졌다. 검색 모델은 MobileCLIP S0에서 S2로 올렸고, 흔들리거나 포커스 나간 사진을 라플라시안 선명도로 찾는 것도 붙였다.</p>
 <p><strong>작은 사진 앱 하나에 이렇게까지 성능을 파는 게 맞나 싶은데, 손이 자꾸 간다.</strong> 아무도 눈치 못 챌 1초짜리 버벅임인데, 그게 있으면 내가 못 견디는 것 같다. 이게 사용자를 위한 건지 그냥 내 강박인지는 잘 모르겠다. 다만 온디바이스로 자연어 검색이 딱딱 걸릴 때의 손맛은 매끄러워야 완성되는 거라, 결국 다 필요한 일이라고 스스로를 설득하는 중이다 (설득이 되나).</p>
 <p>곁다리로 주차 앱도 하나 갈라냈다. 예전에 만든 airport-parking을 포크해서 제주 전용으로 축소한 jeju-parking. AdMob SDK 들어내고, 거짓 만차가 뜨던 버그 잡고, Firebase랑 패키지 새로 붙였다. 템플릿 하나 잘 만들어두면 지역만 갈아끼워 새 앱을 뽑아낼 수 있는지 확인하는 실험에 가깝다. 이게 의미가 있나 싶다가도, 만드는 비용이 거의 안 드니까 일단 던져본다. heg-core엔 이번 주에도 조용히 지식이 쌓였다. 봇들이 알게 된 걸 한군데 모으는 그 저장소인데, 외부 서비스 계정 레지스트리 같은 것도 노트로 정리해 넣었다. 눈에 띄는 변화는 없지만 이런 게 나중에 어디서 힘을 쓸 거라고 믿는 수밖에.</p>
 <p>한 줄로 하면, hyper는 껍데기를 얻었고 Loupe는 스토어 문 앞까지 갔다. 다음 주엔 Loupe를 진짜 심사에 넣을 수 있을지 모르겠다. 서류가 제일 무섭다.</p>
 <p>26.07.19 — 코드보다 개인정보방침 쓰는 게 더 오래 걸린 주.</p>
-                </div>
+                    </div>
+                    <footer class="entry-meta">1649 chars · 11 paragraphs · 5 tags</footer>
+                </article>
 
-                <nav class="article-foot" aria-label="Post navigation">
-                    <a href="/" class="tile link">
-                        <span class="arrow" aria-hidden="true">←</span>
-                        <span class="tile-name">모든 글</span>
-                        <span class="tile-desc">bit.heg.wtf</span>
-                    </a>
-                    <a href="https://heg.wtf/#projects" class="tile link">
-                        <span class="arrow" aria-hidden="true">↗</span>
-                        <span class="tile-name">heg.wtf</span>
-                        <span class="tile-desc">이 글이 만들어 가는 것들</span>
-                    </a>
+                <nav class="viewer-end" aria-label="Post navigation">
+                    <b>(END)</b>
+                    <a href="/#260719" data-key="q"><kbd>q</kbd>back to log</a>
+                    <a href="https://heg.wtf" data-key="h"><kbd>h</kbd>heg.wtf</a>
                 </nav>
             </div>
-        </article>
+        </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
+    <div class="status" aria-hidden="true">
         <div class="wrap">
-            <p>© <span id="year"></span> bit · HEG</p>
-            <div class="footer-links">
-                <a href="https://heg.wtf">heg.wtf</a>
-                <a href="https://heg.wtf/privacy-policy.html">Privacy Policy</a>
-                <a href="/" class="build">#buildinpublic</a>
-            </div>
+            <span class="left"><b>bit</b>1:260719*</span>
+            <span class="right"><span>2026-07-19</span><span>UTF-8 · ko_KR</span><span><a href="https://heg.wtf">heg.wtf</a></span></span>
         </div>
-    </footer>
+    </div>
 
     <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
-
-        // Authors separate sections with a bare "--" line; render it as a rule.
-        document.querySelectorAll('.post-content p').forEach(function (paragraph) {
-            if (paragraph.textContent.trim() === '--') {
-                paragraph.replaceWith(document.createElement('hr'));
-            }
+    (function () {
+        var root = document.documentElement;
+        document.querySelector("[data-theme-toggle]").addEventListener("click", function () {
+            var systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            var current = root.dataset.theme || (systemDark ? "dark" : "light");
+            var next = current === "dark" ? "light" : "dark";
+            root.dataset.theme = next;
+            try { localStorage.setItem("bit-theme", next); } catch (e) {}
         });
+
+        // less-style keys: q returns to the log, h opens heg.wtf.
+        document.addEventListener("keydown", function (event) {
+            if (event.metaKey || event.ctrlKey || event.altKey) return;
+            var link = document.querySelector('[data-key="' + event.key + '"]');
+            if (link) window.location.href = link.href;
+        });
+    })();
     </script>
 </body>
 </html>

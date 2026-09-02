@@ -11,8 +11,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Python 3.12+** with `uv` package manager
 - **zvc** (`0.1.6`) - static site generator (Jinja2 + Markdown + YAML)
 - **GitHub Pages** - deployment target (serves from `docs/`)
-- **Outfit** (Google Fonts) for UI/headings, system Korean sans-serif for body, **BitcountSingle** for the `bit` wordmark
-- Design tokens mirror heg.wtf (Tailwind gray + blue `#3b82f6`, light/dark via `prefers-color-scheme`); see `themes/bit/assets/style.css`
+- **JetBrains Mono** (Google Fonts) for everything Latin; Hangul falls back to the system sans-serif, which is the intended "raw" look. **BitcountSingle** (local TTF) for the `bit` wordmark
+- Theme: terminal log (`tail -f build.log`). Light/dark follow the OS; the title-bar toggle stores an override in `localStorage` (`bit-theme`) on `<html data-theme>`. Tokens live in `themes/bit/assets/style.css`
 
 ## Build & Development Commands
 
@@ -43,7 +43,7 @@ make server
 
 1. **Source**: Markdown files with YAML frontmatter in `contents/` (folders named by date YYMMDD)
 2. **Templates**: Jinja2 templates in `themes/bit/` — `index.html` (homepage timeline) and `post.html` (individual post)
-3. **Styling**: `themes/bit/assets/style.css` — bento tiles, same tokens as heg.wtf; home lists post cards (latest as feature), each post has its own page
+3. **Styling**: `themes/bit/assets/style.css` — terminal log theme. Home inlines every post as a log entry (typed prompt + streamed output once per session); each post also has its own `less`-style page
 4. **Output**: `docs/` folder with structure `docs/YYYY/MM/DD/{slug}/index.html`
 
 ### Key Configuration
