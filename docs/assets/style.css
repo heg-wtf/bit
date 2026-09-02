@@ -26,6 +26,8 @@
   --status-bg: #15803d;
   --status-ink: #f0fdf4;
   --code-bg: #f1f1eb;
+  --show-sun: none;
+  --show-moon: inline;
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, "Apple SD Gothic Neo", "Noto Sans KR", monospace;
   --font-mark: "BitcountSingle", var(--font-mono);
 }
@@ -47,6 +49,8 @@
     --status-bg: #4ade80;
     --status-ink: #06240f;
     --code-bg: #111311;
+    --show-sun: inline;
+    --show-moon: none;
   }
 }
 
@@ -66,6 +70,8 @@
   --status-bg: #4ade80;
   --status-ink: #06240f;
   --code-bg: #111311;
+  --show-sun: inline;
+  --show-moon: none;
 }
 
 /* ---------- Base ---------- */
@@ -215,8 +221,12 @@ main {
   background: transparent;
   color: var(--muted);
   font: inherit;
-  font-size: 0.6875rem;
-  padding: 0.2rem 0.55rem;
+  font-size: 1.125rem;
+  line-height: 1;
+  width: 1.85rem;
+  height: 1.85rem;
+  display: inline-grid;
+  place-items: center;
   border-radius: 4px;
   cursor: pointer;
 }
@@ -224,6 +234,14 @@ main {
 .theme-toggle:hover {
   color: var(--ink);
   border-color: var(--muted);
+}
+
+.theme-toggle .sun {
+  display: var(--show-sun);
+}
+
+.theme-toggle .moon {
+  display: var(--show-moon);
 }
 
 /* ---------- Prompt / output ---------- */
