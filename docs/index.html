@@ -85,6 +85,16 @@
             
             {
                 "@type": "BlogPosting",
+                "headline": "261025",
+                "datePublished": "2026-10-25T00:00:00+09:00",
+                "dateModified": "2026-10-25T00:00:00+09:00",
+                "author": { "@type": "Organization", "name": "HEG" },
+                "description": "두 달 전에 hyper에 쑤셔넣은 linear를 이번 주에 통째로 뽑아냈다. 대신 직접 만들었음",
+                "url": "https://bit.heg.wtf/2026/10/25/261025/"
+            },
+            
+            {
+                "@type": "BlogPosting",
                 "headline": "260913",
                 "datePublished": "2026-09-13T00:00:00+09:00",
                 "dateModified": "2026-09-13T00:00:00+09:00",
@@ -503,8 +513,8 @@
             <div class="wrap">
                 <p class="prompt"><span class="user">heg</span>@<span class="host">bit</span> <span class="path">~</span> $ <span class="command" data-command="tail -f build.log --since 2025-08 --weekly">tail -f build.log --since 2025-08 --weekly</span><span class="cursor" data-prompt-cursor aria-hidden="true"></span></p>
                 <div class="output">
-                    <div>bit <b>v0.40</b> — bit of heg · build-in-public log of <a href="https://heg.wtf">HEG</a></div>
-                    <div><span class="ok">✓</span> reading build.log … <b>40 entries</b> <span class="dim">(2025-08-12 → 2026-09-13)</span></div>
+                    <div>bit <b>v0.41</b> — bit of heg · build-in-public log of <a href="https://heg.wtf">HEG</a></div>
+                    <div><span class="ok">✓</span> reading build.log … <b>41 entries</b> <span class="dim">(2025-08-12 → 2026-10-25)</span></div>
                     <div><span class="ok">✓</span> source: heg-wtf/* commits → one post a week, written by hand</div>
                     <div><span class="warn">!</span> following. new entries land on sundays. <span class="dim">^C to stop</span></div>
                     <div class="dim">──────────────────────────────────────────────</div>
@@ -515,6 +525,36 @@
         <!-- Log -->
         <section class="log" id="log">
             <div class="wrap">
+                
+                <article class="entry" id="261025" itemscope itemtype="https://schema.org/BlogPosting">
+                    <header class="entry-head">
+                        <time class="entry-date" datetime="2026-10-25T00:00:00+09:00" itemprop="datePublished">2026-10-25</time>
+                        <span class="entry-level">INFO</span>
+                        <a class="entry-id" href="/2026/10/25/261025/" itemprop="url"><span itemprop="headline">261025</span></a>
+                        <span class="entry-message" itemprop="description">두 달 전에 hyper에 쑤셔넣은 linear를 이번 주에 통째로 뽑아냈다. 대신 직접 만들었음</span>
+                        <meta itemprop="author" content="HEG">
+                    </header>
+                    <div class="entry-body" itemprop="articleBody"><p>이번 주는 hyper에서 linear를 뽑아냈다.</p>
+<p>8월에 내 linear 큐를 hyper 사이드바에 쑤셔넣었다고 여기 썼었는데, 두 달 반 만에 연동을 통째로 들어낸 셈이다. 모듈, 라우트, 템플릿, 문서까지 전부. 즉흥은 아니었다. task manager 계획 문서를 따로 써두고 시작했고, 이번 주에 그 문서를 닫았다. 근데 그 와중에 linear 위에 기능을 하나 더 얹었다. 마스터 이슈 하나를 봇한테 한 번에 넘기는 inbox delegate였는데, 그걸 머지하고 얼마 안 돼서 그 밑바닥을 걷어냈다. 좀 우습긴 하다.</p>
+<p>제일 안 맞았던 건 담당자 칸이었던 것 같다. hyper에서 일을 받아가는 건 봇인데, linear에서 봇은 어디까지나 바깥에서 들어오는 손님이다. 봇한테 이슈를 넘기려면 그때마다 다리를 하나씩 놔야 했고, 사실 inbox delegate도 결국 그 다리 중 하나였다. 그래서 그냥 안에다 만들었다. 태스크와 프로젝트가 있고, 담당자 자리에 봇이 사람이랑 똑같이 들어간다. 대시보드엔 프로젝트 → 태스크 → 열린 태스크로 이어지는 세 칸짜리 패널을 두고, 라벨은 알아서 붙게 했다. 에이전트 보드에선 카드를 끌어다 옮긴다. iOS에서는 linear inbox가 있던 자리를 tasks 탭이 그대로 꿰찼다.</p>
+<p>그러면서 'chats'라는 이름을 'workspace'로 바꿨다. 이름 하나 바꾼 건데 뭔가 생각보다 크게 느껴졌다. <strong>봇이랑 대화하는 곳이던 hyper가 봇한테 일 시키는 곳으로 넘어가고 있다는 걸, 나 스스로 인정한 것 같다.</strong></p>
+<p>물론 잘 만든 도구를 빼고 그걸 다시 만드는 게 맞나 싶긴 하다. linear만큼 만들 자신은 당연히 없다. 다만 내가 실제로 쓰던 건 이슈, 프로젝트, 담당자 정도였던 것 같고, 그 셋 중에 담당자가 제일 안 맞았다 (나머지 둘은 만들면 되니까. 맞나?).</p>
+<hr />
+<p>봇마다 브라우저를 쥐여줬다 (claude in chrome). 그러고 나니 바로 다음 질문이 따라왔다. 브라우저를 쥔 봇은 버튼을 누를 수 있고, 그 버튼은 결제일 수도, 삭제일 수도 있다.</p>
+<p>그래서 approval gate를 만들었다. 되돌릴 수 없는 행동 앞에서는 사람이 '응'이라고 해야 넘어간다. 규칙은 봇 에디터에서 켜고 고치고, 승인/거절은 대시보드에서도 iOS에서도 누를 수 있다. 봇이 뭘 했는지 남겨두는 activity log도 같이 붙였다. 나중에 "얘가 왜 이랬지" 할 때 뒤져볼 데가 생긴 거다.</p>
+<p>근데 만들고 나서 보니 그 문에 틈이 있었다. 자기 요청을 자기가 승인할 수 있는 틈, 그리고 게이트를 아예 돌아서 갈 수 있는 틈. 둘 다 막았다. 문지기가 문 앞에 선 본인이면 그건 문이 아닌데, 만들 땐 그게 안 보였다.</p>
+<p>이렇게 하나하나 승인을 누르는 게 봇을 쓰는 의미를 깎아먹는 건 아닌가? 그런 생각도 든다. <strong>그럼에도 불구하고 돌이킬 수 없는 일만큼은 내 손가락을 한 번 거치게 하고 싶다.</strong> 몇 번이나 눌러야 하는지는 써보면서 줄여가면 될 것 같다.</p>
+<hr />
+<p>폰 쪽은 반대로, 앱을 안 열게 만드는 작업을 계속했다. dynamic island에서 바로 봇이랑 말하고, action button이나 제어 센터, 단축어로도 부를 수 있다. carplay에는 음성 화면이 따로 생겼고, 채널 푸시는 알림에서 바로 답장한다 (워치에선 받아쓰기로). dynamic island 음성은 백그라운드 마이크랑 오디오 끊김 때문에 한 번 더 손봤다.</p>
+<p>알림도 덜 울리게 했다. 데스크톱 앞에 있으면 폰은 조용하고, 루틴이 돌았는데 새로운 게 없으면 한 줄로 접히고 푸시도 안 간다. 8월엔 봇들 입 다물게 하느라 한 주를 다 썼었는데, 그게 이번엔 알림까지 번진 것 같다.</p>
+<p>요즘 hyper에서 하는 일은 앱을 열게 만드는 쪽보다 안 열어도 되게 만드는 쪽에 더 가 있다. 앱으로서 이게 맞는 방향인지는 잘 모르겠다 (리텐션 지표로 보면 최악일 듯). 봇 프로필 사진을 iOS 앱 아이콘으로 고를 수 있게 한 건, 기능이라기보다 취향에 가깝다.</p>
+<p>그 사이 iOS 네이티브엔 자잘한 게 잔뜩 들어갔다. 전체 방 검색, 임시저장 목록, 안 읽은 곳으로 점프, DM마다 모델 바꾸기, 코드 블록 복사 버튼. 그렇게 밀어넣다 보니 HyperClient.swift가 swiftlint 1000줄 제한에 걸려서 쪼갰고, npm lockfile이랑 swiftlint 에러 때문에 모든 PR이 CI에서 떨어지던 때도 있었다. 이번 주 hyper 커밋만 약 65개. 버전도 이틀 연속 올렸다.</p>
+<hr />
+<p>claude 주간 사용량 한도도 손봤다. 한도 안내 문구를 봇이 자기 답변인 줄 알고 그대로 내보내던 걸 고쳤고, 한도에 걸린 동안엔 백그라운드 작업을 붙잡아뒀다가 풀리면 한 번에 따라잡게 했다. 봇을 이만큼 굴리다 보면 결국 이 벽에 닿는다. 벽을 없앨 순 없으니 벽 앞에서 얌전히 기다리게 하는 수밖에.</p>
+<p>그리고 youtune이라는 걸 하나 새로 열었다. 유튜브 영상을 받아서 한국어 자막을 만들어주는 CLI다. 처음엔 README부터 코드 안 문자열까지 한국어로 썼는데, 곧바로 전부 영어로 다시 썼다. hyper 로드맵도 이번 주에 영어/한국어 한 쌍으로 바꿨고, 지난달엔 loupe를 영어 전용으로 돌렸다. 요즘은 뭘 내놓든 영어가 기본값이 돼가는 것 같다. 한국어 자막 만드는 도구를 영어로 설명하고 있는 건 좀 웃기긴 하다.</p>
+<p>26.10.25 — 다음 주는 linear 없이 굴려보는 첫 주다. 내가 만든 걸로 내가 일하는 게 제일 무서운 테스트인 것 같다.</p></div>
+                    <footer class="entry-meta">2014 chars · 19 paragraphs · <a href="/2026/10/25/261025/">permalink</a></footer>
+                </article>
                 
                 <article class="entry" id="260913" itemscope itemtype="https://schema.org/BlogPosting">
                     <header class="entry-head">
@@ -1267,7 +1307,7 @@ RPG 게임을 경험해보고 아직도 좋아하는 사람이 아니라면 안 
     <div class="status" aria-hidden="true">
         <div class="wrap">
             <span class="left"><b>bit</b>0:build.log*</span>
-            <span class="right"><span>40 entries</span><span>latest 2026-09-13</span><span>UTF-8 · ko_KR</span><span><a href="https://heg.wtf">heg.wtf</a></span></span>
+            <span class="right"><span>41 entries</span><span>latest 2026-10-25</span><span>UTF-8 · ko_KR</span><span><a href="https://heg.wtf">heg.wtf</a></span></span>
         </div>
     </div>
 
